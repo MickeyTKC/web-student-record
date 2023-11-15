@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 const mongourl = "mongodb+srv://callofduty9065:AH64ah1z@cluster0.dtrlpre.mongodb.net/groupproject";
 
 
-const dbName = 'account';
+const dbName = 'groupproject';
 
 
 // Set the views directory path
@@ -21,12 +21,14 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 //User test
-const users = new Array(
+/*const users = new Array(
 	{student_id: "11111", password:"12345" , name: "Peter", email: "peter@123.com", address: "KT,KLN",
         record: {Year1:{Art: "B", Math: "C" , English: "A" },
         Year2:{Chinese: "C", PE: "C" , Psysics: "A" }}
     },
 );
+*/
+
 
 app.use(
     session({
@@ -54,20 +56,25 @@ app.get("/trueindex",(req,res) =>{
     res.render('trueindex');
 })
 
-app.post("/login", (req,res) => {
+app.post("/login", async (req,res) => {
     var username = req.body.username;
     var password = req.body.password;
-    users.forEach((user) => {
-		if (user.name == username && user.password == password) {	
-			req.session.authenticated = true;
-			req.session.username = req.body.username;
-            req.session.password = req.body.password;
-		}
-        console.log(req.session.authenticated);
-	});
-        res.redirect('main');
-    //Check which identity user are
-});
+    const client = new MongoClient(mongourl);
+    await client.connect();
+    const db = client.db(dbName);
+    var users = db.collection("account").find();
+    await users.forEach((user) =>{
+      if(user.password == password){
+        req.session.authenticated = true;
+        req.session.username = username;
+      }
+    });
+          res.redirect('main');
+    //Check which identity user are*/
+    
+    
+    });
+    
 
 app.get('/login', (req,res) => {
     res.render('perinfo');
