@@ -20,15 +20,6 @@ const dbName = 'groupproject';
 app.set('views', path.join(__dirname, 'views'));
 
 
-//User test
-/*const users = new Array(
-	{student_id: "11111", password:"12345" , name: "Peter", email: "peter@123.com", address: "KT,KLN",
-        record: {Year1:{Art: "B", Math: "C" , English: "A" },
-        Year2:{Chinese: "C", PE: "C" , Psysics: "A" }}
-    },
-);
-*/
-
 
 app.use(
     session({
