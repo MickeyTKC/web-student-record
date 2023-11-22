@@ -1,0 +1,39 @@
+[{
+    "id": "s123456",
+    "password": "student123",
+    "role": "student",
+    "name": "John Doe",
+    "department": "Science and Technology",
+    "major": "Computer Science",
+    "dateFrom": "2020-09-01",
+    "dateTo": "2024-06-30",
+    "email": "john.doe@example.com",
+    "phoneNo": "1234567890",
+    "emergencyPhoneNo": "9876543210"
+},
+{
+    "id": "t987654",
+    "password": "teacher123",
+    "role": "teacher",
+    "name": "Jane Smith",
+    "department": "Science and Technology",
+    "major": "",
+    "dateFrom": "2015-01-01",
+    "dateTo": "",
+    "email": "jane.smith@example.com",
+    "phoneNo": "9876543210",
+    "emergencyPhoneNo": "1234567890"
+},
+{
+    "id": "admin1",
+    "password": "admin123",
+    "role": "admin",
+    "name": "Admin User",
+    "department": "Science and Technology",
+    "major": "",
+    "dateFrom": "",
+    "dateTo": "",
+    "email": "admin@example.com",
+    "phoneNo": "",
+    "emergencyPhoneNo": "1234567890"
+}]
