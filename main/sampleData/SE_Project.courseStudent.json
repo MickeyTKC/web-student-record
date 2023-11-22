@@ -1,0 +1,36 @@
+[{
+    "id": "s111111",
+    "courseId": "S350F",
+    "year":"2014",
+    "sem":"A",
+    "grade":{
+        "final":"A",
+        "items":[
+            { "test": 70, "exam":80 }
+        ]
+    }
+},
+{
+    "id": "s222222",
+    "courseId": "S350F",
+    "year":"2014",
+    "sem":"B",
+    "grade":{
+        "final":"B",
+        "items":[
+            { "test": 60, "exam":70 }
+        ]
+    }
+},
+{
+    "id": "s333333",
+    "courseId": "EE2004",
+    "year":"2013",
+    "sem":"B",
+    "grade":{
+        "final":"B",
+        "items":[
+            { "test": 60, "exam":70 }
+        ]
+    }
+}]
