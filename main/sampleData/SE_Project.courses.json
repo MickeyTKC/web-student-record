@@ -1,0 +1,12 @@
+[{
+    "id": "S350F",
+    "name": "Software Engineering",
+    "intro": "This is a department of Science and Technology",
+    "program": ["CS", "CDE"]
+},
+{
+    "id": "EE2004",
+    "name": "Microcomputer Systems",
+    "intro": "ASMx86",
+    "program": ["CDE"]
+}]
