@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const courseDetailSchema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true },
+  id: { type: String, required: true },
   detail: [{
   year: { type: String },
   sem: { type: String },
@@ -14,10 +14,6 @@ const courseDetailSchema = new mongoose.Schema({
 
 courseDetailSchema.statics.findByCourseId = function (cId){  //find by id
     return this.findOne({id: cId});
-}
-
-courseDetailSchema.statics.findByName = function (name){  //find by name
-    return this.findOne({name: name});
 }
 
 courseDetailSchema.statics.findByYear = function (year){  //find by year
