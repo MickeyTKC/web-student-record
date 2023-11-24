@@ -5,6 +5,7 @@ const courseStudentSchema = new mongoose.Schema({
   courseId: { type: String },
   year: { type: String },
   sem: { type: String },
+  credit: { type: Number },
   grade: {
     final: { type: String }, //final grade
     items: [{   //e.g. asm, test1, test2, exam
