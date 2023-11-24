@@ -88,7 +88,8 @@ const deleteAndCreateCourseStudents = async () => {
       await CourseStudent.deleteMany({});
       console.log("Del courseStudent");
       const courStud = JSON.parse(fs.readFileSync("./main/sampleData/SE_Project.courseStudents.json", "utf-8"));
-      await CourseStudent.insertMany(courStud);
+      const data = await CourseStudent.insertMany(courStud);
+      
       console.log('New courseStudent created');
     } catch (error) {
       console.error('Error:', error);
@@ -104,10 +105,9 @@ const setupData = async () => {
         deleteAndCreatePrograms();
         deleteAndCreateCourseDetails();
         deleteAndCreateCourseStudents();
+        console.log('finish');
     } catch (error) {
       console.error('Error:', error);
-    }finally{
-        console.log('finish');
     }
   }
   
