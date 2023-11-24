@@ -5,7 +5,10 @@ const progSchema = new mongoose.Schema({
   name: { type: String , unique: true},
   dept: { type: String },
   intro: { type: String },
-  credit: { type: Number }, //how many credit the prog need
+  credit: [{  //how many credit this program need
+		yearType: { type: String, enum: ["year1", "year2 entry", "year3 entry"] },
+    credit: { type: Number }
+  }], 
   leaders: { type:[{type:String}]},
   yearFrom: { type:String }, //date(year) of create
   status: { type:String }
