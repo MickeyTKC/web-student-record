@@ -3,6 +3,20 @@
     "name": "Computer Science",
     "dept": "ST",
     "intro": "This is the program of Computer Science.",
+    "credit": [
+    {
+      "yearType": "year1",
+      "credit": 120
+    },
+    {
+      "yearType": "year2 entry",
+      "credit": 96
+    },
+    {
+      "yearType": "year3 entry",
+      "credit": 54
+    }
+    ],
     "leaders": [
         "teacher1",
         "teacher2"
@@ -15,6 +29,20 @@
     "name": "Computer and Data Engineering",
     "dept": "ST",
     "intro": "This is the program of Computer and Data Engineering.",
+    "credit": [
+    {
+      "yearType": "year1",
+      "credit": 120
+    },
+    {
+      "yearType": "year2 entry",
+      "credit": 96
+    },
+    {
+      "yearType": "year3 entry",
+      "credit": 54
+    }
+    ],
     "leaders": [
         "teacher3"
     ],
