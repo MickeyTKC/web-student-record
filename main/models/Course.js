@@ -4,10 +4,7 @@ const courseSchema = new mongoose.Schema({
   id: { type: String, required: true, unique: true },
   name: { type: String },
   intro: { type: String },
-  credit: [{  //this course how many credit
-		yearType: { type: String, enum: ["year1", "year2 entry", "year3 entry"] },
-    credit: { type: Number }
-  }], 
+  credit: { type: Number }, //this course credit e.g. 3/4/5/10...
   program: { type:[{type:String}]}
 });
 
