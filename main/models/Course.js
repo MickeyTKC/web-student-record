@@ -4,7 +4,7 @@ const courseSchema = new mongoose.Schema({
   id: { type: String, required: true, unique: true },
   name: { type: String },
   intro: { type: String },
-  credit: { type: Number},
+  credit: { type: Number }, //this course how many credit
   program: { type:[{type:String}]}
 });
 
