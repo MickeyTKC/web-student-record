@@ -4,6 +4,7 @@ const courseSchema = new mongoose.Schema({
   id: { type: String, required: true, unique: true },
   name: { type: String },
   intro: { type: String },
+  credit: { type: Number},
   program: { type:[{type:String}]}
 });
 
