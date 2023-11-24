@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String },
   department: { type: String },
   major: { type: String },  //if teacher just ""
+	progYear: { type: String }, //e.g. "year3 entry", if teacher ""
   dateFrom: { type: String }, //date of join HKMU
   dateTo: { type: String }, //date of expected graduate, if teacher just ""
   email: { type: String }, 
