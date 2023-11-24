@@ -5,6 +5,7 @@ const progSchema = new mongoose.Schema({
   name: { type: String , unique: true},
   dept: { type: String },
   intro: { type: String },
+  credit: { type: Number },
   leaders: { type:[{type:String}]},
   yearFrom: { type:String }, //date(year) of create
   status: { type:String }
