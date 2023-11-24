@@ -7,7 +7,8 @@
     "grade":{
         "final":"A",
         "items":[
-            { "test": 70, "exam":80 }
+            { "itemName": "asm", "mark": 80 },
+            { "itemName": "exam", "mark": 75 }
         ]
     }
 },
@@ -20,7 +21,8 @@
     "grade":{
         "final":"B",
         "items":[
-            { "test": 60, "exam":70 }
+            { "itemName": "asm", "mark": 60 },
+            { "itemName": "exam", "mark": 65 }
         ]
     }
 },
@@ -33,7 +35,10 @@
     "grade":{
         "final":"B",
         "items":[
-            { "test": 60, "exam":70 }
+            { "itemName": "asm", "mark": 60 },
+            { "itemName": "test1", "mark": 40 },
+            { "itemName": "test2", "mark": 45 },
+            { "itemName": "exam", "mark": 65 }
         ]
     }
 }]
