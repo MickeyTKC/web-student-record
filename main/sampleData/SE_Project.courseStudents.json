@@ -3,6 +3,7 @@
     "courseId": "S350F",
     "year":"2014",
     "sem":"A",
+    "credit": 3
     "grade":{
         "final":"A",
         "items":[
@@ -15,6 +16,7 @@
     "courseId": "S350F",
     "year":"2014",
     "sem":"B",
+    "credit": 3,
     "grade":{
         "final":"B",
         "items":[
@@ -27,6 +29,7 @@
     "courseId": "EE2004",
     "year":"2013",
     "sem":"B",
+    "credit": 3,
     "grade":{
         "final":"B",
         "items":[
