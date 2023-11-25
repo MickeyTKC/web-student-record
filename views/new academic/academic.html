@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>Home Page</title>
+<link rel="stylesheet" href="styles.css">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="jquery.js"></script>
+<script src="https://kit.fontawesome.com/d472d7247a.js" crossorigin="anonymous"></script>
+<script src="scripts.js"></script>
+</head>
+<body>
+
+<div id="wrapper" class="active">
+      
+      <!-- Sidebar -->
+            <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+      <ul id="sidebar_menu" class="sidebar-nav">
+           <li class="sidebar-brand"><a id="menu-toggle" href="#">Menu&nbsp&nbsp&nbsp<i class="fa-solid fa-bars fa-lg"></i></a></li>
+      </ul>
+        <ul class="sidebar-nav" id="sidebar">     
+          <li><a onclick="document.getElementById('id01').style.display='block'" onmouseover="" style="cursor: pointer;background-color:#04AA6D;color:white;">NAME&nbsp&nbsp&nbsp&nbsp<i class="fa-solid fa-user"></i></a></li>
+          <li><a onclick="location.href='perinfo.html'" onmouseover="" style="cursor: pointer">My Info&nbsp&nbsp<i class="fa-solid fa-circle-info"></i></a></li>
+          <li><a onclick="location.href='academic.html'" onmouseover="" style="cursor: pointer">Records&nbsp&nbsp&nbsp<i class="fa-solid fa-book"></i></a></li>
+        </ul>
+      </div>
+          
+      <!-- Page content -->
+      <div id="page-content-wrapper">
+        <!-- Keep all page content within the page-content inset div! -->
+        <div class="page-content inset">
+          <h1>Academic Records</h1>
+          <form>
+            <label for="year">Select Academic Year:</label>
+            <select id="year" name="year">
+              <option value="2023-2024">2023-2024</option>
+              <option value="2022-2023">2022-2023</option>
+              <option value="2021-2022">2021-2022</option>
+              <option value="2020-2021">2020-2021</option>
+            </select>
+            <input type="button" value="Submit" onclick="checkyear()">
+          </form>
+          <br>
+          <table id="academic-records">
+            <thead>
+            <tr>
+              <th>Course Code</th>
+              <th>Course Title</th>
+              <th>Grade</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          </form>
+        </div>  
+      </div>
+</div>
+      
+    <script src="scripts.js"></script>
+
+    </body>
+    </html>
