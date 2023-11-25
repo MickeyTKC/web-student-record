@@ -1,0 +1,44 @@
+[{
+    "id": "s111111",
+    "courseId": "S350F",
+    "year":"2014",
+    "sem":"A",
+    "credit": 3,
+    "grade":{
+        "final":"A",
+        "items":[
+            { "itemName": "asm", "mark": 80 },
+            { "itemName": "exam", "mark": 75 }
+        ]
+    }
+},
+{
+    "id": "s222222",
+    "courseId": "S350F",
+    "year":"2014",
+    "sem":"B",
+    "credit": 3,
+    "grade":{
+        "final":"B",
+        "items":[
+            { "itemName": "asm", "mark": 60 },
+            { "itemName": "exam", "mark": 65 }
+        ]
+    }
+},
+{
+    "id": "s333333",
+    "courseId": "EE2004",
+    "year":"2013",
+    "sem":"B",
+    "credit": 3,
+    "grade":{
+        "final":"B",
+        "items":[
+            { "itemName": "asm", "mark": 60 },
+            { "itemName": "test1", "mark": 40 },
+            { "itemName": "test2", "mark": 45 },
+            { "itemName": "exam", "mark": 65 }
+        ]
+    }
+}]
