@@ -52,9 +52,6 @@ app.get("/",(req,res,next)=>{
 app.get("/login",(req,res,next)=>{
     
 })
-app.get("signup",(req,res,next)=>{
-
-})
 app.get("/personal",(req,res,next)=>{
 
 })
