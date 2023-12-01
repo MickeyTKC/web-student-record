@@ -21,6 +21,7 @@
         "teacher1",
         "teacher2"
     ],
+    "course": ["S350F"],
     "yearFrom": "2010",
     "status": "Active"
 },
@@ -46,6 +47,7 @@
     "leaders": [
         "teacher3"
     ],
+    "course": ["S350F", "EE2004"],
     "yearFrom": "2012",
     "status": "Active"
 }]
