@@ -7,8 +7,9 @@ const CourseDetail = require("./CourseDetail");
 const CourseStudent = require("./CourseStudent");
 const fs = require("fs");
 
-const dbName = "SE_Project"
-const url = `mongodb+srv://seprojectCollect:thisISpassword@cluster0.eknv0ni.mongodb.net/${dbName}`;
+require("dotenv").config();
+const dbName = process.env.db_name;
+const url = process.env.db_url + dbName;
 
 mongoose.set("strictQuery", true)
 
@@ -21,7 +22,7 @@ const deleteAndCreateUsers = async () => {
     try {
       await User.deleteMany({});
       console.log("Del user");
-      const users = JSON.parse(fs.readFileSync("./main/sampleData/SE_Project.users.json", "utf-8"));
+      const users = JSON.parse(fs.readFileSync("./sampleData/SE_Project.users.json", "utf-8"));
       const createdUsers = await User.insertMany(users);
       //console.log('New users created:', createdUsers);
       console.log('New users created');
@@ -35,7 +36,7 @@ const deleteAndCreateDepts = async () => {
     try {
       await Department.deleteMany({});
       console.log("Del dept");
-      const depts = JSON.parse(fs.readFileSync("./main/sampleData/SE_Project.departments.json", "utf-8"));
+      const depts = JSON.parse(fs.readFileSync("./sampleData/SE_Project.departments.json", "utf-8"));
       await Department.insertMany(depts);
       console.log('New dept created');
     } catch (error) {
@@ -48,7 +49,7 @@ const deleteAndCreateCourses = async () => {
     try {
       await Course.deleteMany({});
       console.log("Del course");
-      const courses = JSON.parse(fs.readFileSync("./main/sampleData/SE_Project.courses.json", "utf-8"));
+      const courses = JSON.parse(fs.readFileSync("./sampleData/SE_Project.courses.json", "utf-8"));
       await Course.insertMany(courses);
       console.log('New course created');
     } catch (error) {
@@ -61,7 +62,7 @@ const deleteAndCreatePrograms = async () => {
     try {
       await Program.deleteMany({});
       console.log("Del prog");
-      const courses = JSON.parse(fs.readFileSync("./main/sampleData/SE_Project.programs.json", "utf-8"));
+      const courses = JSON.parse(fs.readFileSync("./sampleData/SE_Project.programs.json", "utf-8"));
       await Program.insertMany(courses);
       console.log('New prog created');
     } catch (error) {
@@ -74,7 +75,7 @@ const deleteAndCreateCourseDetails = async () => {
     try {
       await CourseDetail.deleteMany({});
       console.log("Del courseDetail");
-      const courDet = JSON.parse(fs.readFileSync("./main/sampleData/SE_Project.courseDetails.json", "utf-8"));
+      const courDet = JSON.parse(fs.readFileSync("./sampleData/SE_Project.courseDetails.json", "utf-8"));
       await CourseDetail.insertMany(courDet);
       console.log('New courseDetail created');
     } catch (error) {
@@ -87,7 +88,7 @@ const deleteAndCreateCourseStudents = async () => {
     try {
       await CourseStudent.deleteMany({});
       console.log("Del courseStudent");
-      const courStud = JSON.parse(fs.readFileSync("./main/sampleData/SE_Project.courseStudents.json", "utf-8"));
+      const courStud = JSON.parse(fs.readFileSync("./sampleData/SE_Project.courseStudents.json", "utf-8"));
       const data = await CourseStudent.insertMany(courStud);
       
       console.log('New courseStudent created');
