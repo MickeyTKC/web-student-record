@@ -33,6 +33,10 @@ courseStudentSchema.statics.findBySem = function (sem){  //find by sem
     return this.find({sem: sem});
 }
 
+courseStudentSchema.statics.findByCourseIdYearSem = function (cId, year, sem){  //find by course, year, sem
+    return this.find({courseId: cId, year: year, sem: sem});
+}
+
 courseStudentSchema.statics.findByUserIdCourseId = function (uId, cId){  //find by user, course id
     return this.find({id: uId, courseId: cId});
 }
