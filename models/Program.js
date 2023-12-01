@@ -10,6 +10,7 @@ const progSchema = new mongoose.Schema({
     credit: { type: Number }
   }], 
   leaders: { type:[{type:String}]},
+  course: { type:[{type:String}]},
   yearFrom: { type:String }, //date(year) of create
   status: { type:String }
 });
@@ -29,7 +30,11 @@ progSchema.statics.findByDept = function (dept){  //find by dept
 }
 
 progSchema.statics.findByLeaders = function (leader){  //find by leader
-    return this.find({leaders: leader});
+    return this.find({leaders: {$elemMatch:{$in: leader}}});
+}
+
+progSchema.statics.findByCourse= function (course){  //find by course
+    return this.find({course: {$elemMatch:{$in: course}}});
 }
 
 progSchema.statics.findByYearFrom = function (year){  //find by date(year)
