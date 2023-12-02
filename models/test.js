@@ -1,8 +1,16 @@
 const mongoose = require('mongoose')
 const User = require("./User");
+const Program = require("./Program");
+const Course = require("./Course");
+const Department = require("./Department");
+const CourseDetail = require("./CourseDetail");
+const CourseStudent = require("./CourseStudent");
+const fs = require("fs");
 
-const dbName = "SE_Project"
-const url = `mongodb+srv://seprojectCollect:thisISpassword@cluster0.eknv0ni.mongodb.net/${dbName}`;
+require("dotenv").config();
+const dbName = process.env.db_name;
+const url = process.env.db_url + dbName;
+
 
 mongoose.set("strictQuery",true)
 
