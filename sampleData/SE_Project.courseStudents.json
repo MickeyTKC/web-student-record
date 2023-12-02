@@ -1,5 +1,5 @@
 [{
-    "id": "s111111",
+    "studentId": "s111111",
     "courseId": "S350F",
     "year":"2014",
     "sem":"A",
@@ -13,7 +13,7 @@
     }
 },
 {
-    "id": "s222222",
+    "studentId": "s222222",
     "courseId": "S350F",
     "year":"2014",
     "sem":"B",
@@ -27,7 +27,7 @@
     }
 },
 {
-    "id": "s333333",
+    "studentId": "s333333",
     "courseId": "EE2004",
     "year":"2013",
     "sem":"B",
