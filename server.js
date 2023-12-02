@@ -23,6 +23,13 @@ app.use(express.static("public"));
 app.use(express.json());
 
 //Models
+const User = require("./models/User");
+const Program = require("./models/Program");
+const Course = require("./models/Course");
+const Department = require("./models/Department");
+const CourseDetail = require("./models/CourseDetail");
+const CourseStudent = require("./models/CourseStudent");
+//Routes
 const routes = require("./routes");
 
 //DB Connection
@@ -39,6 +46,7 @@ const auth = {
   isLogin: (req, res, next) => {
     if (!req.session.userId)
       return next({ statusCode: 401, message: "Login is required." });
+    next()
   },
 };
 
@@ -46,33 +54,25 @@ const auth = {
 app.use("/api", routes);
 
 //Views
-app.get("/",(req,res,next)=>{
-    
-})
-app.get("/login",(req,res,next)=>{
-    
-})
-app.get("/personal",(req,res,next)=>{
-
-})
-app.get("/course",(req,res,next)=>{
-
-})
-app.get("/course/id/:id",(req,res,next)=>{
-
-})
-app.get("/course/id/:id/edit",(req,res,next)=>{
-
-})
-app.get("/program/id/:id",(req,res,next)=>{
-
-})
-app.get("/program/id/:id/edit",(req,res,next)=>{
-
-})
-app.get("/admin",(req,res,next)=>{
-
-})
+app.get("/", auth.isLogin, async (req, res, next) => {
+  try {
+    const {userId} = req.session
+    const courses = await CourseStudent.findByStudentId(userId);
+    res.status(200).render("index", { data: courses ||{}});
+  } catch (e) {
+    next();
+  }
+});
+app.get("/login", (req, res, next) => {
+  res.status(200).render("login");
+});
+app.get("/personal", (req, res, next) => {});
+app.get("/course", (req, res, next) => {});
+app.get("/course/id/:id", (req, res, next) => {});
+app.get("/course/id/:id/edit", (req, res, next) => {});
+app.get("/program/id/:id", (req, res, next) => {});
+app.get("/program/id/:id/edit", (req, res, next) => {});
+app.get("/admin", (req, res, next) => {});
 //Error Handler
 app.get("/*", (req, res, next) => {
   return next({ statusCode: 404, message: "Not Found" });
@@ -82,7 +82,7 @@ app.use((err, req, res, next) => {
   else
     res
       .status(err.statusCode)
-      .render("../views/error.ejs", { err: err, auth: req.session || {} });
+      .render("../views/error.ejs", { err: err});
 });
 
 //Server Start
