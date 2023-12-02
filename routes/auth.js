@@ -3,13 +3,24 @@ const router = express.Router();
 
 const User = require("../models/User");
 
+const isLogin = (req, res, next) => {
+  if (!req.session.userId)
+    return next({ statusCode: 401, message: "Login is required." });
+  next();
+};
+
+const isAdmin = (req, res, next) => {
+  if (!req.session.userId)
+    return next({ statusCode: 401, message: "Login is required." });
+  if (!req.session.userId)
+    return next({ statusCode: 403, message: "Admin permission is required." });
+  next();
+};
+
 router.get("/", async (req, res, next) => {
   if (!req.session.user) {
     return next();
   }
-  const user = new User(req.session.user)
-  console.log(user.getRole().getCoutse())
-  res.status(200).json(req.session.user);
 });
 
 router.post("/login", async (req, res, next) => {
@@ -48,7 +59,9 @@ router.post("/logout", (req, res, next) => {
 
     // Clear the user ID from the session
     req.session = null;
-    return res.status(200).json({ message: "Logout successful" });
+    if (req.is("application/json"))
+      return res.status(200).json({ message: "Logout successful" });
+    return res.redirect("/login");
   } catch (error) {
     // Error occurred, return an error response
     return res.status(500).json({ message: "Internal server error" });
@@ -63,4 +76,4 @@ router.use((err, req, res, next) => {
   res.status(500).json({ message: "Internal Server Error" });
 });
 
-module.exports = router;
+module.exports = { router, isLogin, isAdmin};
