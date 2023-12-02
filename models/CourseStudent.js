@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const courseStudentSchema = new mongoose.Schema({
-  id: { type: String },
+  studentId: { type: String },
   courseId: { type: String },
   year: { type: String },
   sem: { type: String },
@@ -17,8 +17,13 @@ const courseStudentSchema = new mongoose.Schema({
 
 //------------------Function start------------------
 
-courseStudentSchema.statics.findByUserId = function (studId){  //find by id
-    return this.find({id: studId});
+/**
+ * Find the course academic record by student id
+ * @param {*} sid 
+ * @returns 
+ */
+courseStudentSchema.statics.findByStudentId = function (sid){  
+    return this.find({studentId: sid});
 }
 
 courseStudentSchema.statics.findByCourseId = function (cId){  //find by course id
@@ -38,19 +43,20 @@ courseStudentSchema.statics.findByCourseIdYearSem = function (cId, year, sem){  
 }
 
 courseStudentSchema.statics.findByUserIdCourseId = function (uId, cId){  //find by user, course id
-    return this.find({id: uId, courseId: cId});
+    return this.find({studentId: uId, courseId: cId});
 }
 
 courseStudentSchema.statics.findByUserIdYear = function (userId, year){  //find by id, year
-    return this.find({id: userId, year: year});
+    return this.find({studentId: userId, year: year});
 }
 
+
 courseStudentSchema.statics.findByUserIdYearSem = function (userId, year, sem){  //find by id, year, sem
-    return this.find({id: userId, year: year, sem: sem});
+    return this.find({studentId: userId, year: year, sem: sem});
 }
 
 courseStudentSchema.statics.findByUserIdCourseIdYearSem = function (userId, cId, year, sem){  //find by id, course, year, sem
-    return this.findOne({id: userId, courseId: cId, year: year, sem: sem});
+    return this.findOne({studentId: userId, courseId: cId, year: year, sem: sem});
 }
 
 module.exports = mongoose.model("CourseStudent", courseStudentSchema);
