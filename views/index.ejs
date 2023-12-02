@@ -1,68 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Home Page</title>
-<link rel="stylesheet" href="css/styles.css">
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="/scripts/jquery.js"></script>
-<script src="https://kit.fontawesome.com/d472d7247a.js" crossorigin="anonymous"></script>
-</head>
-<body>
-
-<div id="wrapper" class="active">
-      
-      <!-- Sidebar -->
-            <!-- Sidebar -->
-      <div id="sidebar-wrapper">
-      <ul id="sidebar_menu" class="sidebar-nav">
-           <li class="sidebar-brand"><a id="menu-toggle" href="#">Menu&nbsp&nbsp&nbsp<i class="fa-solid fa-bars fa-lg"></i></a></li>
-      </ul>
-        <ul class="sidebar-nav" id="sidebar">     
-          <li><a onclick="document.getElementById('id01').style.display='block'" onmouseover="" style="cursor: pointer;background-color:#04AA6D;color:white;">Login&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa-solid fa-user"></i></a></li>
-        </ul>
-      </div>
-          
-      <!-- Page content -->
-      <div id="page-content-wrapper">
-        <!-- Keep all page content within the page-content inset div! -->
-        <div class="page-content inset">
-            <h2>&nbspMain System</h2>
-            <br>
-            <h2>&nbspWelcome </h2>
-
-            </form>
-            </div>  
-        </div>
-      </div>
-      
-    </div>
-    <div id="id01" class="modal">
-            
-    <form class="modal-content animate" action="/login" method="post">
-        <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <br>
-        <input type="text" placeholder="Enter Username" name="username" required>
-        <br>
-        <label for="psw"><b>Password</b></label>
-        <br>
-        <input type="password" placeholder="Enter Password" name="password" required>
-        <br> 
-        <button type="submit" style="width:auto">Login</button>
-        </div>
-
-        <div class="container" style="background-color:#f1f1f1">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        </div>
-        </form>
-<script src="/scripts/scripts.js"></script>
-
-
-
-
-
-</body>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs') %>
+    <%=(data)%>
+    <%- include('../views/components/foot.ejs')  %>
+  </body>
 </html>
-
-
