@@ -42,13 +42,7 @@ mongoose.connection.on("error", err => {
 });
 
 //Right Auth
-const auth = {
-  isLogin: (req, res, next) => {
-    if (!req.session.userId)
-      return next({ statusCode: 401, message: "Login is required." });
-    next()
-  },
-};
+const auth = require("./routes/auth")
 
 //APIs
 app.use("/api", routes);
