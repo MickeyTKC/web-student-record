@@ -2,14 +2,19 @@ const express = require("express");
 const router = express.Router();
 
 const Program = require("../models/Program");
+const Department = require("../models/Department");
 
 // Create new program
 router.post("/", async (req, res) => {
   try {
     const { id, name, dept, intro } = req.body;
     // Validate required fields
-    if (!id) {
+    if (!id || !name) {
       return res.status(400).json({ error: "id & name is required" });
+    }
+    const checkDept = Department.findByDeptId(dept);
+    if(!checkDept){
+        return res.status(400).json({ error: "correct dept is required" });
     }
     // Create a new program document
     const program = new Program({ id, name, dept, intro });
@@ -44,6 +49,11 @@ router.get("/id/:id", async (req, res) => {
 router.patch("/programs/:id", async (req, res) => {
   try {
     const data = req.body;
+    const { id, name, dept, intro } = req.body;
+    const checkDept = Department.findByDeptId(dept);
+    if(!checkDept){
+        return res.status(400).json({ error: "correct dept is required" });
+    }
     const program = await Program.findByIdAndUpdate(req.params.id, data, {
       new: true,
     });
