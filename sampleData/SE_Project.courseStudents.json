@@ -1,7 +1,7 @@
 [{
     "studentId": "s111111",
     "courseId": "S350F",
-    "courseName": "Software Engineering",
+    "name": "Software Engineering",
     "year":"2014",
     "sem":"A",
     "credit": 3,
@@ -16,7 +16,7 @@
 {
     "studentId": "s222222",
     "courseId": "S350F",
-    "courseName": "Software Engineering",
+    "name": "Software Engineering",
     "year":"2014",
     "sem":"B",
     "credit": 3,
@@ -31,7 +31,7 @@
 {
     "studentId": "s333333",
     "courseId": "EE2004",
-    "courseName": "Microcomputer Systems",
+    "name": "Microcomputer Systems",
     "year":"2013",
     "sem":"B",
     "credit": 3,
