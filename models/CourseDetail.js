@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Course = require("./Course");
 
 const courseDetailSchema = new mongoose.Schema({
   id: { type: String, required: true },
@@ -32,5 +33,8 @@ courseDetailSchema.statics.findByTutor = function (tutor){  //find by tutor
     return this.find({"detail.tutors": {$elemMatch:{$in: tutor}}});
 }
 
+courseDetailSchema.methods.getCourseName = function (){
+    return Course.findByCourseId(this.courseId);
+}
 
 module.exports = mongoose.model("CourseDetail", courseDetailSchema);
