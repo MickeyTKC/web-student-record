@@ -4,6 +4,7 @@ const Course = require("./Course");
 const courseStudentSchema = new mongoose.Schema({
   studentId: { type: String },
   courseId: { type: String },
+  courseName: { type: String },
   year: { type: String },
   sem: { type: String },
   credit: { type: Number },
@@ -29,6 +30,10 @@ courseStudentSchema.statics.findByStudentId = function (sid){
 
 courseStudentSchema.statics.findByCourseId = function (cId){  //find by course id
     return this.find({courseId: cId});
+}
+
+courseStudentSchema.statics.findByCourseName = function (name){  //find by course name
+    return this.find({courseName: name});
 }
 
 courseStudentSchema.statics.findByYear = function (year){  //find by year
@@ -60,8 +65,5 @@ courseStudentSchema.statics.findByUserIdCourseIdYearSem = function (userId, cId,
     return this.findOne({studentId: userId, courseId: cId, year: year, sem: sem});
 }
 
-courseStudentSchema.methods.getCourseName = function (){
-    return Course.findByCourseId(this.courseId);
-}
 
 module.exports = mongoose.model("CourseStudent", courseStudentSchema);
