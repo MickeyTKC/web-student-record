@@ -1,12 +1,14 @@
 [{
     "id": "S350F",
     "name": "Software Engineering",
+    "dept": "ST",
     "intro": "This is a department of Science and Technology",
     "credit": 3
 },
 {
     "id": "EE2004",
     "name": "Microcomputer Systems",
+    "dept": "ST",
     "intro": "ASMx86",
     "credit": 3
 }]

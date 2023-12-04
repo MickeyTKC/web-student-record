@@ -25,7 +25,7 @@ deptSchema.statics.findByProgram = function (prog){  //find by program
 }
 
 deptSchema.statics.findByHeads = function (head){  //find by heads
-    return this.find({heads: {$elemMatch:{$in: head}}});
+    return this.findOne({heads: {$elemMatch:{$in: head}}});
 }
 
 deptSchema.statics.findByTeachers = function (teacher){  //find by teachers

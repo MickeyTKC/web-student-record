@@ -1,5 +1,6 @@
 [{
     "id":"EE2004",
+    "name": "Microcomputer Systems",
     "detail": [{
         "year":"2013", 
         "sem":"A",
@@ -9,6 +10,7 @@
 },
 {
     "id":"S350F",
+    "name": "Software Engineering",
     "detail": [{
         "year":"2013", 
         "sem":"A",
@@ -18,6 +20,7 @@
 },
 {
     "id":"S350F",
+    "name": "Software Engineering",
     "detail": [{
         "year":"2013", 
         "sem":"B",
