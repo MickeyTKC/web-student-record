@@ -4,7 +4,7 @@ const Course = require("./Course");
 const courseStudentSchema = new mongoose.Schema({
   studentId: { type: String },
   courseId: { type: String },
-  courseName: { type: String },
+  name: { type: String },
   year: { type: String },
   sem: { type: String },
   credit: { type: Number },
