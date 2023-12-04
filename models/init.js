@@ -114,15 +114,27 @@ const setupData = async () => {
     }
   }
   
-  //setupData();
+  setupData();
   const yesy = async () => {
     try {
-        const test = await CourseStudent.findByCourseId("EE2004");
-        //console.log(test);
-        const erere = new CourseStudent(test);
-        console.log(erere);
+        const dept = await Department.findByHeads("admin1");
+        //console.log(dept);
+        const prog = await Program.findByDept(dept.id);
+        //console.log(prog);
+        const course1 = await [...prog].map(async (re)=>{
+          return await Course.findByCourseId(re.course[0]);
+        }) 
+        const course2 = [];
+        for(var i = 0; i<[...prog].length; i++){
+          //console.log(prog[i].course);
+          for(var j = 0; j<prog[i].course.length; j++){
+            const c = await Course.findByCourseId(prog[i].course[j]);
+            course2.push(c);
+          } 
+        }
+        console.log(course2);
     } catch (error) {
       console.error('Error:', error);
     }
   }
-  yesy();
+  //yesy();
