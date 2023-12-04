@@ -1,19 +1,69 @@
 const mongoose = require("mongoose");
 
 const Course = require("./Course");
+const CourseStudent = require("./CourseStudent");
 const CourseDetail = require("./CourseDetail");
 const Program = require("./Program");
 const Department = require("./Department");
 
 const getCourse = {
   student: () => {
-    return "role:student ()=> getCourse"
+    return CourseStudent.findByStudentId(this.id);
   },
-  teacher: () => {
-    return "role:teacher ()=> getCourse"
+  teacher: async () => {
+    const dept = await Department.findByHeads(this.id);
+    console.log(dept)
+    //is department head
+    if (dept) {
+      const courses = await Course.findByDept(dept.id);
+      return courses;
+    }
+    //is prgrom leader
+    const prog = await Program.findByLeaders(this.id);
+    if (prog) {
+      
+      const course = [];
+      for (var i = 0; i < [...prog].length; i++) {
+        //console.log(prog[i].course);
+        for (var j = 0; j < prog[i].course.length; j++) {
+          const c = await Course.findByCourseId(prog[i].course[j]);
+          course2.push(c);
+        }
+      }
+      return course;
+    }
+    //is course leader
+    const cs = await CourseDetail.findByTeacher(this.id);
+    if (cs) {
+      const course = [];
+      for (var i = 0; i < [...cs].length; i++) {
+        if (
+          course.filter(c => {
+            c.id == cs[i].id;
+          }).length < 0
+        ) {
+          const temp = await Course.findByCourseId(cs[i].id);
+          course.push(temp);
+        }
+      }
+      return course;
+    }
+    const tutorCS = await CourseDetail.findByTutor(this.id);
+    const course = [];
+    for (var i = 0; i < [...cs].length; i++) {
+      if (
+        course.filter(c => {
+          c.id == cs[i].id;
+        }).length < 0
+      ) {
+        const temp = await Course.findByCourseId(tutorCS[i].id);
+        course.push(temp);
+      }
+    }
+    return course;
   },
   admin: () => {
-    return "role:admin ()=> getCourse"
+    return Course.find();
   },
 };
 
@@ -85,7 +135,8 @@ userSchema.statics.findByEmail = function (email) {
 };
 
 userSchema.methods.getRole = function () {
-  return {getCoutse:getCourseFactory(this.role)};
+  console.log(`Role:${this.role}`)
+  return { getCourse: getCourseFactory(this.role) };
 };
 
 module.exports = mongoose.model("User", userSchema);
