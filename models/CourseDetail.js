@@ -14,7 +14,7 @@ const courseDetailSchema = new mongoose.Schema({
 //------------------Function start------------------
 
 courseDetailSchema.statics.findByCourseId = function (cId){  //find by id
-    return this.findOne({id: cId});
+    return this.find({id: cId});
 }
 
 courseDetailSchema.statics.findByYear = function (year){  //find by year
@@ -23,6 +23,10 @@ courseDetailSchema.statics.findByYear = function (year){  //find by year
 
 courseDetailSchema.statics.findBySem = function (sem){  //find by sem
     return this.find({"detail.sem": sem});
+}
+
+courseDetailSchema.statics.findByCourseYearSem = function (cId, year, sem){  //find by id
+    return this.findOne({id: cId, "detail.year":year, "detail.sem":sem});
 }
 
 courseDetailSchema.statics.findByTeacher = function (teacher){  //find by teacher
