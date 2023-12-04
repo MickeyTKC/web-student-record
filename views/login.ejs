@@ -132,19 +132,19 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-9 col-lg-8 mx-auto" id="login">
-                  <img src="/css/logo.png" style="width:50px;"/>
+                  <img src="/css/logo.png" style="width: 50px" />
                   <h3 class="login-heading mb-4">Login</h3>
-                  <form>
+                  <form id="loginForm">
                     <div class="form-label-group">
                       <input
                         type="text"
-                        id="username"
+                        id="userId"
                         class="form-control"
-                        placeholder="Username"
+                        placeholder="userId"
                         required
                         autofocus
                       />
-                      <label for="username">Student ID / Staff ID</label>
+                      <label for="userId">Student ID / Staff ID</label>
                     </div>
 
                     <div class="form-label-group">
@@ -168,11 +168,13 @@
                         >Remember Me</label
                       >
                     </div>
-                    <a
+                    <button
+                      type="submit"
                       class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                      >Sign in</a
                     >
-                    <div class="text-center"></div>
+                      Sign in
+                    </button>
+                    <div id="alert-container"></div>
                     <br />
                   </form>
                 </div>
@@ -183,5 +185,57 @@
       </div>
     </div>
     <%- include('../views/components/foot.ejs') %>
+    <script>
+      $(document).ready(function () {
+        const form = $("#loginForm");
+        const url = "/api/auth/login";
+
+        form.submit (async(e) => {
+          e.preventDefault();
+
+          const id = $("#userId").val();
+          const password = $("#password").val();
+
+          try {
+            const response = await fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ id, password }),
+            });
+
+            if (response.ok) {
+              // Sign in success
+              const data = await response.json();
+              const message = data.message;
+              displayMessage(data.message,true);
+              setTimeout(function () {
+                window.location.href = "/";
+              }, 1000);
+              // Redirect to dashboard or desired page
+            } else {
+              // Sign in failed
+              const errorData = await response.json();
+              console.log(errorData);
+              const errorMessage =
+                errorData.error || "Sign in failed. Please try again.";
+                displayMessage(errorMessage);
+            }
+          } catch (error) {
+            // Error occurred during sign in
+            displayMessage("An error occurred. Please try again later.");
+          }
+        });
+        // maybe alert message or modal
+        function displayMessage(message, ok) {
+          const errorContainer =
+            document.querySelector(".alert") || document.createElement("div");
+          errorContainer.className = `alert ${ok?"alert-success":"alert-danger"} mt-3`;
+          errorContainer.textContent = message;
+          document.querySelector("#loginForm").appendChild(errorContainer);
+        }
+      });
+    </script>
   </body>
 </html>
