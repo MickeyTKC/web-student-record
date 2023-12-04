@@ -7,33 +7,32 @@ const Program = require("./Program");
 const Department = require("./Department");
 
 const getCourse = {
-  student: () => {
-    return CourseStudent.findByStudentId(this.id);
+  student: (id) => {
+    return CourseStudent.findByStudentId(id);
   },
-  teacher: async () => {
-    const dept = await Department.findByHeads(this.id);
-    console.log(dept)
+  teacher: async (id) => {
+    console.log(id)
+    const dept = await Department.findByHeads(id);
     //is department head
     if (dept) {
       const courses = await Course.findByDept(dept.id);
       return courses;
     }
     //is prgrom leader
-    const prog = await Program.findByLeaders(this.id);
+    const prog = await Program.findByLeaders(id);
     if (prog) {
-      
       const course = [];
       for (var i = 0; i < [...prog].length; i++) {
         //console.log(prog[i].course);
         for (var j = 0; j < prog[i].course.length; j++) {
           const c = await Course.findByCourseId(prog[i].course[j]);
-          course2.push(c);
+          course.push(c);
         }
       }
       return course;
     }
     //is course leader
-    const cs = await CourseDetail.findByTeacher(this.id);
+    const cs = await CourseDetail.findByTeacher(id);
     if (cs) {
       const course = [];
       for (var i = 0; i < [...cs].length; i++) {
@@ -48,7 +47,7 @@ const getCourse = {
       }
       return course;
     }
-    const tutorCS = await CourseDetail.findByTutor(this.id);
+    const tutorCS = await CourseDetail.findByTutor(id);
     const course = [];
     for (var i = 0; i < [...cs].length; i++) {
       if (
