@@ -51,7 +51,7 @@ app.use("/api", routes);
 app.get("/", auth.isLogin, async (req, res, next) => {
   try {
     const client = new User(req.session.user)
-    const courses = await client.getRole().getCourse();
+    const courses = await client.getRole().getCourse(req.session.userId);
     res.status(200).render("index", { data: courses ||{}});
   } catch (e) {
     next();
