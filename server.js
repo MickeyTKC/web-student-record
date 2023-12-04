@@ -50,8 +50,8 @@ app.use("/api", routes);
 //Views
 app.get("/", auth.isLogin, async (req, res, next) => {
   try {
-    const {userId} = req.session
-    const courses = await CourseStudent.findByStudentId(userId);
+    const client = new User(req.session.user)
+    const courses = await client.getRole().getCourse();
     res.status(200).render("index", { data: courses ||{}});
   } catch (e) {
     next();
