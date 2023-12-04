@@ -1,30 +1,32 @@
-[{
-    "id":"EE2004",
-    "name": "Microcomputer Systems",
-    "detail": [{
-        "year":"2013", 
-        "sem":"A",
-        "teacher":"teacher3",
-        "tutors":["teacher1"]
-    }]
-},
-{
-    "id":"S350F",
-    "name": "Software Engineering",
-    "detail": [{
-        "year":"2013", 
-        "sem":"A",
-        "teacher":"teacher1",
-        "tutors":["teacher2"]
-    }]
-},
-{
-    "id":"S350F",
-    "name": "Software Engineering",
-    "detail": [{
-        "year":"2013", 
-        "sem":"B",
-        "teacher":"teacher1",
-        "tutors":["teacher2"]
-    }]
-}]
+[
+    {
+        "id": "EE2004",
+        "name": "Microcomputer Systems",
+        "year": "2013",
+        "sem": "A",
+        "teacher": "teacher3",
+        "tutors": [
+            "teacher1"
+        ]
+    },
+    {
+        "id": "S350F",
+        "name": "Software Engineering",
+        "year": "2013",
+        "sem": "A",
+        "teacher": "teacher1",
+        "tutors": [
+            "teacher2"
+        ]
+    },
+    {
+        "id": "S350F",
+        "name": "Software Engineering",
+        "year": "2013",
+        "sem": "B",
+        "teacher": "teacher1",
+        "tutors": [
+            "teacher2"
+        ]
+    }
+]

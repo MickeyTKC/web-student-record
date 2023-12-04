@@ -4,12 +4,10 @@ const Course = require("./Course");
 const courseDetailSchema = new mongoose.Schema({
   id: { type: String, required: true },
   name: { type: String },
-  detail: [{
   year: { type: String },
   sem: { type: String },
   teacher: { type: String }, //teacher for responsible this course
   tutors: { type:[{type:String}]}
-    }]
 });
 
 //------------------Function start------------------
@@ -23,23 +21,23 @@ courseDetailSchema.statics.findByCourseName = function (name){  //find by name
 }
 
 courseDetailSchema.statics.findByYear = function (year){  //find by year
-    return this.find({"detail.year": year});
+    return this.find({year: year});
 }
 
 courseDetailSchema.statics.findBySem = function (sem){  //find by sem
-    return this.find({"detail.sem": sem});
+    return this.find({sem: sem});
 }
 
 courseDetailSchema.statics.findByCourseYearSem = function (cId, year, sem){  //find by id
-    return this.findOne({id: cId, "detail.year":year, "detail.sem":sem});
+    return this.findOne({id: cId, year:year, sem:sem});
 }
 
 courseDetailSchema.statics.findByTeacher = function (teacher){  //find by teacher
-    return this.find({"detail.teacher": teacher});
+    return this.find({teacher: teacher});
 }
 
 courseDetailSchema.statics.findByTutor = function (tutor){  //find by tutor
-    return this.find({"detail.tutors": {$elemMatch:{$in: tutor}}});
+    return this.find({tutors: {$elemMatch:{$in: tutor}}});
 }
 
 
