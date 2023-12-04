@@ -3,6 +3,7 @@ const Course = require("./Course");
 
 const courseDetailSchema = new mongoose.Schema({
   id: { type: String, required: true },
+  name: { type: String },
   detail: [{
   year: { type: String },
   sem: { type: String },
@@ -15,6 +16,10 @@ const courseDetailSchema = new mongoose.Schema({
 
 courseDetailSchema.statics.findByCourseId = function (cId){  //find by id
     return this.find({id: cId});
+}
+
+courseDetailSchema.statics.findByCourseName = function (name){  //find by name
+    return this.find({name: name});
 }
 
 courseDetailSchema.statics.findByYear = function (year){  //find by year
@@ -37,8 +42,5 @@ courseDetailSchema.statics.findByTutor = function (tutor){  //find by tutor
     return this.find({"detail.tutors": {$elemMatch:{$in: tutor}}});
 }
 
-courseDetailSchema.methods.getCourseName = function (){
-    return Course.findByCourseId(this.courseId);
-}
 
 module.exports = mongoose.model("CourseDetail", courseDetailSchema);
