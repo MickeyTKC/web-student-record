@@ -107,10 +107,22 @@ const setupData = async () => {
         deleteAndCreateCourseDetails();
         deleteAndCreateCourseStudents();
         console.log('finish');
+        const test = await CourseStudent.find();
+        console.log(test);
     } catch (error) {
       console.error('Error:', error);
     }
   }
   
-  setupData();
-
+  //setupData();
+  const yesy = async () => {
+    try {
+        const test = await CourseStudent.findByCourseId("EE2004");
+        //console.log(test);
+        const erere = new CourseStudent(test);
+        console.log(erere);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+  yesy();
