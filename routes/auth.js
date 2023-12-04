@@ -12,7 +12,7 @@ const isLogin = (req, res, next) => {
 const isAdmin = (req, res, next) => {
   if (!req.session.userId)
     return next({ statusCode: 401, message: "Login is required." });
-  if (!req.session.userId)
+  if (!req.session.user.role != "admin")
     return next({ statusCode: 403, message: "Admin permission is required." });
   next();
 };
@@ -25,7 +25,6 @@ router.get("/", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
   const { id, password } = req.body;
-  console.log("login");
   try {
     // Find the user with the provided ID
     const user = await User.findOne({ id });
