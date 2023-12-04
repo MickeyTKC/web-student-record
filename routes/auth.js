@@ -12,7 +12,7 @@ const isLogin = (req, res, next) => {
 const isAdmin = (req, res, next) => {
   if (!req.session.userId)
     return next({ statusCode: 401, message: "Login is required." });
-  if (!req.session.user.role != "admin")
+  if (req.session.user.role != "admin")
     return next({ statusCode: 403, message: "Admin permission is required." });
   next();
 };
@@ -37,6 +37,7 @@ router.post("/login", async (req, res, next) => {
       // Authentication successful, return a success response
       req.session.userId = user.id;
       req.session.user = user;
+      console.log(req.session.user)
       res.status(200).json({ message: "Login successful" });
     } else {
       // Invalid credentials, return an error response
