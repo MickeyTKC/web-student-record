@@ -7,11 +7,20 @@ const Program = require("./Program");
 const Department = require("./Department");
 
 const getCourse = {
-  student: (id) => {
-    return CourseStudent.findByStudentId(id);
+  student: async (id) => {
+    const cs = await CourseStudent.findByStudentId(id);
+    if (cs) {
+      const course = [];
+      for (var i = 0; i < [...cs].length; i++) {
+        if (course.filter(c => {c.id == cs[i].courseId;}).length <= 0) {
+          const temp = await Course.findByCourseId(cs[i].courseId);
+          course.push(temp);
+        }
+      }
+      return course;
+    }
   },
   teacher: async (id) => {
-    console.log(id)
     const dept = await Department.findByHeads(id);
     //is department head
     if (dept) {
@@ -23,7 +32,6 @@ const getCourse = {
     if (prog) {
       const course = [];
       for (var i = 0; i < [...prog].length; i++) {
-        //console.log(prog[i].course);
         for (var j = 0; j < prog[i].course.length; j++) {
           const c = await Course.findByCourseId(prog[i].course[j]);
           course.push(c);
@@ -39,7 +47,7 @@ const getCourse = {
         if (
           course.filter(c => {
             c.id == cs[i].id;
-          }).length < 0
+          }).length <= 0
         ) {
           const temp = await Course.findByCourseId(cs[i].id);
           course.push(temp);
@@ -134,7 +142,6 @@ userSchema.statics.findByEmail = function (email) {
 };
 
 userSchema.methods.getRole = function () {
-  console.log(`Role:${this.role}`)
   return { getCourse: getCourseFactory(this.role) };
 };
 
