@@ -14,8 +14,8 @@ router.post('/', async (req, res) => {
     if (!id || !name || !credit) {
       return res.status(400).json({ error: 'id, name, and credit are required' });
     }
-
-    const course = new Course({ id, name, intro, credit });
+    const upperId = id.toLocaleUpperCase();
+    const course = new Course({ upperId, name, intro, credit });
     await course.save();
     res.status(201).json(course);
   } catch (error) {
