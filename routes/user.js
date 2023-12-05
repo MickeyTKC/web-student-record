@@ -62,7 +62,7 @@ router.get("/", auth.isAdmin, async (req, res) => {
 });
 
 // Get a specific user by ID
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth.isAdmin, async (req, res) => {
   try {
     const user = await User.findByUserId(req.params.id);
     if (!user) {
@@ -75,8 +75,10 @@ router.get("/:id", async (req, res) => {
 });
 
 // Update a user by ID
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", auth.isLogin, async (req, res) => {
   const id = req.params.id;
+  if (id != req.session.userId || req.session.user.role != "admin")
+    return next({ statusCode: 400, message: "No permission" });
   try {
     const {
       role,
@@ -118,9 +120,11 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id/password", async (req, res) => {
+router.patch("/:id/password", auth.isLogin, async (req, res) => {
   try {
     const id = req.params.id;
+    if (id != req.session.userId || req.session.user.role != "admin")
+      return next({ statusCode: 400, message: "No permission" });
     const { password } = req.body;
     // Validate required fields
     if (!id) {
@@ -140,7 +144,7 @@ router.patch("/:id/password", async (req, res) => {
 });
 
 // Delete a user by ID
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth.isAdmin, async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
