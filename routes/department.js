@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const Department = require("../models/Department");
+const auth = require("./auth");
 
-router.post("/departments", async (req, res) => {
+router.post("/", auth.isAdmin, async (req, res) => {
   try {
     const department = new Department(req.body);
     await department.save();
@@ -13,7 +14,7 @@ router.post("/departments", async (req, res) => {
   }
 });
 
-router.get("/departments", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const departments = await Department.find();
     res.json(departments);
@@ -22,7 +23,7 @@ router.get("/departments", async (req, res) => {
   }
 });
 
-router.get("/departments/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const department = await Department.findById(req.params.id);
     if (!department) {
@@ -34,7 +35,7 @@ router.get("/departments/:id", async (req, res) => {
   }
 });
 
-router.patch("/departments/:id", async (req, res) => {
+router.patch("/:id", auth.isLogin ,async (req, res) => {
   try {
     const department = await Department.findByIdAndUpdate(
       req.params.id,
@@ -50,7 +51,7 @@ router.patch("/departments/:id", async (req, res) => {
   }
 });
 
-router.delete("/departments/:id", async (req, res) => {
+router.delete("/:id", auth.isAdmin, async (req, res) => {
   try {
     const department = await Department.findByIdAndDelete(req.params.id);
     if (!department) {
