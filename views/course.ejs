@@ -33,35 +33,32 @@
 }
     </style>
   </head>
+  </head>
   <body>
     <%- include('../views/components/nav.ejs') %>
-    <%=(data)%>
-    <br>
-    <br>
-    <table class="modern-table" border="1" width="600" height="200">
-      <tr>
-        <th colspan="2">Personal Information</th>
-      </tr>
-      <tr>
-        <td>ID</td>
-        <td><%= data.id %></td>
-      </tr>
-      <tr>
-        <td>Name</td>
-        <td><%= data.name %></td>
-      </tr>
-      <tr>
-        <td>Role</td>
-        <td><%= data.role %></td>
-      </tr>
-      <tr>
-        <td>Your programme</td>
-        <td><%= data.department %> - <%= data.major %> ( <%= data.progYear %> )</td>
-      </tr>
-      <tr>
-        <td>Email</td>
-        <td><%= data.email %></td>
-      </tr>
+    <%=(JSON.stringify(data))%>
+    <br><br>
+    <table class="modern-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Department</th>
+          <th>Introduction</th>
+          <th>Credit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach(function(item) { %>
+          <tr>
+            <td><%= item.id %></td>
+            <td><%= item.name %></td>
+            <td><%= item.dept %></td>
+            <td><%= item.intro %></td>
+            <td><%= item.credit %></td>
+          </tr>
+        <% }); %>
+      </tbody>
     </table>
     <%- include('../views/components/foot.ejs')  %>
   </body>
