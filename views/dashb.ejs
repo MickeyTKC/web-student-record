@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+    <style>
+      .dashboard {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+    
+      .subject {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: #f2f2f2;
+      }
+    
+      .subject h3 {
+        margin-top: 0;
+      }
+    
+      .week-button {
+        margin-bottom: 10px;
+      }
+    
+      .week-content {
+        display: none;
+        margin-bottom: 10px;
+        line-height: 1.5;
+      }
+    
+      .week-content.show {
+        display: block;
+      }
+
+      .assignment-list {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: #f2f2f2;
+      }
+
+      .assignment-list h4 {
+        margin-top: 0;
+      }
+
+      .assignment {
+        margin-bottom: 10px;
+        line-height: 1.5;
+      }
+    </style>
+    
+    <script>
+      function toggleContent(weekId) {
+        var content = document.getElementById(weekId);
+        content.classList.toggle("show");
+      }
+    </script>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs') %>
+    <%=(JSON.stringify(data))%>
+    <div class="dashboard">
+      <div class="subject">
+        <h3>Subject 1</h3>
+        <% for (let i = 1; i <= 14; i++) { %>
+          <button class="week-button" onclick="toggleContent('subject1-week<%= i %>')">Week <%= i %></button>
+          <div id="subject1-week<%= i %>" class="week-content">
+            Message or Homework for Week <%= i %> of Subject 1
+          </div>
+        <% } %>
+      </div>
+    
+      <div class="subject">
+        <h3>Subject 2</h3>
+        <% for (let i = 1; i <= 14; i++) { %>
+          <button class="week-button" onclick="toggleContent('subject2-week<%= i %>')">Week <%= i %></button>
+          <div id="subject2-week<%= i %>" class="week-content">
+            Message or Homework for Week <%= i %> of Subject 2
+          </div>
+        <% } %>
+      </div>
+    
+      <div class="subject">
+        <h3>Subject 3</h3>
+        <% for (let i = 1; i <= 14; i++) { %>
+          <button class="week-button" onclick="toggleContent('subject3-week<%= i %>')">Week <%= i %></button>
+          <div id="subject3-week<%= i %>" class="week-content">
+            Message or Homework for Week <%= i %> of Subject 3
+          </div>
+        <% } %>
+      </div>
+    
+      <div class="subject">
+        <h3>Subject 4</h3>
+        <% for (let i = 1; i <= 14; i++) { %>
+          <button class="week-button" onclick="toggleContent('subject4-week<%= i %>')">Week <%= i %></button>
+          <div id="subject4-week<%= i %>" class="week-content">
+            Message or Homework for Week <%= i %> of Subject 4
+          </div>
+        <% } %>
+      </div>
+    </div>
+    <div class="assignment-list">
+      <h4>Assignment List</h4>
+      <div class="assignment">
+        <span class="subject-name">Subject 1:</span> Assignment description 1
+      </div>
+      <div class="assignment">
+        <span class="subject-name">Subject 2:</span> Assignment description 2
+      </div>
+      <div class="assignment">
+        <span class="subject-name">Subject 3:</span> Assignment description 3
+      </div>
+      <div class="assignment">
+        <span class="subject-name">Subject 4:</span> Assignment description 4
+      </div>
+    </div>
+    <%- include('../views/components/foot.ejs')  %>
+  </body>
+</html>
