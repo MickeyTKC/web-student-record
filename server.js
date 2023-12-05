@@ -60,13 +60,21 @@ app.get("/", auth.isLogin, async (req, res, next) => {
 app.get("/login", (req, res, next) => {
   res.status(200).render("login");
 });
-app.get("/personal", (req, res, next) => {});
-app.get("/course", (req, res, next) => {});
+app.get("/profile", (req, res, next) => {});
+app.get("/course", async (req, res, next) => {
+  try {
+    const client = new User(req.session.user)
+    const courses = await client.getRole().getCourse(req.session.userId);
+    res.status(200).render("index", { data: courses ||{}});
+  } catch (e) {
+    next();
+  }
+});
 app.get("/course/id/:id", (req, res, next) => {});
 app.get("/course/id/:id/edit", (req, res, next) => {});
 app.get("/program/id/:id", (req, res, next) => {});
 app.get("/program/id/:id/edit", (req, res, next) => {});
-app.get("/admin", (req, res, next) => {});
+app.get("/dashboard", auth.isAdmin, async (req, res, next) => {});
 //Error Handler
 app.get("/*", (req, res, next) => {
   return next({ statusCode: 404, message: "Not Found" });
