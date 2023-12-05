@@ -50,7 +50,7 @@ app.use("/api", routes);
 //Views
 app.get("/", auth.isLogin, async (req, res, next) => {
   try {
-    res.status(200).render("index", { data: "Welcome to HKMU Academic System" || {} });
+    res.status(200).render("dashb", { data: "Welcome to HKMU Academic System" || {} });
   } catch (e) {
     next();
   }
