@@ -29,7 +29,7 @@ courseStudentSchema.statics.findByStudentId = function (sid){
 }
 
 courseStudentSchema.statics.findByCourseId = function (cId){  //find by course id
-    return this.find({courseId: cId});
+    return this.find({courseId: cId.toLocaleUpperCase()});
 }
 
 courseStudentSchema.statics.findByCourseName = function (name){  //find by course name

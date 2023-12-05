@@ -18,7 +18,7 @@ const progSchema = new mongoose.Schema({
 //------------------Function start------------------
 
 progSchema.statics.findByProgId = function (progId){  //find by id
-    return this.findOne({id: progId});
+    return this.findOne({id: progId.toLocaleUpperCase()});
 }
 
 progSchema.statics.findByName = function (name){  //find by name

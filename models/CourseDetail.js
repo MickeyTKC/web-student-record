@@ -13,7 +13,7 @@ const courseDetailSchema = new mongoose.Schema({
 //------------------Function start------------------
 
 courseDetailSchema.statics.findByCourseId = function (cId){  //find by id
-    return this.find({id: cId});
+    return this.find({id: cId.toLocaleUpperCase()});
 }
 
 courseDetailSchema.statics.findByCourseName = function (name){  //find by name

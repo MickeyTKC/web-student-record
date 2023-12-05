@@ -13,7 +13,7 @@ const deptSchema = new mongoose.Schema({
 //------------------Function start------------------
 
 deptSchema.statics.findByDeptId = function (dId){  //find by dept id
-    return this.findOne({id: dId});
+    return this.findOne({id: dId.toLocaleUpperCase()});
 }
 
 deptSchema.statics.findByName = function (name){  //find by name
