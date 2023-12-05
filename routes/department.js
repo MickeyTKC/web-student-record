@@ -6,7 +6,8 @@ const auth = require("./auth");
 
 router.post("/", auth.isAdmin, async (req, res) => {
   try {
-    const department = new Department(req.body);
+    const { id, name, intro, program, status } = req.body;
+    const department = new Department({ id, name, intro, program, status });
     await department.save();
     res.status(201).json(department);
   } catch (error) {
@@ -35,11 +36,15 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id", auth.isLogin ,async (req, res) => {
+router.patch("/:id", auth.isLogin, async (req, res) => {
   try {
+    const right = await Department.findByHeads(req.session.userId);
+    if (!right && req.session.user.role != "admin")
+      return res.status(403).json({ message: "No Permission" });
+    const data = req.body;
     const department = await Department.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      data,
       { new: true }
     );
     if (!department) {
