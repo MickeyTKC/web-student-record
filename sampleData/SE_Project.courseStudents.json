@@ -1,47 +1,466 @@
-[{
-    "studentId": "s111111",
-    "courseId": "S350F",
-    "name": "Software Engineering",
-    "year":"2014",
-    "sem":"A",
-    "credit": 3,
-    "grade":{
-        "final":"A",
-        "items":[
-            { "itemName": "asm", "mark": 80 },
-            { "itemName": "exam", "mark": 75 }
-        ]
+[
+    {
+        "studentId": "s123456",
+        "courseId": "C001",
+        "courseName": "Introduction to Programming",
+        "year": "2023",
+        "sem": "A",
+        "credit": 3,
+        "grade": {
+            "final": "A",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 95
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 85
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 90
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 92
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s234567",
+        "courseId": "C001",
+        "courseName": "Introduction to Programming",
+        "year": "2023",
+        "sem": "A",
+        "credit": 3,
+        "grade": {
+            "final": "B+",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 80
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 75
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 82
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 78
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s345678",
+        "courseId": "C002",
+        "courseName": "Database Management Systems",
+        "year": "2023",
+        "sem": "A",
+        "credit": 3,
+        "grade": {
+            "final": "A-",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 90
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 88
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 92
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 87
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s546789",
+        "courseId": "C002",
+        "courseName": "Database Management Systems",
+        "year": "2023",
+        "sem": "A",
+        "credit": 3,
+        "grade": {
+            "final": "B",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 75
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 82
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 78
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 80
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s975890",
+        "courseId": "C003",
+        "courseName": "Operating Systems",
+        "year": "2023",
+        "sem": "A",
+        "credit": 3,
+        "grade": {
+            "final": "B+",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 85
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 80
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 88
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 82
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s645901",
+        "courseId": "C003",
+        "courseName": "Operating Systems",
+        "year": "2023",
+        "sem": "A",
+        "credit": 3,
+        "grade": {
+            "final": "C",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 70
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 65
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 68
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 72
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s782012",
+        "courseId": "C004",
+        "courseName": "Web Development",
+        "year": "2023",
+        "sem": "B",
+        "credit": 3,
+        "grade": {
+            "final": "B+",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 85
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 80
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 88
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 82
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s945234",
+        "courseId": "C005",
+        "courseName": "Data Structures",
+        "year": "2023",
+        "sem": "A",
+        "credit": 4,
+        "grade": {
+            "final": "A-",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 92
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 88
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 90
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 85
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s011345",
+        "courseId": "C005",
+        "courseName": "Data Structures",
+        "year": "2023",
+        "sem": "A",
+        "credit": 4,
+        "grade": {
+            "final": "B",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 78
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 80
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 72
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 75
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s176450",
+        "courseId": "C006",
+        "courseName": "Artificial Intelligence",
+        "year": "2023",
+        "sem": "B",
+        "credit": 4,
+        "grade": {
+            "final": "A+",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 95
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 90
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 92
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 97
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s227561",
+        "courseId": "C006",
+        "courseName": "Artificial Intelligence",
+        "year": "2023",
+        "sem": "B",
+        "credit": 4,
+        "grade": {
+            "final": "A",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 85
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 82
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 88
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 90
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s123456",
+        "courseId": "C007",
+        "courseName": "Database Systems",
+        "year": "2023",
+        "sem": "A",
+        "credit": 3,
+        "grade": {
+            "final": "B",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 75
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 80
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 70
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 78
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s436789",
+        "courseId": "C007",
+        "courseName": "Database Systems",
+        "year": "2023",
+        "sem": "A",
+        "credit": 3,
+        "grade": {
+            "final": "C+",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 60
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 70
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 65
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 75
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s123456",
+        "courseId": "C008",
+        "courseName": "Operating Systems",
+        "year": "2023",
+        "sem": "B",
+        "credit": 4,
+        "grade": {
+            "final": "A-",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 90
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 85
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 88
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 87
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s234567",
+        "courseId": "C008",
+        "courseName": "Operating Systems",
+        "year": "2023",
+        "sem": "B",
+        "credit": 4,
+        "grade": {
+            "final": "B+",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 82
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 78
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 80
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 85
+                }
+            ]
+        }
+    },
+    {
+        "studentId": "s345678",
+        "courseId": "C009",
+        "courseName": "Computer Networks",
+        "year": "2023",
+        "sem": "A",
+        "credit": 3,
+        "grade": {
+            "final": "B-",
+            "items": [
+                {
+                    "itemName": "asm",
+                    "mark": 70
+                },
+                {
+                    "itemName": "test1",
+                    "mark": 75
+                },
+                {
+                    "itemName": "test2",
+                    "mark": 68
+                },
+                {
+                    "itemName": "exam",
+                    "mark": 72
+                }
+            ]
+        }
     }
-},
-{
-    "studentId": "s222222",
-    "courseId": "S350F",
-    "name": "Software Engineering",
-    "year":"2014",
-    "sem":"B",
-    "credit": 3,
-    "grade":{
-        "final":"B",
-        "items":[
-            { "itemName": "asm", "mark": 60 },
-            { "itemName": "exam", "mark": 65 }
-        ]
-    }
-},
-{
-    "studentId": "s333333",
-    "courseId": "EE2004",
-    "name": "Microcomputer Systems",
-    "year":"2013",
-    "sem":"B",
-    "credit": 3,
-    "grade":{
-        "final":"B",
-        "items":[
-            { "itemName": "asm", "mark": 60 },
-            { "itemName": "test1", "mark": 40 },
-            { "itemName": "test2", "mark": 45 },
-            { "itemName": "exam", "mark": 65 }
-        ]
-    }
-}]
+]

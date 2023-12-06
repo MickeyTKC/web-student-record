@@ -107,8 +107,8 @@ const setupData = async () => {
         deleteAndCreateCourseDetails();
         deleteAndCreateCourseStudents();
         console.log('finish');
-        const test = await CourseStudent.find();
-        console.log(test);
+        //const test = await CourseStudent.find();
+        //console.log(test);
     } catch (error) {
       console.error('Error:', error);
     }
