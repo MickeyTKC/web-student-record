@@ -197,6 +197,32 @@ app.get("/dashboard", auth.isAdmin, async (req, res, next) => {
     .render("dashb", { data: courseDetail || [], auth: auth || {} });
 });
 
+app.get("/users/", async (req, res, next) => {
+  try {
+    const auth = req.session.user;
+    const { role } = req.session.user || {};
+    if(role != "admin"){
+      return next({ statusCode: 403, message: "Admin permission is required." });
+    }
+    const user = await User.find();
+    res.status(200).render("users", { data: user || [], auth: auth });
+  } catch (e) {
+    next();
+  }
+});
+
+app.get("/user/:id", async (req, res, next) => {
+  try {
+    const auth = req.session.user;
+    const user = await User.findByUserId(req.params.id);
+    res.status(200).render("user", { data: user || {}, auth: auth });
+  } catch (e) {
+    next();
+  }
+});
+
+app.get("/user/id/:id/edit", (req, res, next) => {});
+
 //Error Handler
 app.get("/*", (req, res, next) => {
   return next({ statusCode: 404, message: "Not Found" });
