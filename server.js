@@ -48,6 +48,8 @@ const auth = require("./routes/auth");
 app.use("/api", routes);
 
 //Views
+
+//Home
 app.get("/", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
@@ -59,10 +61,12 @@ app.get("/", auth.isLogin, async (req, res, next) => {
   }
 });
 
+//login
 app.get("/login", (req, res, next) => {
   res.status(200).render("login");
 });
 
+//personal information
 app.get("/profile", auth.isLogin, async (req, res, next) => {
   const id = req.session.userId;
   try {
@@ -74,6 +78,19 @@ app.get("/profile", auth.isLogin, async (req, res, next) => {
   }
 });
 
+app.get("/profile/edit", auth.isLogin, async (req, res, next) => {
+  const id = req.session.userId;
+  try {
+    const auth = req.session.user;
+    const user = await User.findByUserId(id);
+    res.status(200).render("profileEdit", { data: user || {}, auth: auth });
+  } catch (e) {
+    next();
+  }
+});
+
+
+//course
 app.get("/course", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
@@ -106,12 +123,26 @@ app.get("/course/:id", auth.isLogin, async (req, res, next) => {
   }
 });
 
+
 app.get("/course/:id/edit", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
-    res.status(200).render("index", {
+    res.status(200).render("courseEdit", {
       auth: auth,
     });
+  } catch (e) {
+    next();
+  }
+});
+
+// course details
+
+app.get("/course/:id/add", auth.isLogin, async (req, res, next) => {
+  try {
+    const auth = req.session.user;
+    res
+      .status(200)
+      .render("courseDetailAdd", { auth: auth });
   } catch (e) {
     next();
   }
@@ -130,6 +161,35 @@ app.get("/course/:id/:year/:sem", auth.isLogin, async (req, res, next) => {
   }
 });
 
+app.get("/course/:id/:year/:sem/edit", auth.isLogin, async (req, res, next) => {
+  try {
+    const auth = req.session.user;
+    const { id, year, sem } = req.params;
+    const courseDetail = await CourseDetail.findByCourseYearSem(id, year, sem);
+    res
+      .status(200)
+      .render("courseDetailEdit", { data: courseDetail || {}, auth: auth });
+  } catch (e) {
+    next();
+  }
+});
+
+// coruse student records
+app.get(
+  "/course/:id/:year/:sem/students/add",
+  auth.isLogin,
+  async (req, res, next) => {
+    try {
+      const auth = req.session.user;
+      const { id, year, sem } = req.params;
+      res
+        .status(200)
+        .render("courseStudentAdd", { data: courseStudent || [], auth: auth });
+    } catch (e) {
+      next();
+    }
+  }
+);
 app.get(
   "/course/:id/:year/:sem/students",
   auth.isLogin,
@@ -150,6 +210,28 @@ app.get(
     }
   }
 );
+app.get(
+  "/course/:id/:year/:sem/students/edit",
+  auth.isLogin,
+  async (req, res, next) => {
+    try {
+      const auth = req.session.user;
+      const { id, year, sem } = req.params;
+      const courseStudent = await CourseStudent.findByCourseYearSem(
+        id,
+        year,
+        sem
+      );
+      res
+        .status(200)
+        .render("courseStudentEdit", { data: courseStudent || [], auth: auth });
+    } catch (e) {
+      next();
+    }
+  }
+);
+
+
 
 app.get("/programs/", auth.isLogin, async (req, res, next) => {
   try {
@@ -163,6 +245,15 @@ app.get("/programs/", auth.isLogin, async (req, res, next) => {
     }
     const prog = await Program.find();
     res.status(200).render("programs", { data: prog || [], auth: auth });
+  } catch (e) {
+    next();
+  }
+});
+
+app.get("/program/add", auth.isLogin, async (req, res, next) => {
+  try {
+    const auth = req.session.user;
+    res.status(200).render("programAdd", { auth: auth });
   } catch (e) {
     next();
   }
@@ -230,6 +321,15 @@ app.get("/users/", auth.isLogin, async (req, res, next) => {
   }
 });
 
+app.get("/user/add", auth.isLogin, async (req, res, next) => {
+  try {
+    const auth = req.session.user;
+    res.status(200).render("userAdd", { auth: auth });
+  } catch (e) {
+    next();
+  }
+});
+
 app.get("/user/:id", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
@@ -240,11 +340,12 @@ app.get("/user/:id", auth.isLogin, async (req, res, next) => {
   }
 });
 
-app.get("/user/id/:id/edit", auth.isLogin, async (req, res, next) => {
+
+app.get("/user/:id/edit", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const user = await User.findByUserId(req.params.id);
-    res.status(200).render("edit", { data: user || {}, auth: auth });
+    res.status(200).render("userEdit", { data: user || {}, auth: auth });
   } catch (e) {
     next();
   }
