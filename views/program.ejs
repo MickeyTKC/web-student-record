@@ -47,7 +47,7 @@
                 <td>
                   <ul>
                     <% data.leaders.forEach(leader => { %>
-                      <li><%= leader %></li>
+                      <li><a href="/user/<%= leader %>"><%= leader %></a></li>
                     <% }) %>
                   </ul>
                 </td>
