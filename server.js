@@ -105,7 +105,7 @@ app.get("/course", auth.isLogin, async (req, res, next) => {
 app.get("/course/add", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
-    res.status(200).render("index", {
+    res.status(200).render("courseAdd", {
       auth: auth,
     });
   } catch (e) {
@@ -127,7 +127,9 @@ app.get("/course/:id", auth.isLogin, async (req, res, next) => {
 app.get("/course/:id/edit", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
+    const course = await Course.findByCourseId(req.params.id);
     res.status(200).render("courseEdit", {
+      data: course || {},
       auth: auth,
     });
   } catch (e) {
@@ -137,7 +139,7 @@ app.get("/course/:id/edit", auth.isLogin, async (req, res, next) => {
 
 // course details
 
-app.get("/course/:id/add", auth.isLogin, async (req, res, next) => {
+app.get("/course/:id/add", auth.isNotStudent, async (req, res, next) => {
   try {
     const auth = req.session.user;
     res
@@ -148,7 +150,7 @@ app.get("/course/:id/add", auth.isLogin, async (req, res, next) => {
   }
 });
 
-app.get("/course/:id/:year/:sem", auth.isLogin, async (req, res, next) => {
+app.get("/course/:id/:year/:sem", auth.isNotStudent, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const { id, year, sem } = req.params;
@@ -161,7 +163,7 @@ app.get("/course/:id/:year/:sem", auth.isLogin, async (req, res, next) => {
   }
 });
 
-app.get("/course/:id/:year/:sem/edit", auth.isLogin, async (req, res, next) => {
+app.get("/course/:id/:year/:sem/edit", auth.isNotStudent, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const { id, year, sem } = req.params;
@@ -177,7 +179,7 @@ app.get("/course/:id/:year/:sem/edit", auth.isLogin, async (req, res, next) => {
 // coruse student records
 app.get(
   "/course/:id/:year/:sem/students/add",
-  auth.isLogin,
+  auth.isNotStudent,
   async (req, res, next) => {
     try {
       const auth = req.session.user;
@@ -192,7 +194,7 @@ app.get(
 );
 app.get(
   "/course/:id/:year/:sem/students",
-  auth.isLogin,
+  auth.isNotStudent,
   async (req, res, next) => {
     try {
       const auth = req.session.user;
@@ -212,7 +214,7 @@ app.get(
 );
 app.get(
   "/course/:id/:year/:sem/students/edit",
-  auth.isLogin,
+  auth.isNotStudent,
   async (req, res, next) => {
     try {
       const auth = req.session.user;
@@ -250,7 +252,7 @@ app.get("/programs/", auth.isLogin, async (req, res, next) => {
   }
 });
 
-app.get("/program/add", auth.isLogin, async (req, res, next) => {
+app.get("/program/add", auth.isAdmin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     res.status(200).render("programAdd", { auth: auth });
@@ -269,7 +271,7 @@ app.get("/program/:id", auth.isLogin, async (req, res, next) => {
   }
 });
 
-app.get("/program/:id/edit", auth.isLogin, async (req, res, next) => {
+app.get("/program/:id/edit", auth.isNotStudent, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const prog = await Program.findByProgId(req.params.id);
@@ -293,7 +295,7 @@ app.get("/academic", auth.isLogin, async (req, res, next) => {
   }
 });
 
-app.get("/dashboard", auth.isLogin, async (req, res, next) => {
+app.get("/dashboard", auth.isNotStudent, async (req, res, next) => {
   var courseDetail = [];
   const { id, role } = req.session.user;
   if(role=="student"){
@@ -305,7 +307,6 @@ app.get("/dashboard", auth.isLogin, async (req, res, next) => {
       courseDetail = await CourseDetail.find();
     }else {
       courseDetail = await CourseDetail.findByTeacher(id);
-      console.log(courseDetail)
     }
   } catch (e) {
     return next();
@@ -315,7 +316,7 @@ app.get("/dashboard", auth.isLogin, async (req, res, next) => {
     .render("dashb", { data: courseDetail || [], auth: auth || {} });
 });
 
-app.get("/users/", auth.isLogin, async (req, res, next) => {
+app.get("/users/", auth.isAdmin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const { role } = req.session.user || {};
@@ -332,7 +333,7 @@ app.get("/users/", auth.isLogin, async (req, res, next) => {
   }
 });
 
-app.get("/user/add", auth.isLogin, async (req, res, next) => {
+app.get("/user/add", auth.isAdmin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     res.status(200).render("userAdd", { auth: auth });
@@ -341,7 +342,7 @@ app.get("/user/add", auth.isLogin, async (req, res, next) => {
   }
 });
 
-app.get("/user/:id", auth.isLogin, async (req, res, next) => {
+app.get("/user/:id", auth.isNotStudent, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const user = await User.findByUserId(req.params.id);
@@ -352,7 +353,7 @@ app.get("/user/:id", auth.isLogin, async (req, res, next) => {
 });
 
 
-app.get("/user/:id/edit", auth.isLogin, async (req, res, next) => {
+app.get("/user/:id/edit", auth.isAdmin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const user = await User.findByUserId(req.params.id);

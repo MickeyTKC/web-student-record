@@ -9,6 +9,14 @@ const isLogin = (req, res, next) => {
   next();
 };
 
+const isNotStudent = (req, res, next) => {
+  if (!req.session.userId)
+    return next({ statusCode: 401, message: "Login is required." });
+  if (req.session.user.role == "student")
+    return next({ statusCode: 403, message: "Teacher permission is required." });
+  next();
+};
+
 const isAdmin = (req, res, next) => {
   if (!req.session.userId)
     return next({ statusCode: 401, message: "Login is required." });
@@ -76,4 +84,4 @@ router.use((err, req, res, next) => {
   res.status(500).json({ message: "Internal Server Error" });
 });
 
-module.exports = { router, isLogin, isAdmin};
+module.exports = { router, isLogin, isNotStudent, isAdmin};
