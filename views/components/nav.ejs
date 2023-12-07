@@ -22,12 +22,16 @@
       <li class="nav-item">
         <a class="nav-link ripple-effect" href="/course">Course</a>
       </li>
+      <% if(auth.role == "student"){ %>
       <li class="nav-item">
         <a class="nav-link ripple-effect" href="/academic">Academic</a>
       </li>
+      <% } %>
+      <% if(auth.role != "student"){ %>
       <li class="nav-item">
         <a class="nav-link ripple-effect" href="/dashboard">Dashboard</a>
       </li>
+      <% } %>
     </ul>
 
     <form
