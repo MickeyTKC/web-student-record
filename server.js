@@ -219,12 +219,16 @@ app.get(
     try {
       const auth = req.session.user;
       const { id, year, sem, student } = req.params;
-      const courseStudent = await CourseStudent.findByCourseYearSemStudent(
+      console.log(sem)
+      const courseStudent = await CourseStudent.findOne({studentId:student,crourseId: id.toLocaleUpperCase()});
+      /*
+      await CourseStudent.findByUserIdCourseIdYearSem(
+        student,
         id,
         year,
-        sem,
-        student
-      );
+        sem
+      );*/
+      console.log(courseStudent)
       res
         .status(200)
         .render("courseStudentEdit", { data: courseStudent || {}, auth: auth });
