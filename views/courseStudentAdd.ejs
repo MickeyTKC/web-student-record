@@ -9,7 +9,7 @@
     <br/><br/>
     <div class="container">
         <h2>Add Course Student Details</h2>
-        <form action="/courseStudent/add" method="POST" id="addForm">
+        <form action="/course/:id/:year/:sem/:students/add" method="POST" id="addForm">
           <div class="form-group">
             <label for="studentId">Student ID:</label>
             <input type="text" class="form-control" id="studentId" name="studentId" required>
@@ -69,7 +69,7 @@
   
             let form = document.querySelector("#addForm");
   
-            const url = "/api/courseStudent/add";
+            const url = "/api/course/:id/:year/:sem/:students/edit";
   
             const studentId = document.querySelector("#studentId").value;
             const courseId = document.querySelector("#courseId").value;
