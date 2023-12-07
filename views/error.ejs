@@ -17,7 +17,7 @@
       </style>
   </head>
   <body>
-    <%- include('../views/components/nav.ejs') %>
+    <%- include('../views/components/nav.ejs',{auth:auth || {}}) %>
     <div class="container">
         <div class="error-message py-5">
           <h1>Oops! Something went wrong.</h1>
