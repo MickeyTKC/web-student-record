@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %> 
+    <%- include('../views/components/head.ejs') %>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs',{auth:auth || {}}) %>
+
+    <div class="container">
+      <br /><br />
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-8">
+              <h4 class="card-title text-primary">Personal Information</h4>
+              <a href="" class="btn btn-primary">Update</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="form-group">
+              <label for="id">ID:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="id"
+                value="<%= data.id %>"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                value="<%= data.name %>"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="department">Department:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="department"
+                value="<%= data.department %>"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="major">Major:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="major"
+                value="<%= data.major %>"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="progYear">Program Year:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="progYear"
+                value="<%= data.progYear %>"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="dateFrom">Date From:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="dateFrom"
+                value="<%= data.dateFrom %>"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="dateTo">Date To:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="dateTo"
+                value="<%= data.dateTo %>"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                value="<%= data.email %>"
+              />
+            </div>
+            <div class="form-group">
+              <label for="phoneNo">Phone Number:</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phoneNo"
+                value="<%= data.phoneNo %>"
+              />
+            </div>
+            <div class="form-group">
+              <label for="emergencyPhoneNo">Emergency Phone Number:</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="emergencyPhoneNo"
+                value="<%= data.emergencyPhoneNo %>"
+              />
+            </div>
+            <!-- Multiselect Dropdown Code Goes Here -->
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <%- include('../views/components/foot.ejs') %>
+  </body>
+</html>
