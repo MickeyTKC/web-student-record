@@ -305,7 +305,6 @@ app.get("/dashboard", auth.isLogin, async (req, res, next) => {
       courseDetail = await CourseDetail.find();
     }else {
       courseDetail = await CourseDetail.findByTeacher(id);
-      console.log(courseDetail)
     }
   } catch (e) {
     return next();
