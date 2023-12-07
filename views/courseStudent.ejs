@@ -29,7 +29,6 @@
                     <th>Semester</th>
                     <th>Credit</th>
                     <th>Final Grade</th>
-                    <th>Grade Items</th>
                     <th>Edit</th>
                   </tr>
                 </thead>
@@ -43,14 +42,7 @@
                     <td><%= course.sem %></td>
                     <td><%= course.credit %></td>
                     <td><%= course.grade.final %></td>
-                    <td>
-                      <ul>
-                        <% course.grade.items.forEach(item => { %>
-                          <li><strong><%= item.itemName %></strong>: <%= item.mark %></li>
-                        <% }) %>
-                      </ul>
-                    </td>
-                    <td><a class="btn btn-primary" href="/course/<%= course.courseId %>/<%= course.sem %>/<%= course.year %>/<%= course.studentId %>">Edit</a></td>
+                    <td><a class="btn btn-primary" href="/course/<%= course.courseId %>/<%= course.year %>/<%= course.sem %>/<%= course.studentId %>">Edit</a></td>
                   </tr>
                   <% }) %>
                 </tbody>

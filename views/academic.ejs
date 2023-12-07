@@ -54,7 +54,6 @@
                 <th>Semester</th>
                 <th>Credit</th>
                 <th>Grade</th>
-                  <th>Items</th>
               </tr>
             </thead>
             <tbody>
@@ -69,17 +68,6 @@
                   <td><%= record.sem %></td>
                   <td><%= record.credit %></td>
                   <td><%= record.grade.final %></td>
-                  <%if(record.grade.items) {%>
-                    <td>
-                      <ul>
-                        <% record.grade.items.forEach(item => { %>
-                          <li><strong><%= item.itemName %>:</strong> <%= item.mark %></li>
-                        <% }) %>
-                      </ul>
-                    </td>
-                  <% }else{ %>
-                    <td>Empty</td>
-                  <% } %>
                 </tr>
                 <% }) %>
               <% } %>

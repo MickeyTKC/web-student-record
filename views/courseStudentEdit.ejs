@@ -42,83 +42,12 @@
           
           <div class="form-group">
             <label for="finalGrade">Final Grade:</label>
-            <input type="text" class="form-control" id="finalGrade" name="finalGrade" value="<%= data.grade.final %>">
+            <input type="text" class="form-control" id="finalGrade" name="finalGrade" value="<%= data.grade.final || "" %>">
           </div>
-          
-          <div class="form-group">
-            <label for="items">Graded Items:</label>
-            <div id="itemsContainer">
-
-                <% data.grade.items.forEach(it => { %>
-                                   
-              <div class="form-row">
-                <div class="col">
-                  <input type="text" class="form-control" id="itemName[]" name="itemName[]" value="<%= it.itemName %>" placeholder="Item Name">
-                </div>
-                <div class="col">
-                  <input type="number" class="form-control" id="mark[]" name="mark[]" value="<%= it.mark %>" placeholder="Mark">
-                </div>
-              </div>
-
-                <% }); %>
-
-            </div>
-            <button type="button" class="btn btn-primary mt-2" onclick="addGradedItem()">Add Item</button>
-          </div>
-          
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
-      <script>
-        document.getElementById('editForm').addEventListener('submit', async function (event) {
-          event.preventDefault();
-  
-            let form = document.querySelector("#editForm");
-  
-            const url = "/api/courseStudent/:id/edit";
-  
-            var studentId = "<%= data.studentId %>";
-            const courseId = document.querySelector("#courseId").value;
-            const name = document.querySelector("#name").value;
-            const year = document.querySelector("#year").value;
-            const sem = document.querySelector("#sem").value;
-            const credit = document.querySelector("#credit").value;
-            const finalGrade = document.querySelector("#finalGrade").value;
-            const itemName = document.querySelector("#itemName[]").value;
-            const mark = document.querySelector("#mark[]").value;
-  
-            try {
-              const response = await fetch(url, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ studentId,courseId, name, year, sem, credit, finalGrade, itemName, mark}),
-              });
-  
-              if (response.ok) {
-                // Sign up success
-                window.location.href = `/course`;
-              } else {
-                // Sign up failed
-                const errorData = await response.json();
-                const errorMessage = errorData.error || "Edit failed. Please try again.";
-                displayError(errorMessage);
-              }
-            } catch (error) {
-              // Error occurred during user edit
-              console.error(error);
-              alert('An error occurred while editing the user');
-            }
-          });
-          function displayError(message) {
-            const errorContainer = document.querySelector(".alert") || document.createElement("div");
-            errorContainer.className = "alert alert-danger mt-3";
-            errorContainer.textContent = message;
-  
-            form.appendChild(errorContainer);
-          }
-      </script>
+      
     <%- include('../views/components/foot.ejs')  %>
   </body>
 </html>
