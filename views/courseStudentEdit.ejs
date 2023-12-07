@@ -9,7 +9,7 @@
     <br/><br/>
     <div class="container">
         <h2>Edit Course Student Details</h2>
-        <form action="/courseStudent/:id/edit" method="POST" id="editForm">
+        <form action="/course/:id/:year/:sem/:students/edit" method="POST" id="editForm">
           <div class="form-group">
             <label for="studentId">Student ID:</label>
             <input type="text" class="form-control" id="studentId" name="studentId" value="<%= data.studentId %>" readonly>
@@ -75,7 +75,7 @@
   
             let form = document.querySelector("#editForm");
   
-            const url = "/api/courseStudent/:id/edit";
+            const url = "/api/course/:id/:year/:sem/:students/edit";
   
             var studentId = "<%= data.studentId %>";
             const courseId = document.querySelector("#courseId").value;
