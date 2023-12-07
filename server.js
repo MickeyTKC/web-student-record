@@ -74,7 +74,7 @@ app.get("/profile", auth.isLogin, async (req, res, next) => {
   }
 });
 
-app.get("/course", async (req, res, next) => {
+app.get("/course", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const client = new User(req.session.user);
@@ -85,7 +85,7 @@ app.get("/course", async (req, res, next) => {
   }
 });
 
-app.get("/course/add", async (req, res, next) => {
+app.get("/course/add", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     res.status(200).render("index", {
@@ -96,7 +96,7 @@ app.get("/course/add", async (req, res, next) => {
   }
 });
 
-app.get("/course/:id", async (req, res, next) => {
+app.get("/course/:id", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const course = await Course.findByCourseId(req.params.id);
@@ -106,8 +106,7 @@ app.get("/course/:id", async (req, res, next) => {
   }
 });
 
-
-app.get("/course/:id/edit", async (req, res, next) => {
+app.get("/course/:id/edit", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     res.status(200).render("index", {
@@ -118,34 +117,49 @@ app.get("/course/:id/edit", async (req, res, next) => {
   }
 });
 
-app.get("/course/:id/:year/:sem", async (req, res, next) => {
+app.get("/course/:id/:year/:sem", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
-    const { id, year, sem } = req.params
-    const courseDetail = await CourseDetail.findByCourseYearSem(id,year,sem);
-    res.status(200).render("courseDetail", { data: courseDetail || {}, auth: auth });
+    const { id, year, sem } = req.params;
+    const courseDetail = await CourseDetail.findByCourseYearSem(id, year, sem);
+    res
+      .status(200)
+      .render("courseDetail", { data: courseDetail || {}, auth: auth });
   } catch (e) {
     next();
   }
 });
 
-app.get("/course/:id/:year/:sem/students", async (req, res, next) => {
-  try {
-    const auth = req.session.user;
-    const { id, year, sem } = req.params
-    const courseStudent = await CourseStudent.findByCourseYearSem(id,year,sem);
-    res.status(200).render("courseStudent", { data: courseStudent || [], auth: auth });
-  } catch (e) {
-    next();
+app.get(
+  "/course/:id/:year/:sem/students",
+  auth.isLogin,
+  async (req, res, next) => {
+    try {
+      const auth = req.session.user;
+      const { id, year, sem } = req.params;
+      const courseStudent = await CourseStudent.findByCourseYearSem(
+        id,
+        year,
+        sem
+      );
+      res
+        .status(200)
+        .render("courseStudent", { data: courseStudent || [], auth: auth });
+    } catch (e) {
+      next();
+    }
   }
-});
+);
 
-app.get("/programs/", async (req, res, next) => {
+app.get("/programs/", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
-    const {role} = req.session.user;
-    if(role != "admin"){
-      return next({ statusCode: 403, message: "Admin permission is required." });
+    const { role } = req.session.user;
+    if (role != "admin") {
+      return next({
+        statusCode: 403,
+        message: "Admin permission is required.",
+      });
     }
     const prog = await Program.find();
     res.status(200).render("programs", { data: prog || [], auth: auth });
@@ -154,7 +168,7 @@ app.get("/programs/", async (req, res, next) => {
   }
 });
 
-app.get("/program/:id", async (req, res, next) => {
+app.get("/program/:id", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const prog = await Program.findByProgId(req.params.id);
@@ -164,7 +178,7 @@ app.get("/program/:id", async (req, res, next) => {
   }
 });
 
-app.get("/program/id/:id/edit", (req, res, next) => {});
+app.get("/program/id/:id/edit", auth.isLogin, (req, res, next) => {});
 
 app.get("/academic", auth.isLogin, async (req, res, next) => {
   try {
@@ -182,27 +196,32 @@ app.get("/academic", auth.isLogin, async (req, res, next) => {
 
 app.get("/dashboard", auth.isAdmin, async (req, res, next) => {
   var courseDetail = [];
-  const { role } = req.session.user
+  const { role } = req.session.user;
   const auth = req.session.user;
-  try{
-    if(role=="admin"){
+  try {
+    if (role == "admin") {
       courseDetail = await CourseDetail.find();
     }
-    if(role!="admin"){
-      courseDetail = await CourseDetail.findByTeacher(id);;
+    if (role != "admin") {
+      courseDetail = await CourseDetail.findByTeacher(id);
     }
-  }catch(e){next()}
+  } catch (e) {
+    next();
+  }
   res
     .status(200)
     .render("dashb", { data: courseDetail || [], auth: auth || {} });
 });
 
-app.get("/users/", async (req, res, next) => {
+app.get("/users/", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const { role } = req.session.user || {};
-    if(role != "admin"){
-      return next({ statusCode: 403, message: "Admin permission is required." });
+    if (role != "admin") {
+      return next({
+        statusCode: 403,
+        message: "Admin permission is required.",
+      });
     }
     const user = await User.find();
     res.status(200).render("users", { data: user || [], auth: auth });
@@ -211,7 +230,7 @@ app.get("/users/", async (req, res, next) => {
   }
 });
 
-app.get("/user/:id", async (req, res, next) => {
+app.get("/user/:id", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const user = await User.findByUserId(req.params.id);
@@ -221,7 +240,7 @@ app.get("/user/:id", async (req, res, next) => {
   }
 });
 
-app.get("/user/id/:id/edit", async (req, res, next) => {
+app.get("/user/id/:id/edit", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const user = await User.findByUserId(req.params.id);
