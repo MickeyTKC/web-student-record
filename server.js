@@ -269,7 +269,15 @@ app.get("/program/:id", auth.isLogin, async (req, res, next) => {
   }
 });
 
-app.get("/program/id/:id/edit", auth.isLogin, (req, res, next) => {});
+app.get("/program/:id/edit", auth.isLogin, async (req, res, next) => {
+  try {
+    const auth = req.session.user;
+    const prog = await Program.findByProgId(req.params.id);
+    res.status(200).render("programEdit", { data: prog || {}, auth: auth });
+  } catch (e) {
+    next();
+  }
+});
 
 app.get("/academic", auth.isLogin, async (req, res, next) => {
   try {
