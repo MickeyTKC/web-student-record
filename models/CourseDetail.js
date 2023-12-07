@@ -29,7 +29,7 @@ courseDetailSchema.statics.findBySem = function (sem){  //find by sem
 }
 
 courseDetailSchema.statics.findByCourseYearSem = function (cId, year, sem){  //find by id
-    return this.findOne({id: cId, year:year, sem:sem});
+    return this.findOne({id: cId.toLocaleUpperCase(), year:year, sem:sem});
 }
 
 courseDetailSchema.statics.findByTeacher = function (teacher){  //find by teacher

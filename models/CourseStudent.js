@@ -56,6 +56,10 @@ courseStudentSchema.statics.findByUserIdYear = function (userId, year){  //find 
     return this.find({studentId: userId, year: year});
 }
 
+courseStudentSchema.statics.findByCourseYearSem = function (cId, year, sem){  //find by id
+    return this.find({courseId: cId.toLocaleUpperCase(), year:year, sem:sem});
+}
+
 
 courseStudentSchema.statics.findByUserIdYearSem = function (userId, year, sem){  //find by id, year, sem
     return this.find({studentId: userId, year: year, sem: sem});
