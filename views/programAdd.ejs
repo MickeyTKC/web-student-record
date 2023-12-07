@@ -23,7 +23,7 @@
             <form action="/update-data. method="POST">
                 <div class="form-group">
                   <label for="id">ID:</label>
-                  <input type="text" class="form-control" id="id" name="id"  readonly>
+                  <input type="text" class="form-control" id="id" name="id">
                 </div>
           
                 <div class="form-group">
@@ -43,12 +43,9 @@
           
                 <div class="form-group">
                   <label for="credit">Credit Requirements:</label>
-                  <% data.credit.forEach(credit => { %>
                     <div>
-                      <label for="yearType"><strong></strong>:</label>
                       <input type="number" class="form-control" id="yearType" name="credit">
                     </div>
-                  <% }) %>
                 </div>
           
                 <div class="form-group">
