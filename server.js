@@ -51,8 +51,7 @@ app.use("/api", routes);
 app.get("/", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
-    res.status(200).render("dashb", {
-      data: "Welcome to HKMU Academic System" || {},
+    res.status(200).render("index", {
       auth: auth,
     });
   } catch (e) {
@@ -69,7 +68,7 @@ app.get("/profile", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const personalInfo = await User.findByUserId(id);
-    res.status(200).render("profile", { data: personalInfo || {} ,auth: auth});
+    res.status(200).render("profile", { data: personalInfo || {}, auth: auth });
   } catch (e) {
     return next();
   }
@@ -80,7 +79,18 @@ app.get("/course", async (req, res, next) => {
     const auth = req.session.user;
     const client = new User(req.session.user);
     const courses = await client.getRole().getCourse(req.session.userId);
-    res.status(200).render("courses", { data: courses || [], auth:auth});
+    res.status(200).render("courses", { data: courses || [], auth: auth });
+  } catch (e) {
+    next();
+  }
+});
+
+app.get("/course/add", async (req, res, next) => {
+  try {
+    const auth = req.session.user;
+    res.status(200).render("index", {
+      auth: auth,
+    });
   } catch (e) {
     next();
   }
@@ -90,19 +100,65 @@ app.get("/course/:id", async (req, res, next) => {
   try {
     const auth = req.session.user;
     const course = await Course.findByCourseId(req.params.id);
-    res.status(200).render("course", { data: course || {} ,auth: auth});
+    res.status(200).render("course", { data: course || {}, auth: auth });
   } catch (e) {
     next();
   }
 });
 
-app.get("/course/:id/edit", (req, res, next) => {});
+
+app.get("/course/:id/edit", async (req, res, next) => {
+  try {
+    const auth = req.session.user;
+    res.status(200).render("index", {
+      auth: auth,
+    });
+  } catch (e) {
+    next();
+  }
+});
+
+app.get("/course/:id/:year/:sem", async (req, res, next) => {
+  try {
+    const auth = req.session.user;
+    const { id, year, sem } = req.params
+    const courseDetail = await CourseDetail.findByCourseYearSem(id,year,sem);
+    res.status(200).render("courseDetail", { data: courseDetail || {}, auth: auth });
+  } catch (e) {
+    next();
+  }
+});
+
+app.get("/course/:id/:year/:sem/students", async (req, res, next) => {
+  try {
+    const auth = req.session.user;
+    const { id, year, sem } = req.params
+    const courseStudent = await CourseStudent.findByCourseYearSem(id,year,sem);
+    res.status(200).render("courseStudent", { data: courseStudent || [], auth: auth });
+  } catch (e) {
+    next();
+  }
+});
+
+app.get("/programs/", async (req, res, next) => {
+  try {
+    const auth = req.session.user;
+    const {role} = req.session.user;
+    if(role != "admin"){
+      return next({ statusCode: 403, message: "Admin permission is required." });
+    }
+    const prog = await Program.find();
+    res.status(200).render("programs", { data: prog || [], auth: auth });
+  } catch (e) {
+    next();
+  }
+});
 
 app.get("/program/:id", async (req, res, next) => {
   try {
     const auth = req.session.user;
     const prog = await Program.findByProgId(req.params.id);
-    res.status(200).render("index", { data: prog || {},auth: auth });
+    res.status(200).render("program", { data: prog || {}, auth: auth });
   } catch (e) {
     next();
   }
@@ -118,13 +174,28 @@ app.get("/academic", auth.isLogin, async (req, res, next) => {
     );
     res
       .status(200)
-      .render("academic", { data: courseStudent || [] , auth: auth || {} });
+      .render("academic", { data: courseStudent || [], auth: auth || {} });
   } catch (e) {
     next();
   }
 });
 
-app.get("/dashboard", auth.isAdmin, async (req, res, next) => {});
+app.get("/dashboard", auth.isAdmin, async (req, res, next) => {
+  var courseDetail = [];
+  const { role } = req.session.user
+  const auth = req.session.user;
+  try{
+    if(role=="admin"){
+      courseDetail = await CourseDetail.find();
+    }
+    if(role!="admin"){
+      courseDetail = await CourseDetail.findByTeacher(id);;
+    }
+  }catch(e){next()}
+  res
+    .status(200)
+    .render("dashb", { data: courseDetail || [], auth: auth || {} });
+});
 
 //Error Handler
 app.get("/*", (req, res, next) => {
@@ -135,7 +206,9 @@ app.use((err, req, res, next) => {
   if (err.statusCode == 401) res.redirect("/login");
   else {
     const auth = req.session.user;
-    res.status(err.statusCode).render("../views/error.ejs", { err: err , auth: auth});
+    res
+      .status(err.statusCode)
+      .render("../views/error.ejs", { err: err, auth: auth });
   }
 });
 
