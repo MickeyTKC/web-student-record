@@ -89,7 +89,6 @@ app.get("/profile/edit", auth.isLogin, async (req, res, next) => {
   }
 });
 
-
 //course
 app.get("/course", auth.isLogin, async (req, res, next) => {
   try {
@@ -123,7 +122,6 @@ app.get("/course/:id", auth.isLogin, async (req, res, next) => {
   }
 });
 
-
 app.get("/course/:id/edit", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
@@ -142,9 +140,7 @@ app.get("/course/:id/edit", auth.isLogin, async (req, res, next) => {
 app.get("/course/:id/add", auth.isNotStudent, async (req, res, next) => {
   try {
     const auth = req.session.user;
-    res
-      .status(200)
-      .render("courseDetailAdd", { auth: auth });
+    res.status(200).render("courseDetailAdd", { auth: auth });
   } catch (e) {
     next();
   }
@@ -163,18 +159,26 @@ app.get("/course/:id/:year/:sem", auth.isNotStudent, async (req, res, next) => {
   }
 });
 
-app.get("/course/:id/:year/:sem/edit", auth.isNotStudent, async (req, res, next) => {
-  try {
-    const auth = req.session.user;
-    const { id, year, sem } = req.params;
-    const courseDetail = await CourseDetail.findByCourseYearSem(id, year, sem);
-    res
-      .status(200)
-      .render("courseDetailEdit", { data: courseDetail || {}, auth: auth });
-  } catch (e) {
-    next();
+app.get(
+  "/course/:id/:year/:sem/edit",
+  auth.isNotStudent,
+  async (req, res, next) => {
+    try {
+      const auth = req.session.user;
+      const { id, year, sem } = req.params;
+      const courseDetail = await CourseDetail.findByCourseYearSem(
+        id,
+        year,
+        sem
+      );
+      res
+        .status(200)
+        .render("courseDetailEdit", { data: courseDetail || {}, auth: auth });
+    } catch (e) {
+      next();
+    }
   }
-});
+);
 
 // coruse student records
 app.get(
@@ -219,16 +223,12 @@ app.get(
     try {
       const auth = req.session.user;
       const { id, year, sem, student } = req.params;
-      console.log(sem)
-      const courseStudent = await CourseStudent.findOne({studentId:student,crourseId: id.toLocaleUpperCase()});
-      /*
-      await CourseStudent.findByUserIdCourseIdYearSem(
+      const courseStudent = await CourseStudent.findByUserIdCourseIdYearSem(
         student,
         id,
         year,
         sem
-      );*/
-      console.log(courseStudent)
+      );
       res
         .status(200)
         .render("courseStudentEdit", { data: courseStudent || {}, auth: auth });
@@ -237,8 +237,6 @@ app.get(
     }
   }
 );
-
-
 
 app.get("/programs/", auth.isLogin, async (req, res, next) => {
   try {
@@ -303,14 +301,14 @@ app.get("/academic", auth.isLogin, async (req, res, next) => {
 app.get("/dashboard", auth.isNotStudent, async (req, res, next) => {
   var courseDetail = [];
   const { id, role } = req.session.user;
-  if(role=="student"){
+  if (role == "student") {
     return next({ statusCode: 403, message: "Admin permission is required." });
   }
   const auth = req.session.user;
   try {
     if (role == "admin") {
       courseDetail = await CourseDetail.find();
-    }else {
+    } else {
       courseDetail = await CourseDetail.findByTeacher(id);
     }
   } catch (e) {
@@ -356,7 +354,6 @@ app.get("/user/:id", auth.isNotStudent, async (req, res, next) => {
     next();
   }
 });
-
 
 app.get("/user/:id/edit", auth.isAdmin, async (req, res, next) => {
   try {
