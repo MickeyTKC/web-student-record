@@ -50,7 +50,11 @@ app.use("/api", routes);
 //Views
 app.get("/", auth.isLogin, async (req, res, next) => {
   try {
-    res.status(200).render("dashb", { data: "Welcome to HKMU Academic System" || {} });
+    const auth = req.session.user;
+    res.status(200).render("dashb", {
+      data: "Welcome to HKMU Academic System" || {},
+      auth: auth,
+    });
   } catch (e) {
     next();
   }
@@ -63,8 +67,9 @@ app.get("/login", (req, res, next) => {
 app.get("/profile", auth.isLogin, async (req, res, next) => {
   const id = req.session.userId;
   try {
+    const auth = req.session.user;
     const personalInfo = await User.findByUserId(id);
-    res.status(200).render("profile", { data: personalInfo || {} });
+    res.status(200).render("profile", { data: personalInfo || {} ,auth: auth});
   } catch (e) {
     return next();
   }
@@ -72,19 +77,20 @@ app.get("/profile", auth.isLogin, async (req, res, next) => {
 
 app.get("/course", async (req, res, next) => {
   try {
+    const auth = req.session.user;
     const client = new User(req.session.user);
     const courses = await client.getRole().getCourse(req.session.userId);
-    res.status(200).render("course", { data: courses || {} });
+    res.status(200).render("courses", { data: courses || [], auth:auth});
   } catch (e) {
     next();
   }
 });
 
-app.get("/course/:id", async(req, res, next) => {
+app.get("/course/:id", async (req, res, next) => {
   try {
+    const auth = req.session.user;
     const course = await Course.findByCourseId(req.params.id);
-
-    res.status(200).render("index", { data: course || {} });
+    res.status(200).render("course", { data: course || {} ,auth: auth});
   } catch (e) {
     next();
   }
@@ -94,8 +100,9 @@ app.get("/course/:id/edit", (req, res, next) => {});
 
 app.get("/program/:id", async (req, res, next) => {
   try {
-    const prog = await Program.findByProgId(req.params.id)
-    res.status(200).render("index", { data: prog || {} });
+    const auth = req.session.user;
+    const prog = await Program.findByProgId(req.params.id);
+    res.status(200).render("index", { data: prog || {},auth: auth });
   } catch (e) {
     next();
   }
@@ -105,8 +112,13 @@ app.get("/program/id/:id/edit", (req, res, next) => {});
 
 app.get("/academic", auth.isLogin, async (req, res, next) => {
   try {
-    const courseStudent = await CourseStudent.findByStudentId(req.session.userId);
-    res.status(200).render("academic", { data: courseStudent || {} });
+    const auth = req.session.user;
+    const courseStudent = await CourseStudent.findByStudentId(
+      req.session.userId
+    );
+    res
+      .status(200)
+      .render("academic", { data: courseStudent || [] , auth: auth || {} });
   } catch (e) {
     next();
   }
@@ -121,7 +133,10 @@ app.get("/*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
   if (err.statusCode == 401) res.redirect("/login");
-  else res.status(err.statusCode).render("../views/error.ejs", { err: err });
+  else {
+    const auth = req.session.user;
+    res.status(err.statusCode).render("../views/error.ejs", { err: err , auth: auth});
+  }
 });
 
 //Server Start
