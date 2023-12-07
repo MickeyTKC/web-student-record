@@ -2,7 +2,7 @@
     {
         "studentId": "s123456",
         "courseId": "C001",
-        "courseName": "Introduction to Programming",
+        "name": "Introduction to Programming",
         "year": "2023",
         "sem": "A",
         "credit": 3,
@@ -31,7 +31,7 @@
     {
         "studentId": "s234567",
         "courseId": "C001",
-        "courseName": "Introduction to Programming",
+        "name": "Introduction to Programming",
         "year": "2023",
         "sem": "A",
         "credit": 3,
@@ -60,7 +60,7 @@
     {
         "studentId": "s345678",
         "courseId": "C002",
-        "courseName": "Database Management Systems",
+        "name": "Database Management Systems",
         "year": "2023",
         "sem": "A",
         "credit": 3,
@@ -89,7 +89,7 @@
     {
         "studentId": "s546789",
         "courseId": "C002",
-        "courseName": "Database Management Systems",
+        "name": "Database Management Systems",
         "year": "2023",
         "sem": "A",
         "credit": 3,
@@ -118,7 +118,7 @@
     {
         "studentId": "s975890",
         "courseId": "C003",
-        "courseName": "Operating Systems",
+        "name": "Operating Systems",
         "year": "2023",
         "sem": "A",
         "credit": 3,
@@ -147,7 +147,7 @@
     {
         "studentId": "s645901",
         "courseId": "C003",
-        "courseName": "Operating Systems",
+        "name": "Operating Systems",
         "year": "2023",
         "sem": "A",
         "credit": 3,
@@ -176,7 +176,7 @@
     {
         "studentId": "s782012",
         "courseId": "C004",
-        "courseName": "Web Development",
+        "name": "Web Development",
         "year": "2023",
         "sem": "B",
         "credit": 3,
@@ -205,7 +205,7 @@
     {
         "studentId": "s945234",
         "courseId": "C005",
-        "courseName": "Data Structures",
+        "name": "Data Structures",
         "year": "2023",
         "sem": "A",
         "credit": 4,
@@ -234,7 +234,7 @@
     {
         "studentId": "s011345",
         "courseId": "C005",
-        "courseName": "Data Structures",
+        "name": "Data Structures",
         "year": "2023",
         "sem": "A",
         "credit": 4,
@@ -263,7 +263,7 @@
     {
         "studentId": "s176450",
         "courseId": "C006",
-        "courseName": "Artificial Intelligence",
+        "name": "Artificial Intelligence",
         "year": "2023",
         "sem": "B",
         "credit": 4,
@@ -292,7 +292,7 @@
     {
         "studentId": "s227561",
         "courseId": "C006",
-        "courseName": "Artificial Intelligence",
+        "name": "Artificial Intelligence",
         "year": "2023",
         "sem": "B",
         "credit": 4,
@@ -321,7 +321,7 @@
     {
         "studentId": "s123456",
         "courseId": "C007",
-        "courseName": "Database Systems",
+        "name": "Database Systems",
         "year": "2023",
         "sem": "A",
         "credit": 3,
@@ -350,7 +350,7 @@
     {
         "studentId": "s436789",
         "courseId": "C007",
-        "courseName": "Database Systems",
+        "name": "Database Systems",
         "year": "2023",
         "sem": "A",
         "credit": 3,
@@ -379,7 +379,7 @@
     {
         "studentId": "s123456",
         "courseId": "C008",
-        "courseName": "Operating Systems",
+        "name": "Operating Systems",
         "year": "2023",
         "sem": "B",
         "credit": 4,
@@ -408,7 +408,7 @@
     {
         "studentId": "s234567",
         "courseId": "C008",
-        "courseName": "Operating Systems",
+        "name": "Operating Systems",
         "year": "2023",
         "sem": "B",
         "credit": 4,
@@ -437,7 +437,7 @@
     {
         "studentId": "s345678",
         "courseId": "C009",
-        "courseName": "Computer Networks",
+        "name": "Computer Networks",
         "year": "2023",
         "sem": "A",
         "credit": 3,
