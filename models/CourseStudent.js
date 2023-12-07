@@ -45,11 +45,11 @@ courseStudentSchema.statics.findBySem = function (sem){  //find by sem
 }
 
 courseStudentSchema.statics.findByCourseIdYearSem = function (cId, year, sem){  //find by course, year, sem
-    return this.find({courseId: cId, year: year, sem: sem});
+    return this.find({courseId: cId.toLocaleUpperCase(), year: year, sem: sem});
 }
 
 courseStudentSchema.statics.findByUserIdCourseId = function (uId, cId){  //find by user, course id
-    return this.find({studentId: uId, courseId: cId});
+    return this.find({studentId: uId, courseId: cId.toLocaleUpperCase()});
 }
 
 courseStudentSchema.statics.findByUserIdYear = function (userId, year){  //find by id, year
@@ -66,7 +66,7 @@ courseStudentSchema.statics.findByUserIdYearSem = function (userId, year, sem){ 
 }
 
 courseStudentSchema.statics.findByUserIdCourseIdYearSem = function (userId, cId, year, sem){  //find by id, course, year, sem
-    return this.findOne({studentId: userId, courseId: cId, year: year, sem: sem});
+    return this.findOne({studentId: userId, courseId: cId.toLocaleUpperCase(), year: year, sem: sem});
 }
 
 
