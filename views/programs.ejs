@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs',{auth:auth || {}}) %>
+    <div class="container">
+        <br><br>
+        <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-8">
+              <h4 class="card-title text-primary">Programmes</h4>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Credit Requirements</th>
+                    <th>Year Created</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% data.forEach(program => { %>
+                    <tr>
+                      <td><%= program.id %></td>
+                      <td><%= program.name %></td>
+                      <td><%= program.dept %></td>
+                      <td>
+                        <% program.credit.forEach(credit => { %>
+                          <div><strong><%= credit.yearType %></strong>: <%= credit.credit %></div>
+                        <% }) %>
+                      </td>
+                      <td><%= program.yearFrom %></td>
+                      <td><%= program.status %></td>
+                      <td><a href="/program/<%= program.id %>">Details</a></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+              </table>
+         
+        </div>
+      </div>
+    </div>
+
+    <%- include('../views/components/foot.ejs')%>
+  </body>
+</html>

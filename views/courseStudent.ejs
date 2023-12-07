@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+  </head>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs', {auth:auth}) %>
+    <br/><br/>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-8">
+              <h4 class="card-title text-primary">Course Student Records</h4>
+              <div class="row d-flex">
+                <a class="btn btn-danger mx-2" href="" role="button">Edit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Student ID</th>
+                    <th>Course ID</th>
+                    <th>Name</th>
+                    <th>Year</th>
+                    <th>Semester</th>
+                    <th>Credit</th>
+                    <th>Final Grade</th>
+                    <th>Grade Items</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% data.forEach(course => { %>
+                  <tr>
+                    <td><a href="user/<%= course.studentId %>"><%= course.studentId %></a></td>
+                    <td><%= course.courseId %></td>
+                    <td><%= course.name %></td>
+                    <td><%= course.year %></td>
+                    <td><%= course.sem %></td>
+                    <td><%= course.credit %></td>
+                    <td><%= course.grade.final %></td>
+                    <td>
+                      <ul>
+                        <% course.grade.items.forEach(item => { %>
+                          <li><strong><%= item.itemName %></strong>: <%= item.mark %></li>
+                        <% }) %>
+                      </ul>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+        </div>
+      </div>
+    </div>
+    <%- include('../views/components/foot.ejs')  %>
+  </body>
+</html>

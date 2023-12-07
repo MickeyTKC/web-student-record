@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+  </head>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs', {auth:auth}) %>
+    <br/><br/>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-8">
+              <h4 class="card-title text-primary">Courses Details</h4>
+              <div class="row d-flex">
+                <a class="btn btn-primary mx-2" href="/course/<%= data.id %>/<%= data.year %>/<%= data.sem %>/students" role="button">Student Records</a>
+                <a class="btn btn-danger mx-2" href="" role="button">Edit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Year</th>
+                    <th>Semester</th>
+                    <th>Teacher</th>
+                    <th>Tutors</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><%= data.id %></td>
+                    <td><%= data.name %></td>
+                    <td><%= data.year %></td>
+                    <td><%= data.sem %></td>
+                    <td><%= data.teacher %></td>
+                    <td><%= data.tutors.join(', ') %></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+      </div>
+    </div>
+    <%- include('../views/components/foot.ejs')  %>
+  </body>
+</html>
