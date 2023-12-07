@@ -221,7 +221,15 @@ app.get("/user/:id", async (req, res, next) => {
   }
 });
 
-app.get("/user/id/:id/edit", (req, res, next) => {});
+app.get("/user/id/:id/edit", async (req, res, next) => {
+  try {
+    const auth = req.session.user;
+    const user = await User.findByUserId(req.params.id);
+    res.status(200).render("edit", { data: user || {}, auth: auth });
+  } catch (e) {
+    next();
+  }
+});
 
 //Error Handler
 app.get("/*", (req, res, next) => {
