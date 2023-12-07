@@ -4,62 +4,54 @@
     <%- include('../views/components/head.ejs') %>
     <style>
       .modern-table {
-  border-collapse: collapse;
-  width: 100%;
-}
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-.modern-table th,
-.modern-table td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
+    .modern-table th,
+    .modern-table td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
 
-.modern-table th {
-  background-color: #f2f2f2;
-  color: #333;
-}
+    .modern-table th {
+      background-color: #f2f2f2;
+      color: #333;
+    }
 
-.modern-table tbody tr:hover {
-  background-color: #f9f9f9;
-}
+    .modern-table tbody tr:hover {
+      background-color: #f9f9f9;
+    }
 
-.modern-table tbody td {
-  font-weight: 400;
-}
+    .modern-table tbody td {
+      font-weight: 400;
+    }
 
-.modern-table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
+    .modern-table tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
     </style>
   </head>
-  </head>
   <body>
-    <%- include('../views/components/nav.ejs') %>
-    <%=(JSON.stringify(data))%>
-    <br><br>
-    <table class="modern-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Department</th>
-          <th>Introduction</th>
-          <th>Credit</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% data.forEach(function(item) { %>
-          <tr>
-            <td><%= item.id %></td>
-            <td><%= item.name %></td>
-            <td><%= item.dept %></td>
-            <td><%= item.intro %></td>
-            <td><%= item.credit %></td>
-          </tr>
-        <% }); %>
-      </tbody>
-    </table>
-    <%- include('../views/components/foot.ejs')  %>
+    <%- include('../views/components/nav.ejs',{auth:auth || {}}) %>
+    <div class="container">
+      <h1>Course</h1>
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">Course Information</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item"><strong>ID:</strong> <%= data.id %></li>
+            <li class="list-group-item"><strong>Name:</strong> <%= data.name %></li>
+            <li class="list-group-item"><strong>Department:</strong> <%= data.dept %></li>
+            <li class="list-group-item"><strong>Introduction:</strong> <%= data.intro %></li>
+            <li class="list-group-item"><strong>Credit:</strong> <%= data.credit %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <%- include('../views/components/foot.ejs') %>
   </body>
 </html>
