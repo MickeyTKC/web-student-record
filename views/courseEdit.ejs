@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+  </head>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs', {auth:auth}) %>
+    <br/><br/>
+    <div class="container">
+        <h2>Edit Course</h2>
+        <form action="/course/:id/edit" method="POST" id="editForm">
+            <div class="form-group">
+              <label for="id">ID:</label>
+              <input type="text" class="form-control" id="id" name="id" value="<%= data.id %>" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" class="form-control" id="name" name="name" value="<%= data.name %>">
+            </div>
+            
+            <div class="form-group">
+              <label for="dept">Department:</label>
+              <input type="text" class="form-control" id="dept" name="dept" value="ST" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="intro">Introduction:</label>
+              <textarea class="form-control" id="intro" name="intro"><%= data.intro %></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="credit">Credit:</label>
+              <input type="number" class="form-control" id="credit" name="credit" value="<%= data.credit %>">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Update Course</button>
+          </form>
+      </div>
+      <script>
+        document.getElementById('editForm').addEventListener('submit', async function (event) {
+          event.preventDefault();
+  
+            let form = document.querySelector("#editForm");
+  
+            const url = "/api/course/:id/edit";
+  
+            var id = "<%= data.id %>";
+            const name = document.querySelector("#name").value;
+            const dept = document.querySelector("#dept").value;
+            const intro = document.querySelector("#intro").value;
+            const credit = document.querySelector("#credit").value;
+  
+            try {
+              const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ id, name, dept, intro, credit }),
+              });
+  
+              if (response.ok) {
+                // Sign up success
+                window.location.href = `/course`;
+              } else {
+                // Sign up failed
+                const errorData = await response.json();
+                const errorMessage = errorData.error || "Edit failed. Please try again.";
+                displayError(errorMessage);
+              }
+            } catch (error) {
+              // Error occurred during user edit
+              console.error(error);
+              alert('An error occurred while editing the user');
+            }
+          });
+          function displayError(message) {
+            const errorContainer = document.querySelector(".alert") || document.createElement("div");
+            errorContainer.className = "alert alert-danger mt-3";
+            errorContainer.textContent = message;
+  
+            form.appendChild(errorContainer);
+          }
+      </script>
+    <%- include('../views/components/foot.ejs')  %>
+  </body>
+</html>
