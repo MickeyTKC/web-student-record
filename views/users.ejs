@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .extended-container {
+      max-width: auto;
+      margin: 0 auto;
+      padding: 20px;
+    }
+  </style>
+  <%- include('../views/components/head.ejs') %>
+</head>
+<body>
+  <%- include('../views/components/nav.ejs',{auth:auth || {}}) %>
+  <div class="extended-container">
+    <br><br>
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-8">
+            <h4 class="card-title text-primary">User</h4>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Password</th>
+                <th>Role</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Major</th>
+                <th>ProgYear</th>
+                <th>DateFrom</th>
+                <th>DateTo</th>
+                <th>Email</th>
+                <th>PhoneNo</th>
+                <th>EmergencyPhoneNo</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach(user => { %>
+              <tr>
+                <td><%= user.id %></td>
+                <td><%= user.password %></td>
+                <td><%= user.role %></td>
+                <td><%= user.name %></td>
+                <td><%= user.department %></td>
+                <td><%= user.major %></td>
+                <td><%= user.progYear %></td>
+                <td><%= user.dateFrom %></td>
+                <td><%= user.dateTo %></td>
+                <td><%= user.email %></td>
+                <td><%= user.phoneNo %></td>
+                <td><%= user.emergencyPhoneNo %></td>
+                <td><a href="/user/<%= user.id %>">Details</a></td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../views/components/foot.ejs')%>
+</body>
+</html>
