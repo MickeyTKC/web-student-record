@@ -213,20 +213,21 @@ app.get(
   }
 );
 app.get(
-  "/course/:id/:year/:sem/students/edit",
+  "/course/:id/:year/:sem/:student",
   auth.isNotStudent,
   async (req, res, next) => {
     try {
       const auth = req.session.user;
-      const { id, year, sem } = req.params;
-      const courseStudent = await CourseStudent.findByCourseYearSem(
+      const { id, year, sem, student } = req.params;
+      const courseStudent = await CourseStudent.findByCourseYearSemStudent(
         id,
         year,
-        sem
+        sem,
+        student
       );
       res
         .status(200)
-        .render("courseStudentEdit", { data: courseStudent || [], auth: auth });
+        .render("courseStudentEdit", { data: courseStudent || {}, auth: auth });
     } catch (e) {
       next();
     }
