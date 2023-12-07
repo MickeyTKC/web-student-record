@@ -293,19 +293,22 @@ app.get("/academic", auth.isLogin, async (req, res, next) => {
   }
 });
 
-app.get("/dashboard", auth.isAdmin, async (req, res, next) => {
+app.get("/dashboard", auth.isLogin, async (req, res, next) => {
   var courseDetail = [];
-  const { role } = req.session.user;
+  const { id, role } = req.session.user;
+  if(role=="student"){
+    return next({ statusCode: 403, message: "Admin permission is required." });
+  }
   const auth = req.session.user;
   try {
     if (role == "admin") {
       courseDetail = await CourseDetail.find();
-    }
-    if (role != "admin") {
+    }else {
       courseDetail = await CourseDetail.findByTeacher(id);
+      console.log(courseDetail)
     }
   } catch (e) {
-    next();
+    return next();
   }
   res
     .status(200)
