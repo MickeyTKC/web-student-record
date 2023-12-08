@@ -129,6 +129,7 @@ app.get("/course/:id/edit", auth.isLogin, async (req, res, next) => {
     res.status(200).render("courseEdit", {
       data: course || {},
       auth: auth,
+      url: `/api/course/${req.params.id}`
     });
   } catch (e) {
     next();
