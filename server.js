@@ -142,7 +142,8 @@ app.get("/course/:id/edit", auth.isLogin, async (req, res, next) => {
 app.get("/course/:id/add", auth.isNotStudent, async (req, res, next) => {
   try {
     const auth = req.session.user;
-    res.status(200).render("courseDetailAdd", { auth: auth });
+    const course = await Course.findByCourseId(req.params.id);
+    res.status(200).render("courseDetailAdd", { data: course, auth: auth });
   } catch (e) {
     next();
   }
@@ -281,8 +282,9 @@ app.get("/program/:id/edit", auth.isNotStudent, async (req, res, next) => {
     const auth = req.session.user;
     const prog = await Program.findByProgId(req.params.id);
     prog.allCourses = await Course.find() || [];
-    prog.teachers = await User.find({role:"teacher"}) || []
-    res.status(200).render("programEdit", { data: prog || {}, auth: auth });
+    prog.allTeachers = await User.find({role:"teacher"}) || []
+    console.log(prog.course)
+    res.status(200).render("programEdit", { data: prog || {}, auth: auth, url:`/api/program/${req.params.id}`});
   } catch (e) {
     next();
   }
