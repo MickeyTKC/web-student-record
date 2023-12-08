@@ -367,7 +367,7 @@ app.get("/user/:id/edit", auth.isAdmin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const user = await User.findByUserId(req.params.id);
-    res.status(200).render("userEdit", { data: user || {}, auth: auth , url: `/api/user/${id}` });
+    res.status(200).render("userEdit", { data: user || {}, auth: auth , url: `/api/user/${req.params.id}` });
   } catch (e) {
     next();
   }
