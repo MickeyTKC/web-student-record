@@ -154,9 +154,12 @@ app.get("/course/:id/:year/:sem", auth.isNotStudent, async (req, res, next) => {
     const auth = req.session.user;
     const { id, year, sem } = req.params;
     const courseDetail = await CourseDetail.findByCourseYearSem(id, year, sem);
+    courseDetail.allStudents = await User.find({role:"student"})
+    courseDetail.students = await CourseStudent.findByCourseIdYearSem(id, year, sem)
+    console.log(courseDetail.students)
     res
       .status(200)
-      .render("courseDetail", { data: courseDetail || {}, auth: auth });
+      .render("courseDetail", { data: courseDetail || {}, auth: auth , url:"/api/course/student"});
   } catch (e) {
     next();
   }
