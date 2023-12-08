@@ -9,7 +9,7 @@
     <br/><br/>
     <div class="container">
         <h2>Edit Course Student Details</h2>
-        <form action="/course/:id/:year/:sem/:student" method="POST" id="editForm">
+        <form action="/course/:id/:year/:sem/:student" method="put" id="editForm">
           <div class="form-group">
             <label for="studentId">Student ID:</label>
             <input type="text" class="form-control" id="studentId" name="studentId" value="<%= data.studentId %>" readonly>
@@ -53,7 +53,7 @@
   
             let form = document.querySelector("#addForm");
   
-            const url = "/api/course/:id/:year/:sem/:student";
+            const url = "<%= url %>";
   
             const studentId = document.querySelector("#studentId").value;
             const courseId = document.querySelector("#courseId").value;
@@ -67,7 +67,7 @@
   
             try {
               const response = await fetch(url, {
-                method: "POST",
+                method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
                 },
