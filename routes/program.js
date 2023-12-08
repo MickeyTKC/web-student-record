@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
+const auth = require("./auth");
 const Program = require("../models/Program");
 const Department = require("../models/Department");
 
 // Create new program
-router.post("/", async (req, res) => {
+router.post("/", auth.isAdmin, async (req, res) => {
   try {
     const { id, name, dept, intro } = req.body;
     const status = "inactive";
@@ -33,7 +34,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", auth.isLogin, async (req, res) => {
   try {
     const programs = await Program.find();
     res.json(programs);
@@ -42,7 +43,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth.isLogin, async (req, res) => {
   try {
     const program = await Program.findById(req.params.id);
     if (!program) {
@@ -54,7 +55,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", auth.isNotStudent, async (req, res) => {
   try {
     const { name, dept, intro, credit, leaders, course, status } = req.body;
     const checkDept = Department.findByDeptId(dept);
@@ -80,7 +81,7 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.delete("/programs/:id", async (req, res) => {
+router.delete("/programs/:id", auth.isAdmin, async (req, res) => {
   try {
     const program = await Program.findByProgId(req.params.id);
     if (!program) {
