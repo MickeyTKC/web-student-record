@@ -6,6 +6,10 @@ const courseDetailRoute = require("./courseDetail");
 const courseStudentRoute = require("./courseStudent");
 
 // Create a new course
+
+router.use("/detail", courseDetailRoute);
+router.use("/student", courseStudentRoute);
+
 router.post("/", async (req, res) => {
   try {
     var { id, name, dept, intro, credit } = req.body;
@@ -89,7 +93,5 @@ router.delete("/:id", async (req, res) => {
 });
 
 // Get all course details
-router.use("/detail", courseDetailRoute);
-router.use("/student", courseStudentRoute);
 
 module.exports = router;
