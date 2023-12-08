@@ -15,6 +15,7 @@
             <div class="col-8">
               <h4 class="card-title text-primary">Personal Information</h4>
               <button id="submit" class="btn btn-primary">Submit</button>
+              <div id="message"></div>
             </div>
           </div>
         </div>
@@ -30,6 +31,14 @@
                 readonly
               />
             </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="password"
+                value="<%= data.password %>"
+              />
             <div class="form-group">
               <label for="name">Name:</label>
               <input
@@ -133,6 +142,7 @@
           // The Input Data
           var id = "<%= data.id %>";
           var role = "<%= data.role %>";
+          const password = $("#password").val();
           const name = $("#name").val();
           const department = $("#department").val();
           const major = $("#major").val();
@@ -149,7 +159,7 @@
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({id, role, name, department, major, progYear, dateFrom, dateTo, email,phoneNo,emergencyPhoneNo}),
+              body: JSON.stringify({id, password, role, name, department, major, progYear, dateFrom, dateTo, email,phoneNo,emergencyPhoneNo}),
             });
             // success case
             if (response.ok) {
