@@ -10,14 +10,14 @@ const courseStudentRoute = require("./courseStudent")
 // Create a new course
 router.post('/', async (req, res) => {
   try {
-    const { id, name, intro, credit } = req.body;
+    const { id, name, dept, intro, credit } = req.body;
 
     // Validate required fields
     if (!id || !name || !credit) {
       return res.status(400).json({ error: 'id, name, and credit are required' });
     }
     const upperId = id.toLocaleUpperCase();
-    const course = new Course({ upperId, name, intro, credit });
+    const course = new Course({ upperId, name, dept, intro, credit });
     await course.save();
     res.status(201).json(course);
   } catch (error) {
