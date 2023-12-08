@@ -12,12 +12,12 @@
         <form action="/courseDetail/add" method="POST" id="addForm">
           <div class="form-group">
             <label for="id">ID:</label>
-            <input type="text" class="form-control" id="id" name="id" required>
+            <input type="text" class="form-control" id="id" name="id" value="<%=data.id%>" required>
           </div>
           
           <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" name="name">
+            <input type="text" class="form-control" id="name" name="name" value="<%=data.name%>" required>
           </div>
           
           <div class="form-group">
