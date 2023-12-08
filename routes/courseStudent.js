@@ -18,9 +18,8 @@ router.post('/', async (req, res) => {
     students.forEach(async std=>{
       if(studentRecord.filter(sr=>{return sr.studentId == std}).length<=0){
         const studentId = std;
-        const grade = {final:"In Progess",items:[]}
+        const grade = {final:"In Progress",items:[]}
         const {name,credit} = courseRecord 
-        console.log({studentId,courseId,year,sem,name,credit,grade})
         const newStudentRecord = new CourseStudent({studentId,courseId,name,year,sem,credit,grade})
         await newStudentRecord.save()
       }else{
