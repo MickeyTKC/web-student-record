@@ -30,6 +30,23 @@
               />
             </div>
             <div class="form-group">
+              <label for="password">Password:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="password"
+                value="<%=Math.round(Math.random()*100000000)%>"
+              />
+              
+              <div class="form-group">
+                <label for="role">Role:</label>
+                <select class="form-control" id="role">
+                  <option value="student">Student</option>
+                  <option value="teacher">Teacher</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+            <div class="form-group">
               <label for="name">Name:</label>
               <input
                 type="text"
@@ -44,17 +61,9 @@
                 type="text"
                 class="form-control"
                 id="department"
-                
+                value="ST"
+                readonly
               />
-            </div>
-            <div class="form-group">
-              <label for="role">Role:</label>
-              <select class="form-control" id="role">
-                <option value="">-- Select --</option>
-                <option value="student">Student</option>
-                <option value="teacher">Teacher</option>
-                <option value="admin">Admin</option>
-              </select>
             </div>
             <div class="form-group">
               <label for="major">Major:</label>
@@ -129,17 +138,18 @@
         $("#submit").click(async function () {
           // The API Url
           const url = "<%= url %>";
-          const id = $("#id").val();
-          const name = $("#name").val();
-          const role = $("#role").val();
-          const department = $("#department").val();
-          const major = $("#major").val();
-          const progYear = $("#progYear").val();
-          const dateFrom = $("#dateFrom").val();
-          const dateTo = $("#dateTo").val();
-          const email = $("#email").val();
-          const phoneNo = $("#phoneNo").val();
-          const emergencyPhoneNo = $("#emergencyPhoneNo").val();
+          const id = $("#id").val() || "";
+          const password = $("#password").val() || "";
+          const name = $("#name").val() || "";
+          const role = $("#role").val() || "";
+          const department = $("#department").val() || "";
+          const major = $("#major").val() || "";
+          const progYear = $("#progYear").val() || "";
+          const dateFrom = $("#dateFrom").val() || "";
+          const dateTo = $("#dateTo").val() || "";
+          const email = $("#email").val() || "";
+          const phoneNo = $("#phoneNo").val() || "";
+          const emergencyPhoneNo = $("#emergencyPhoneNo").val() || "";
           // Fetch Data
           try {
             const response = await fetch(url, {
@@ -147,7 +157,7 @@
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({id, role, name, department, major, progYear, dateFrom, dateTo, email,phoneNo,emergencyPhoneNo}),
+              body: JSON.stringify({id, password, role, name, department, major, progYear, dateFrom, dateTo, email,phoneNo,emergencyPhoneNo}),
             });
             // success case
             if (response.ok) {
