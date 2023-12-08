@@ -283,7 +283,6 @@ app.get("/program/:id/edit", auth.isNotStudent, async (req, res, next) => {
     const prog = await Program.findByProgId(req.params.id);
     prog.allCourses = await Course.find() || [];
     prog.allTeachers = await User.find({role:"teacher"}) || []
-    console.log(prog.course)
     res.status(200).render("programEdit", { data: prog || {}, auth: auth, url:`/api/program/${req.params.id}`});
   } catch (e) {
     next();
