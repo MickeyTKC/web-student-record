@@ -278,6 +278,8 @@ app.get("/program/:id/edit", auth.isNotStudent, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const prog = await Program.findByProgId(req.params.id);
+    prog.allCourses = await Course.find() || [];
+    prog.teachers = await User.find({role:"teacher"}) || []
     res.status(200).render("programEdit", { data: prog || {}, auth: auth });
   } catch (e) {
     next();
