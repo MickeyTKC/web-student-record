@@ -97,10 +97,10 @@ router.patch("/profile/edit", auth.isLogin, async (req, res) => {
 // Update a user by ID
 router.patch("/:id", auth.isLogin, async (req, res) => {
   const id = req.params.id;
-  if (id != req.session.userId || req.session.user.role != "admin")
-    return next({ statusCode: 400, message: "No permission" });
+
   try {
     const {
+      password,
       role,
       name,
       department,
@@ -123,6 +123,7 @@ router.patch("/:id", auth.isLogin, async (req, res) => {
     const user = new User(await User.findByUserId(id));
     if (!user) return res.status(404).json({ message: "User not found" });
 
+    user.password = password || user.password;
     user.role = role || user.role;
     user.name = name || user.name;
     user.department = department || user.department;
@@ -143,8 +144,7 @@ router.patch("/:id", auth.isLogin, async (req, res) => {
 router.patch("/:id/password", auth.isLogin, async (req, res) => {
   try {
     const id = req.params.id;
-    if (id != req.session.userId || req.session.user.role != "admin")
-      return next({ statusCode: 400, message: "No permission" });
+
     const { password } = req.body;
     // Validate required fields
     if (!id) {
