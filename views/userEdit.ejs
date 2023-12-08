@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-8">
               <h4 class="card-title text-primary">Personal Information</h4>
-              <a href="" class="btn btn-primary">Update</a>
+              <button id="submit" class="btn btn-primary">Submit</button>
             </div>
           </div>
         </div>
@@ -124,5 +124,66 @@
     </div>
 
     <%- include('../views/components/foot.ejs') %>
+
+    <script>
+      $(document).ready(function () {
+        $("#submit").click(async function () {
+          // The API Url
+          const url = "<%= url %>";
+          // The Input Data
+          var id = "<%= data.id %>";
+          var role = "<%= data.role %>";
+          const name = $("#name").val();
+          const department = $("#department").val();
+          const major = $("#major").val();
+          const progYear = $("#progYear").val();
+          const dateFrom = $("#dateFrom").val();
+          const dateTo = $("#dateTo").val();
+          const email = $("#email").val();
+          const phoneNo = $("#phoneNo").val();
+          const emergencyPhoneNo = $("#emergencyPhoneNo").val();
+          // Fetch Data
+          try {
+            const response = await fetch(url, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({id, role, name, department, major, progYear, dateFrom, dateTo, email,phoneNo,emergencyPhoneNo}),
+            });
+            // success case
+            if (response.ok) {
+              const data = await response.json();
+              const message = data.message;
+              displayMessage("Success.", true);
+              setTimeout(function () {
+                window.location.href = "/users";
+              }, 1000);
+            // Reject Case
+            } else {
+              const errorData = await response.json();
+              console.log(errorData);
+              const errorMessage =
+                errorData.error || "Failed. Please try again.";
+              displayMessage(errorMessage);
+            }
+          } catch (error) {
+            // Error occurred during sign in
+            displayMessage("An error occurred. Please try again later.");
+          }
+        });
+        // maybe alert message
+        function displayMessage(message, ok) {
+          const errorContainer =
+            document.querySelector(".alert") || document.createElement("div");
+          errorContainer.className = `alert ${
+            ok ? "alert-success" : "alert-danger"
+          } mt-3`;
+          errorContainer.textContent = message;
+          document.querySelector("#message").appendChild(errorContainer);
+        }
+      });
+    </script>
+
   </body>
 </html>

@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-8">
               <h4 class="card-title text-primary">Personal Information</h4>
-              <a href="" class="btn btn-primary">Update</a>
+              <button id="submit" class="btn btn-primary">Submit</button>
             </div>
           </div>
         </div>
@@ -30,6 +30,23 @@
               />
             </div>
             <div class="form-group">
+              <label for="password">Password:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="password"
+                value="<%=Math.round(Math.random()*100000000)%>"
+              />
+              
+              <div class="form-group">
+                <label for="role">Role:</label>
+                <select class="form-control" id="role">
+                  <option value="student">Student</option>
+                  <option value="teacher">Teacher</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+            <div class="form-group">
               <label for="name">Name:</label>
               <input
                 type="text"
@@ -44,7 +61,8 @@
                 type="text"
                 class="form-control"
                 id="department"
-                
+                value="ST"
+                readonly
               />
             </div>
             <div class="form-group">
@@ -114,5 +132,65 @@
     </div>
 
     <%- include('../views/components/foot.ejs') %>
+
+    <script>
+      $(document).ready(function () {
+        $("#submit").click(async function () {
+          // The API Url
+          const url = "<%= url %>";
+          const id = $("#id").val() || "";
+          const password = $("#password").val() || "";
+          const name = $("#name").val() || "";
+          const role = $("#role").val() || "";
+          const department = $("#department").val() || "";
+          const major = $("#major").val() || "";
+          const progYear = $("#progYear").val() || "";
+          const dateFrom = $("#dateFrom").val() || "";
+          const dateTo = $("#dateTo").val() || "";
+          const email = $("#email").val() || "";
+          const phoneNo = $("#phoneNo").val() || "";
+          const emergencyPhoneNo = $("#emergencyPhoneNo").val() || "";
+          // Fetch Data
+          try {
+            const response = await fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({id, password, role, name, department, major, progYear, dateFrom, dateTo, email,phoneNo,emergencyPhoneNo}),
+            });
+            // success case
+            if (response.ok) {
+              const data = await response.json();
+              const message = data.message;
+              displayMessage("Success.", true);
+              setTimeout(function () {
+                window.location.href = "/users";
+              }, 1000);
+            // Reject Case
+            } else {
+              const errorData = await response.json();
+              console.log(errorData);
+              const errorMessage =
+                errorData.error || "Failed. Please try again.";
+              displayMessage(errorMessage);
+            }
+          } catch (error) {
+            // Error occurred during sign in
+            displayMessage("An error occurred. Please try again later.");
+          }
+        });
+        // maybe alert message
+        function displayMessage(message, ok) {
+          const errorContainer =
+            document.querySelector(".alert") || document.createElement("div");
+          errorContainer.className = `alert ${
+            ok ? "alert-success" : "alert-danger"
+          } mt-3`;
+          errorContainer.textContent = message;
+          document.querySelector("#message").appendChild(errorContainer);
+        }
+      });
+    </script>
   </body>
 </html>
