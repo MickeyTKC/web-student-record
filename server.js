@@ -344,7 +344,7 @@ app.get("/users/", auth.isAdmin, async (req, res, next) => {
 app.get("/user/add", auth.isAdmin, async (req, res, next) => {
   try {
     const auth = req.session.user;
-    res.status(200).render("userAdd", { auth: auth });
+    res.status(200).render("userAdd", { auth: auth, url:"/user/add"});
   } catch (e) {
     next();
   }
@@ -364,7 +364,7 @@ app.get("/user/:id/edit", auth.isAdmin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const user = await User.findByUserId(req.params.id);
-    res.status(200).render("userEdit", { data: user || {}, auth: auth });
+    res.status(200).render("userEdit", { data: user || {}, auth: auth , url: `/user/${id}/edit` });
   } catch (e) {
     next();
   }
