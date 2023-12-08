@@ -106,6 +106,7 @@ app.get("/course/add", auth.isLogin, async (req, res, next) => {
     const auth = req.session.user;
     res.status(200).render("courseAdd", {
       auth: auth,
+      url:"/api/course"
     });
   } catch (e) {
     next();
