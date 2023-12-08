@@ -74,6 +74,26 @@ router.get("/:id", auth.isAdmin, async (req, res) => {
   }
 });
 
+router.patch("/profile/edit", auth.isLogin, async (req, res) => {
+  const {userId} = req.session;
+  try {
+    const {
+      email,
+      phoneNo,
+      emergencyPhoneNo,
+    } = req.body;
+    const user = new User(await User.findByUserId(userId));
+    if (!user) return res.status(404).json({ message: "User not found" });
+    user.email = email || user.email;
+    user.phoneNo = phoneNo || user.phoneNo;
+    user.emergencyPhoneNo = emergencyPhoneNo || user.emergencyPhoneNo;
+    user.save();
+    res.json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+})
+
 // Update a user by ID
 router.patch("/:id", auth.isLogin, async (req, res) => {
   const id = req.params.id;

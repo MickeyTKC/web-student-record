@@ -83,7 +83,7 @@ app.get("/profile/edit", auth.isLogin, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const user = await User.findByUserId(id);
-    res.status(200).render("profileEdit", { data: user || {}, auth: auth });
+    res.status(200).render("profileEdit", { data: user || {}, auth: auth , url:"/api/user/profile/edit"});
   } catch (e) {
     next();
   }
