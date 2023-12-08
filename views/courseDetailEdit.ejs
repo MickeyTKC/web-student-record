@@ -17,79 +17,93 @@
           
           <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" name="name" value="<%= data.name %>" >
+            <input type="text" class="form-control" id="name" name="name" value="<%= data.name %>" readonly>
           </div>
           
           <div class="form-group">
             <label for="year">Year:</label>
-            <input type="text" class="form-control" id="year" name="year" value="<%= data.year %>">
+            <input type="text" class="form-control" id="year" name="year" value="<%= data.year %>" readonly>
           </div>
           
           <div class="form-group">
             <label for="sem">Semester:</label>
-            <input type="text" class="form-control" id="sem" name="sem" value="<%= data.sem %>">
+            <select id="sem" class="form-control" placeholder="Select Course Leader" readonly>
+                <option value="A">A</option>
+                <option value="B">B</option>
+            </select>
           </div>
           
           <div class="form-group">
             <label for="teacher">Teacher:</label>
-            <input type="text" class="form-control" id="teacher" name="teacher" value="<%= data.teacher %>">
+            <select id="teacher" class="form-control" placeholder="Select Course Leader">
+              <% data.allTeachers.forEach(teacher => { %>
+                <option 
+                  value="<%=teacher.id%>"
+                  <%=teacher.id == data.teacher?"selected":""%>
+                  ><%=teacher.name%></option>
+              <% }) %>
+            </select>
           </div>
           
-          <div class="form-group">
-            <label for="tutors">Tutors:</label>
-            <input type="text" class="form-control" id="tutors" name="tutors" value="<%= data.tutors %>">
-          </div>
           
-          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        <div id="message"></div>
+        <button id="submit" class="btn btn-primary">Submit</button>
       </div>
+      <%- include('../views/components/foot.ejs')  %>
       <script>
-        document.getElementById('editForm').addEventListener('submit', async function (event) {
-          event.preventDefault();
-  
-            let form = document.querySelector("#editForm");
-  
-            const url = "/api/courseDetail/:id/edit";
-  
-            var id = "<%= data.id %>";
-            const name = document.querySelector("#name").value;
-            const year = document.querySelector("#year").value;
-            const sem = document.querySelector("#sem").value;
-            const teacher = document.querySelector("#teacher").value;
-            const tutors = document.querySelector("#tutors").value;
-  
+        $(document).ready(function () {
+          $("#submit").click(async function () {
+            // The API Url
+            const url = "<%= url %>";
+            // The Input Data
+            const id = "<%=data.id%>";
+            const year = "<%=data.year%>";
+            const sem = "<%=data.sem%>";
+            const teacher = $("#teacher").val();
+            // Fetch Data
+            console.log({id,name,year,sem,teacher})
             try {
               const response = await fetch(url, {
-                method: "POST",
+                method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ id, name, year, sem, teacher, tutors }),
+                body: JSON.stringify({id,name,year,sem,teacher}),
               });
-  
+              // success case
               if (response.ok) {
-                // Sign up success
-                window.location.href = `/course`;
+                const data = await response.json();
+                const message = data.message;
+                displayMessage("Success.", true);
+                setTimeout(function () {
+                  window.location.href = "/course/<%=data.id%>/<%=data.year%>/<%=data.sem%>";
+                }, 1000);
+              // Reject Case
               } else {
-                // Sign up failed
                 const errorData = await response.json();
-                const errorMessage = errorData.error || "Add failed. Please try again.";
-                displayError(errorMessage);
+                console.log(errorData);
+                const errorMessage =
+                  errorData.error || "Failed. Please try again.";
+                displayMessage(errorMessage);
               }
             } catch (error) {
-              // Error occurred during user edit
-              console.error(error);
-              alert('An error occurred while editing the user');
+              // Error occurred during sign in
+              displayMessage("An error occurred. Please try again later.");
             }
           });
-          function displayError(message) {
-            const errorContainer = document.querySelector(".alert") || document.createElement("div");
-            errorContainer.className = "alert alert-danger mt-3";
+          // maybe alert message
+          function displayMessage(message, ok) {
+            const errorContainer =
+              document.querySelector(".alert") || document.createElement("div");
+            errorContainer.className = `alert ${
+              ok ? "alert-success" : "alert-danger"
+            } mt-3`;
             errorContainer.textContent = message;
-  
-            form.appendChild(errorContainer);
+            document.querySelector("#message").appendChild(errorContainer);
           }
+        });
       </script>
-    <%- include('../views/components/foot.ejs')  %>
+   
   </body>
 </html>

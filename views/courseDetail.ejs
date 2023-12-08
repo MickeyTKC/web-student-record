@@ -47,12 +47,11 @@
           <from>
             <div class="form-group">
               <label for="leaders">Students of the Course:</label>
-              <select id="students" placeholder="Select Course Leader" multiple>
+              <select id="students" placeholder="Select Students add to Course" multiple>
                 <% data.allStudents.forEach(student => { %>
-                  <option 
-                    value="<%=student.id%>" 
-                    <%=data.students.filter((record)=>{return record.studentId == student.id}).length>0?"selected":"0"%>
-                    ><%=student.id + student.name%></option>
+                  <%if(data.students.filter((record)=>{return record.studentId == student.id}).length<=0){%>
+                  <option value="<%=student.id%>"><%=student.id + " " + student.name%></option>
+                  <% } %>
                 <% }) %>
               </select>
               <div id="message"></div>
@@ -91,7 +90,7 @@
               const message = data.message;
               displayMessage("Success.", true);
               setTimeout(function () {
-                window.location.href = "/course/<%=data.id%>/<%=data.sem%>/<%=data.year%>";
+                window.location.href = "/course/<%=data.id%>/<%=data.year%>/<%=data.sem%>";
               }, 1000);
             // Reject Case
             } else {
