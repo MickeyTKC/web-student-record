@@ -8,16 +8,15 @@ const courseStudentRoute = require("./courseStudent");
 // Create a new course
 router.post("/", async (req, res) => {
   try {
-    const { id, name, dept, intro, credit } = req.body;
-
+    var { id, name, dept, intro, credit } = req.body;
     // Validate required fields
     if (!id || !name || !credit) {
       return res
         .status(400)
         .json({ error: "id, name, and credit are required" });
     }
-    const upperId = id.toLocaleUpperCase();
-    const course = new Course({ upperId, name, dept, intro, credit });
+    id = id.toLocaleUpperCase();
+    const course = new Course({ id, name, dept, intro, credit });
     await course.save();
     res.status(201).json(course);
   } catch (error) {
@@ -84,16 +83,6 @@ router.delete("/:id", async (req, res) => {
       return res.status(404).json({ message: "Course not found" });
     }
     res.json({ message: "Course deleted" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Add course details
-router.post("/", async (req, res) => {
-  try {
-    const courseDetail = await CourseDetail.create(req.body);
-    res.status(201).json(courseDetail);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
