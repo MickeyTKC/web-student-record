@@ -143,7 +143,8 @@ app.get("/course/:id/add", auth.isNotStudent, async (req, res, next) => {
   try {
     const auth = req.session.user;
     const course = await Course.findByCourseId(req.params.id);
-    res.status(200).render("courseDetailAdd", { data: course, auth: auth });
+    course.allTeachers = await User.find({role:"teacher"})
+    res.status(200).render("courseDetailAdd", { data: course, auth: auth ,url:"/api/course/detail"});
   } catch (e) {
     next();
   }
@@ -156,7 +157,6 @@ app.get("/course/:id/:year/:sem", auth.isNotStudent, async (req, res, next) => {
     const courseDetail = await CourseDetail.findByCourseYearSem(id, year, sem);
     courseDetail.allStudents = await User.find({role:"student"})
     courseDetail.students = await CourseStudent.findByCourseIdYearSem(id, year, sem)
-    console.log(courseDetail.students)
     res
       .status(200)
       .render("courseDetail", { data: courseDetail || {}, auth: auth , url:"/api/course/student"});
@@ -177,11 +177,12 @@ app.get(
         year,
         sem
       );
+      courseDetail.allTeachers = await User.find({role:"teacher"})
       res
         .status(200)
-        .render("courseDetailEdit", { data: courseDetail || {}, auth: auth });
+        .render("courseDetailEdit", { data: courseDetail || {}, auth: auth , url:`/api/course/detail/${id}/${year}/:${sem}`});
     } catch (e) {
-      next();
+      return next();
     }
   }
 );
