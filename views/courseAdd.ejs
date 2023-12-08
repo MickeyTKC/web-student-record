@@ -36,6 +36,7 @@
             </div>
             
             <button type="submit" class="btn btn-primary">Submit</button>
+            <div id="message"></div>
           </form>
       </div>
       <script>
@@ -44,7 +45,7 @@
   
             let form = document.querySelector("#addForm");
   
-            const url = "/api/course/add";
+            const url = "<%=url%>";
   
             const id = document.querySelector("#id").value;
             const name = document.querySelector("#name").value;
@@ -62,26 +63,33 @@
               });
   
               if (response.ok) {
-                // Sign up success
-                window.location.href = `/course`;
+                // Success Case
+                const data = await response.json();
+                const message = data.message;
+                displayMessage("Success.", true);
+                displayMessage("Success.", true);
+                setTimeout(function () {
+                    window.location.href = `/course`;
+                }, 1000);
               } else {
-                // Sign up failed
+                // Failed Case
                 const errorData = await response.json();
-                const errorMessage = errorData.error || "Add failed. Please try again.";
-                displayError(errorMessage);
+                const errorMessage = errorData.error || "Failed. Please try again.";
+                displayMessage(errorMessage);
               }
             } catch (error) {
               // Error occurred during user edit
-              console.error(error);
-              alert('An error occurred while editing the user');
+              displayMessage('An error occurred while editing the user');
             }
           });
-          function displayError(message) {
-            const errorContainer = document.querySelector(".alert") || document.createElement("div");
-            errorContainer.className = "alert alert-danger mt-3";
+          function displayMessage(message, ok) {
+            const errorContainer =
+              document.querySelector(".alert") || document.createElement("div");
+            errorContainer.className = `alert ${
+              ok ? "alert-success" : "alert-danger"
+            } mt-3`;
             errorContainer.textContent = message;
-  
-            form.appendChild(errorContainer);
+            document.querySelector("#message").appendChild(errorContainer);
           }
       </script>
     <%- include('../views/components/foot.ejs')  %>

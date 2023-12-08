@@ -64,7 +64,12 @@
   
               if (response.ok) {
                 // Sign up success
-                window.location.href = `/course`;
+                const data = await response.json();
+                const message = data.message;
+                displayMessage("Success.", true);
+                setTimeout(function () {
+                    window.location.href = `/course/<%=data.id%>`;
+                }, 1000);
               } else {
                 // Sign up failed
                 const errorData = await response.json();
@@ -77,14 +82,14 @@
             }
           });
           function displayMessage(message, ok) {
-          const errorContainer =
-            document.querySelector(".alert") || document.createElement("div");
-          errorContainer.className = `alert ${
-            ok ? "alert-success" : "alert-danger"
-          } mt-3`;
-          errorContainer.textContent = message;
-          document.querySelector("#message").appendChild(errorContainer);
-        }
+            const errorContainer =
+              document.querySelector(".alert") || document.createElement("div");
+            errorContainer.className = `alert ${
+              ok ? "alert-success" : "alert-danger"
+            } mt-3`;
+            errorContainer.textContent = message;
+            document.querySelector("#message").appendChild(errorContainer);
+          }
       </script>
     <%- include('../views/components/foot.ejs')  %>
   </body>
