@@ -2,7 +2,7 @@
 <html>
   <head>
     <%- include('../views/components/head.ejs') %>
-  </head>
+    
   </head>
   <body>
     <%- include('../views/components/nav.ejs', {auth:auth}) %>
@@ -53,27 +53,54 @@
           
                 <div class="form-group">
                   <label for="leaders">Leaders:</label>
-                  <input type="text" class="form-control" id="leaders" name="leaders" value="<%= data.leaders.join(', ') %>">
+                  <select id="leaders" placeholder="Select Course Leader" multiple>
+                    <% data.teachers.forEach(teacher => { %>
+                      <option 
+                        value="<%=teacher.id%>" 
+                        <%=data.leaders.filter((lr)=>{return lr.id == teacher.id}).length>0?"selected":""%>
+                        ><%=teacher.name%></option>
+                    <% }) %>
+                  </select>
                 </div>
           
                 <div class="form-group">
                   <label for="courses">Courses:</label>
-                  <input type="text" class="form-control" id="courses" name="courses" value="<%= data.course.join(', ') %>">
-                </div>
-          
-                <div class="form-group">
-                  <label for="yearFrom">Year Created:</label>
-                  <input type="text" class="form-control" id="yearFrom" name="yearFrom" value="<%= data.yearFrom %>">
+                  <select id="courses" placeholder="Select courses" multiple>
+                    <% data.allCourses.forEach(course => { %>
+                      <option 
+                        value="<%=course.id%>" 
+                        <%=data.course.filter((cr)=>{return cr.id == course.id}).length>0?"selected":""%>
+                        ><%=course.name%></option>
+                    <% }) %>
+                  </select>
                 </div>
           
                 <div class="form-group">
                   <label for="status">Status:</label>
-                  <input type="text" class="form-control" id="status" name="status" value="<%= data.status %>">
+                  <select class="form-control" id="status" name="status" aria-label="Default select example">
+                    <option value="0" selected>Inactive</option>
+                    <option value="1">Active</option>
+                  </select>
                 </div>
               </form>
         </div>
       </div>
     </div>
     <%- include('../views/components/foot.ejs')  %>
+    <script>
+      $(document).ready(function(){
+        const leaders = new Choices('#leaders', {
+          removeItemButton: true,
+          searchResultLimit:5,
+          renderChoiceLimit:5
+        }); 
+        const courses = new Choices('#courses', {
+          removeItemButton: true,
+          searchResultLimit:5,
+          renderChoiceLimit:5
+        }); 
+        
+      })
+    </script>
   </body>
 </html>
