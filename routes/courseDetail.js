@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const auth = require("./auth");
 const CourseDetail = require('../models/CourseDetail');
 const Course = require('../models/Course');
 
 // Create a new course detail
-router.post('/', async (req, res) => {
+router.post('/', auth.isAdmin, async (req, res) => {
   try {
     const {id,year,sem,teacher} = req.body
     const cd = await CourseDetail.findByCourseYearSem(id,year,sem)
@@ -24,7 +25,7 @@ router.post('/', async (req, res) => {
 });
 
 // Get all course details
-router.get('/', async (req, res) => {
+router.get('/', auth.isLogin, async (req, res) => {
   try {
     const courseDetails = await CourseDetail.find();
     res.json(courseDetails);
@@ -34,7 +35,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get a single course detail by ID, semester, and year
-router.get('/:id/:year/:sem', async (req, res) => {
+router.get('/:id/:year/:sem', auth.isLogin, async (req, res) => {
   try {
     const { id, sem, year } = req.params;
     const courseDetail = await CourseDetail.findByCourseYearSem(id, year, sem);
@@ -48,7 +49,7 @@ router.get('/:id/:year/:sem', async (req, res) => {
 });
 
 // Update a course detail by ID, semester, and year
-router.put('/:id/:year/:sem', async (req, res) => {
+router.put('/:id/:year/:sem', auth.isNotStudent, async (req, res) => {
   try {
     var { id, sem, year } = req.params;
     sem = sem.replace(":","");
@@ -71,7 +72,7 @@ router.put('/:id/:year/:sem', async (req, res) => {
 });
 
 // Delete a course detail by ID, semester, and year
-router.delete('/:id/:year/:sem', async (req, res) => {
+router.delete('/:id/:year/:sem', auth.isAdmin, async (req, res) => {
   try {
     const { id, sem, year } = req.params;
     const courseDetail = await CourseDetail.findOneAndDelete({ id, sem, year });
