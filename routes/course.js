@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const auth = require("./auth");
 const Course = require("../models/Course");
 const courseDetailRoute = require("./courseDetail");
 const courseStudentRoute = require("./courseStudent");
@@ -10,7 +11,7 @@ const courseStudentRoute = require("./courseStudent");
 router.use("/detail", courseDetailRoute);
 router.use("/student", courseStudentRoute);
 
-router.post("/", async (req, res) => {
+router.post("/", auth.isAdmin, async (req, res) => {
   try {
     var { id, name, dept, intro, credit } = req.body;
     // Validate required fields
@@ -29,7 +30,7 @@ router.post("/", async (req, res) => {
 });
 
 // Get all courses
-router.get("/", async (req, res) => {
+router.get("/", auth.isLogin, async (req, res) => {
   try {
     const courses = await Course.find();
     res.json(courses);
@@ -39,7 +40,7 @@ router.get("/", async (req, res) => {
 });
 
 // Get a specific course by ID
-router.get("/:id", async (req, res) => {
+router.get("/:id",auth.isLogin, async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);
     if (!course) {
@@ -52,7 +53,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Update a course by ID
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", auth.isNotStudent, async (req, res) => {
   try {
     const { id, name, intro, credit } = req.body;
 
@@ -80,7 +81,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 // Delete a course by ID
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth.isAdmin, async (req, res) => {
   try {
     const course = await Course.findByIdAndDelete(req.params.id);
     if (!course) {
