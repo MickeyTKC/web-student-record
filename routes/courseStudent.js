@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const auth = require("./auth");
 const CourseStudent = require('../models/CourseStudent');
 const Course = require('../models/Course');
 
 // Create a new course student
-router.post('/', async (req, res) => {
+router.post('/', auth.isAdmin, async (req, res) => {
   try {
     const {courseId,year,sem,students} = req.body;
     if(!students){
@@ -33,7 +34,7 @@ router.post('/', async (req, res) => {
 });
 
 // Get all course students
-router.get('/', async (req, res) => {
+router.get('/', auth.isLogin, async (req, res) => {
   try {
     const courseStudents = await CourseStudent.find();
     res.json(courseStudents);
@@ -43,7 +44,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get a single course student by student ID, course ID, semester, and year
-router.get('/:studentId/:courseId/:year/:sem', async (req, res) => {
+router.get('/:studentId/:courseId/:year/:sem', auth.isLogin, async (req, res) => {
   try {
     const { studentId, courseId, year, sem } = req.params;
     const courseStudent = await CourseStudent.findByUserIdCourseIdYearSem(studentId, courseId, year, sem );
@@ -57,7 +58,7 @@ router.get('/:studentId/:courseId/:year/:sem', async (req, res) => {
 });
 
 // Update a course student by student ID, course ID, semester, and year
-router.put('/:studentId/:courseId/:year/:sem', async (req, res) => {
+router.put('/:studentId/:courseId/:year/:sem', auth.isNotStudent, async (req, res) => {
   try {
     const { studentId, courseId, year, sem } = req.params;
     const courseStudent = new CourseStudent(await CourseStudent.findByUserIdCourseIdYearSem(studentId, courseId, year, sem )) ;
@@ -78,7 +79,7 @@ router.put('/:studentId/:courseId/:year/:sem', async (req, res) => {
 });
 
 // Delete a course student by student ID, course ID, semester, and year
-router.delete('/:studentId/:courseId/:year/:sem', async (req, res) => {
+router.delete('/:studentId/:courseId/:year/:sem', auth.isAdmin, async (req, res) => {
   try {
     const { studentId, courseId, sem, year } = req.params;
     const courseStudent = await CourseStudent.findOneAndDelete({ studentId, courseId, sem, year });
