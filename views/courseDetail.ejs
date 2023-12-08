@@ -8,7 +8,7 @@
     <%- include('../views/components/nav.ejs', {auth:auth}) %>
     <br/><br/>
     <div class="container">
-      <div class="card">
+      <div class="card h-100">
         <div class="card-header">
           <div class="row">
             <div class="col-8">
@@ -21,31 +21,102 @@
           </div>
         </div>
         <div class="card-body">
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Year</th>
-                    <th>Semester</th>
-                    <th>Teacher</th>
-                    <th>Tutors</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><%= data.id %></td>
-                    <td><%= data.name %></td>
-                    <td><%= data.year %></td>
-                    <td><%= data.sem %></td>
-                    <td><%= data.teacher %></td>
-                    <td><%= data.tutors.join(', ') %></td>
-                  </tr>
-                </tbody>
-              </table>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Year</th>
+                <th>Semester</th>
+                <th>Teacher</th>
+                <th>Tutors</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= data.id %></td>
+                <td><%= data.name %></td>
+                <td><%= data.year %></td>
+                <td><%= data.sem %></td>
+                <td><%= data.teacher %></td>
+                <td><%= data.tutors.join(', ') %></td>
+              </tr>
+            </tbody>
+          </table>
+          <b>Add Student</b>
+          <from>
+            <div class="form-group">
+              <label for="leaders">Students of the Course:</label>
+              <select id="students" placeholder="Select Course Leader" multiple>
+                <% data.allStudents.forEach(student => { %>
+                  <option 
+                    value="<%=student.id%>" 
+                    <%=data.students.filter((record)=>{return record.studentId == student.id}).length>0?"selected":"0"%>
+                    ><%=student.id + student.name%></option>
+                <% }) %>
+              </select>
+              <div id="message"></div>
+              <button id="submit" class="btn btn-primary">Add Students</button>
+            </div>
+          </from>
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         </div>
       </div>
     </div>
     <%- include('../views/components/foot.ejs')  %>
+    <script>
+      $(document).ready(function(){
+        const students = new Choices('#students', {
+          removeItemButton: true,
+          searchResultLimit:5,
+          renderChoiceLimit:5
+        }); 
+        $("#submit").click(async function(){
+          const url = "<%= url %>"
+          const courseId = "<%= data.id %>"
+          const year = "<%= data.year %>"
+          const sem = "<%= data.sem %>"
+          const students = $("#students").val();
+          try {
+            const response = await fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({courseId,year,sem,students}),
+            });
+            // success case
+            if (response.ok) {
+              const data = await response.json();
+              const message = data.message;
+              displayMessage("Success.", true);
+              setTimeout(function () {
+                window.location.href = "/course/<%=data.id%>/<%=data.sem%>/<%=data.year%>";
+              }, 1000);
+            // Reject Case
+            } else {
+              const errorData = await response.json();
+              console.log(errorData);
+              const errorMessage =
+                errorData.error || "Failed. Please try again.";
+              displayMessage(errorMessage);
+            }
+          } catch (error) {
+            // Error occurred during sign in
+            displayMessage("An error occurred. Please try again later.");
+          }
+          // maybe alert message
+        function displayMessage(message, ok) {
+          const errorContainer =
+            document.querySelector(".alert") || document.createElement("div");
+          errorContainer.className = `alert ${
+            ok ? "alert-success" : "alert-danger"
+          } mt-3`;
+          errorContainer.textContent = message;
+          document.querySelector("#message").appendChild(errorContainer);
+        }
+        })
+      })
+    </script>
   </body>
 </html>
