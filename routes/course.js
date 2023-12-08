@@ -1,20 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const Course = require('../models/Course');
-const courseDetailRoute = require("./courseDetail")
-const courseStudentRoute = require("./courseStudent")
-
-
+const Course = require("../models/Course");
+const courseDetailRoute = require("./courseDetail");
+const courseStudentRoute = require("./courseStudent");
 
 // Create a new course
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { id, name, dept, intro, credit } = req.body;
 
     // Validate required fields
     if (!id || !name || !credit) {
-      return res.status(400).json({ error: 'id, name, and credit are required' });
+      return res
+        .status(400)
+        .json({ error: "id, name, and credit are required" });
     }
     const upperId = id.toLocaleUpperCase();
     const course = new Course({ upperId, name, dept, intro, credit });
@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
 });
 
 // Get all courses
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const courses = await Course.find();
     res.json(courses);
@@ -36,11 +36,11 @@ router.get('/', async (req, res) => {
 });
 
 // Get a specific course by ID
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);
     if (!course) {
-      return res.status(404).json({ message: 'Course not found' });
+      return res.status(404).json({ message: "Course not found" });
     }
     res.json(course);
   } catch (error) {
@@ -49,24 +49,26 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update a course by ID
-router.patch('/:id', async (req, res) => {
+router.patch("/:id", async (req, res) => {
   try {
     const { id, name, intro, credit } = req.body;
 
     // Validate required fields
     if (!id || !name || !credit) {
-      return res.status(400).json({ error: 'id, name, and credit are required' });
+      return res
+        .status(400)
+        .json({ error: "id, name, and credit are required" });
     }
 
-    const course = await Course.findByIdAndUpdate(
-      req.params.id,
-      { id, name, intro, credit },
-      { new: true }
-    );
-
+    const course = await Course.findByCourseId(id);
     if (!course) {
-      return res.status(404).json({ message: 'Course not found' });
+      return res.status(404).json({ message: "Course not found" });
     }
+    course.id = id;
+    course.name = name;
+    course.intro = intro;
+    course.credit = credit;
+    await course.save();
 
     res.json(course);
   } catch (error) {
@@ -75,20 +77,20 @@ router.patch('/:id', async (req, res) => {
 });
 
 // Delete a course by ID
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const course = await Course.findByIdAndDelete(req.params.id);
     if (!course) {
-      return res.status(404).json({ message: 'Course not found' });
+      return res.status(404).json({ message: "Course not found" });
     }
-    res.json({ message: 'Course deleted' });
+    res.json({ message: "Course deleted" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
 // Add course details
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const courseDetail = await CourseDetail.create(req.body);
     res.status(201).json(courseDetail);
@@ -99,6 +101,6 @@ router.post('/', async (req, res) => {
 
 // Get all course details
 router.use("/detail", courseDetailRoute);
-router.use("/student", courseStudentRoute)
+router.use("/student", courseStudentRoute);
 
 module.exports = router;
