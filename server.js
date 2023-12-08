@@ -258,7 +258,7 @@ app.get("/programs/", auth.isLogin, async (req, res, next) => {
 app.get("/program/add", auth.isAdmin, async (req, res, next) => {
   try {
     const auth = req.session.user;
-    res.status(200).render("programAdd", { auth: auth });
+    res.status(200).render("programAdd", { auth: auth ,url:"/api/program"});
   } catch (e) {
     next();
   }
