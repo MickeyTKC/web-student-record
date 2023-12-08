@@ -234,7 +234,7 @@ app.get(
       );
       res
         .status(200)
-        .render("courseStudentEdit", { data: courseStudent || {}, auth: auth , url: `/api/course/student/${id}/${year}/${sem}/${student}`});
+        .render("courseStudentEdit", { data: courseStudent || {}, auth: auth , url: `/api/course/student/${student}/${id}/${year}/${sem}`});
     } catch (e) {
       next();
     }
