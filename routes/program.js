@@ -42,7 +42,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/id/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const program = await Program.findById(req.params.id);
     if (!program) {
@@ -54,20 +54,26 @@ router.get("/id/:id", async (req, res) => {
   }
 });
 
-router.patch("/programs/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
   try {
-    const data = req.body;
-    const { id, name, dept, intro } = req.body;
+    const { name, dept, intro, credit, leaders, course, status } = req.body;
     const checkDept = Department.findByDeptId(dept);
     if (!checkDept) {
       return res.status(400).json({ error: "correct dept is required" });
     }
-    const program = await Program.findByIdAndUpdate(req.params.id, data, {
-      new: true,
-    });
+    const program = new Program(await Program.findByProgId(req.params.id));
     if (!program) {
       return res.status(404).json({ message: "Program not found" });
     }
+    program.dept = dept;
+    program.name = name ? name: program.name;
+    program.intro = intro ? intro: program.intro;
+    program.credit = credit ? credit: program.credit;
+    program.leaders = leaders ? leaders: program.leaders;
+    program.course = course ? course: program.course;
+    program.status = status ? status: program.status;
+    console.log(program)
+    await program.save()
     res.json(program);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -76,7 +82,7 @@ router.patch("/programs/:id", async (req, res) => {
 
 router.delete("/programs/:id", async (req, res) => {
   try {
-    const program = await Program.findByIdAndDelete(req.params.id);
+    const program = await Program.findByProgId(req.params.id);
     if (!program) {
       return res.status(404).json({ message: "Program not found" });
     }
