@@ -9,7 +9,7 @@
     <br/><br/>
     <div class="container">
         <h2>Edit Course Student Details</h2>
-        <form action="/courseStudent/:id/edit" method="POST" id="editForm">
+        <form action="/course/:id/:year/:sem/:student" method="POST" id="editForm">
           <div class="form-group">
             <label for="studentId">Student ID:</label>
             <input type="text" class="form-control" id="studentId" name="studentId" value="<%= data.studentId %>" readonly>
@@ -47,7 +47,56 @@
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
-      
+      <script>
+        document.getElementById('addForm').addEventListener('submit', async function (event) {
+          event.preventDefault();
+  
+            let form = document.querySelector("#addForm");
+  
+            const url = "/api/course/:id/:year/:sem/:student";
+  
+            const studentId = document.querySelector("#studentId").value;
+            const courseId = document.querySelector("#courseId").value;
+            const name = document.querySelector("#name").value;
+            const year = document.querySelector("#year").value;
+            const sem = document.querySelector("#sem").value;
+            const credit = document.querySelector("#credit").value;
+            const finalGrade = document.querySelector("#finalGrade").value;
+            const itemName = document.querySelector("#itemName[]").value;
+            const mark = document.querySelector("#mark[]").value;
+  
+            try {
+              const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ studentId,courseId, name, year, sem, credit, finalGrade, itemName, mark}),
+              });
+  
+              if (response.ok) {
+                // Sign up success
+                window.location.href = `/course`;
+              } else {
+                // Sign up failed
+                const errorData = await response.json();
+                const errorMessage = errorData.error || "Edit failed. Please try again.";
+                displayError(errorMessage);
+              }
+            } catch (error) {
+              // Error occurred during user edit
+              console.error(error);
+              alert('An error occurred while editing the user');
+            }
+          });
+          function displayError(message) {
+            const errorContainer = document.querySelector(".alert") || document.createElement("div");
+            errorContainer.className = "alert alert-danger mt-3";
+            errorContainer.textContent = message;
+  
+            form.appendChild(errorContainer);
+          }
+      </script>
     <%- include('../views/components/foot.ejs')  %>
   </body>
 </html>
