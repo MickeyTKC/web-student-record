@@ -8,16 +8,24 @@ const Department = require("../models/Department");
 router.post("/", async (req, res) => {
   try {
     const { id, name, dept, intro } = req.body;
+    const status = "inactive";
+    const yearFrom = new Date().getFullYear()
     // Validate required fields
     if (!id || !name) {
       return res.status(400).json({ error: "id & name is required" });
     }
-    const checkDept = Department.findByDeptId(dept);
-    if(!checkDept){
-        return res.status(400).json({ error: "correct dept is required" });
+    // Check if program id exists
+    const prog = await Program.findByProgId(id);
+    if (prog) {
+      return res.status(400).json({ error: "Program id is exisit" });
+    }
+    // Check if department exists
+    const checkDept = await Department.findByDeptId(dept);
+    if (!checkDept) {
+      return res.status(400).json({ error: "correct department is required" });
     }
     // Create a new program document
-    const program = new Program({ id, name, dept, intro });
+    const program = new Program({ id, name, dept, intro, status, yearFrom });
     await program.save();
     res.status(201).json(program);
   } catch (error) {
@@ -51,8 +59,8 @@ router.patch("/programs/:id", async (req, res) => {
     const data = req.body;
     const { id, name, dept, intro } = req.body;
     const checkDept = Department.findByDeptId(dept);
-    if(!checkDept){
-        return res.status(400).json({ error: "correct dept is required" });
+    if (!checkDept) {
+      return res.status(400).json({ error: "correct dept is required" });
     }
     const program = await Program.findByIdAndUpdate(req.params.id, data, {
       new: true,
