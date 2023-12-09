@@ -80,6 +80,7 @@ router.patch("/:id", auth.isNotStudent, async (req, res) => {
   }
 });
 
+/*
 router.delete("/programs/:id", auth.isAdmin, async (req, res) => {
   try {
     const program = await Program.findByProgId(req.params.id);
@@ -91,5 +92,6 @@ router.delete("/programs/:id", auth.isAdmin, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+*/
 
 module.exports = router;
