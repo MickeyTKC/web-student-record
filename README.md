@@ -84,20 +84,20 @@
 
 	- Home
 
-	- Profile <p> ↘ View Profile
+	- Profile <p> ↳ View Profile
 		- Edit Profile
 
-	- Course <p> ↘ View Course Information
+	- Course <p> ↳ View Course Information
 		- Add Course `Admin`
 		- Course Information _(hyper-link)_
 			- Edit Course Information `Teacher/Admin`
 			- Add Course Details `Admin`
 
-	- Academic Records `Student` <p> ↘ View Course Details and Grade
+	- Academic Records `Student` <p> ↳ View Course Details and Grade
 		-  Course Information _(hyper-link)_
 
-	- Dashboard `Teacher/Admin` <p> ↘ View Course Details
-		- Program Management `Admin` <p> ↘ View Program Details
+	- Dashboard `Teacher/Admin` <p> ↳ View Course Details
+		- Program Management `Admin` <p> ↳ View Program Details
 			- Add Program 
 			- Program Details _(hyper-link)_
 				- Edit Program Details
@@ -107,12 +107,12 @@
 					- Edit Course Information 
 					- Add Course Details
 			
-		- User Management `Admin` <p> ↘ View User Information
+		- User Management `Admin` <p> ↳ View User Information
 			- Add User
 			- User Details _(hyper-link)_
 				- Edit User Information 
 
-		- Course Management `Teacher/Admin` <p> ↘ View Course Details
+		- Course Management `Teacher/Admin` <p> ↳ View Course Details
 			- Course Information _(hyper-link)_
 				- Edit Course Information 
 			- Course Details & Add Students _(Pre-registration)_
