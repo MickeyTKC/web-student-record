@@ -81,6 +81,7 @@ router.patch("/:id", auth.isNotStudent, async (req, res) => {
 });
 
 // Delete a course by ID
+/*
 router.delete("/:id", auth.isAdmin, async (req, res) => {
   try {
     const course = await Course.findByCourseId(id);
@@ -93,7 +94,7 @@ router.delete("/:id", auth.isAdmin, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
+*/
 // Get all course details
 
 module.exports = router;
