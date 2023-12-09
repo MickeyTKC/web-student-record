@@ -1,3 +1,4 @@
+
 # S350F-Project-Web-Student-Record
 ## Group Info
 ### Group 11
@@ -7,10 +8,58 @@
 - Lo Pak Sum 13091902
 - Wong Ka Ho 13251975
 
-**Roles**
+**Description**
+
+The School of Science and Technology is a part of HKMU that aims to advance learning and knowledge through teaching and research. Now they require a system to manage student records. The main purpose of this system is to manage and record student academic records and student personal information. 
+
+**Installation**
+
+1.User should have node.js before  boot up the system.
+
+2.Create an .env file(no name) with following code:
+
+    db_name = SE_Project
+    db_url = mongodb+srv://seprojectCollect:thisISpassword@cluster0.eknv0ni.mongodb.net/
+    secret = login
+    
+3. Install Enironment in Terminal by using
+   
+		npm install
+
+4. Wait for download completed.
+   
+
+**How to use**
+
+1. Start the System in Terminal by using
+  
+   		npm start
+   
+4. Terminal will show the following message:
+   
+	    server is runing on 3000
+	    MongoDB connected successfully
+   
+5. Use a Web Broswer and go to the page
+   
+   		http://localhost:3000/
+
+**Roles and Sample Account**
 - Student
+  
+  		login id: s123456
+  
+  		password: pT3kD1Ri
 - Teacher
+  
+  		login id: teacher1
+  
+  		password: TeacherPass!123
 - Admin
+  
+  		login id: admin1
+  
+  		password: admin123
 
 **Core Functions**
 - Login
