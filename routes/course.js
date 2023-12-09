@@ -42,7 +42,7 @@ router.get("/", auth.isLogin, async (req, res) => {
 // Get a specific course by ID
 router.get("/:id",auth.isLogin, async (req, res) => {
   try {
-    const course = await Course.findById(req.params.id);
+    const course = await Course.findByCourseId(req.params.id);
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
@@ -83,10 +83,11 @@ router.patch("/:id", auth.isNotStudent, async (req, res) => {
 // Delete a course by ID
 router.delete("/:id", auth.isAdmin, async (req, res) => {
   try {
-    const course = await Course.findByIdAndDelete(req.params.id);
+    const course = await Course.findByCourseId(id);
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
+    await Course.deleteOne({id:id})
     res.json({ message: "Course deleted" });
   } catch (error) {
     res.status(500).json({ error: error.message });

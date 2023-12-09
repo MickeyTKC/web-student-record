@@ -45,7 +45,7 @@ router.get("/", auth.isLogin, async (req, res) => {
 
 router.get("/:id", auth.isLogin, async (req, res) => {
   try {
-    const program = await Program.findById(req.params.id);
+    const program = await Program.findByProgId(req.params.id);
     if (!program) {
       return res.status(404).json({ message: "Program not found" });
     }

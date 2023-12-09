@@ -82,10 +82,11 @@ router.put('/:studentId/:courseId/:year/:sem', auth.isNotStudent, async (req, re
 router.delete('/:studentId/:courseId/:year/:sem', auth.isAdmin, async (req, res) => {
   try {
     const { studentId, courseId, sem, year } = req.params;
-    const courseStudent = await CourseStudent.findOneAndDelete({ studentId, courseId, sem, year });
+    const courseStudent = await CourseStudent.findByUserIdCourseIdYearSem(studentId, courseId, sem, year);
     if (!courseStudent) {
       return res.status(404).json({ error: 'Course student not found' });
     }
+    await CourseStudent.deleteOne({studentId, courseId, sem, year});
     res.json({ message: 'Course student deleted' });
   } catch (error) {
     res.status(500).json({ error: error.message });
