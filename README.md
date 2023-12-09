@@ -8,9 +8,11 @@
 - Wong Ka Ho 13251975
 
 **Description**
+
 The School of Science and Technology is a part of HKMU that aims to advance learning and knowledge through teaching and research. Now they require a system to manage student records. The main purpose of this system is to manage and record student academic records and student personal information. 
 
 **Installation**
+
 1.User should have node.js before  boot up the system.
 2.Create an .env file(no name) with following code:
     db_name = SE_Project
