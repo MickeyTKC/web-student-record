@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+    <style>
+      .dashboard {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+
+      .subject {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: #f2f2f2;
+      }
+
+      .subject h3 {
+        margin-top: 0;
+      }
+
+      .week-button {
+        margin-bottom: 10px;
+      }
+
+      .week-content {
+        display: none;
+        margin-bottom: 10px;
+        line-height: 1.5;
+      }
+
+      .week-content.show {
+        display: block;
+      }
+
+      .assignment-list {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: #f2f2f2;
+      }
+
+      .assignment-list h4 {
+        margin-top: 0;
+      }
+
+      .assignment {
+        margin-bottom: 10px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs',{auth,auth}) %>
+    <br /><br />
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-8">
+              <h4 class="card-title text-primary">Dashboard</h4>
+              <div class="row d-flex">
+                <%if (auth.role=="admin") { %>
+                  <a class="btn btn-primary mx-2" href="/programs" role="button">Program Management</a>
+                  <a class="btn btn-danger mx-2" href="/users" role="button">User Management</a>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+         <p><b>Course Management</b></p>
+         <table class="table">
+          <thead>
+            <tr>
+              <th>Course ID</th>
+              <th>Course Name</th>
+              <th>Year</th>
+              <th>Semester</th>
+              <th>Teacher</th>
+              <th>Tutors</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% data.forEach(course => { %>
+              <tr>
+                <td><a href="/course/<%= course.id %>"><%= course.id %></a></td>
+                <td><%= course.name %></td>
+                <td><%= course.year %></td>
+                <td><%= course.sem %></td>
+                <td><%= course.teacher %></td>
+                <td><%= course.tutors.join(', ') %></td>
+                <td><a class="btn btn-dark" href="/course/<%= course.id %>/<%= course.year %>/<%= course.sem %>">Details</a></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+    <%- include('../views/components/foot.ejs') %>
+  </body>
+</html>

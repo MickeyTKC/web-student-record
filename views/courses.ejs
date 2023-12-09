@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+    <style>
+      .modern-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .modern-table th,
+    .modern-table td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .modern-table th {
+      background-color: #f2f2f2;
+      color: #333;
+    }
+
+    .modern-table tbody tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .modern-table tbody td {
+      font-weight: 400;
+    }
+
+    .modern-table tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    </style>
+  </head>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs', {auth:auth}) %>
+    <br/><br/>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-8">
+              <h4 class="card-title text-primary">Courses</h4>
+              <%if (auth.role=="admin") { %>
+                <a class="btn btn-primary mx-2" href="/course/add" role="button">Add</a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="modern-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Introduction</th>
+                <th>Credit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach(function(item) { %>
+                <tr>
+                  <td><a href="/course/<%= item.id %>"><%= item.id %></a></td>
+                  <td><%= item.name %></td>
+                  <td><%= item.dept %></td>
+                  <td><%= item.intro %></td>
+                  <td><%= item.credit %></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <%- include('../views/components/foot.ejs')  %>
+  </body>
+</html>

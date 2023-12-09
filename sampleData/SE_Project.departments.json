@@ -1,0 +1,9 @@
+{
+    "id": "ST",
+    "name": "Science and Technology",
+    "intro": "This is a department of Science and Technology",
+    "program": ["P001", "P002", "P003", "P004", "P005", "P006", "P007"],
+    "heads": ["admin1"],
+    "teachers": ["teacher1", "teacher2", "teacher3"],
+    "status": "Active"
+}

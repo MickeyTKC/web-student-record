@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+  </head>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs', {auth:auth}) %>
+    <br/><br/>
+    <div class="container">
+        <h2>Add Course Student Details</h2>
+        <form action="/courseStudent/add" method="POST" id="addForm">
+          <div class="form-group">
+            <label for="studentId">Student ID:</label>
+            <input type="text" class="form-control" id="studentId" name="studentId" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="courseId">Course ID:</label>
+            <input type="text" class="form-control" id="courseId" name="courseId" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name">
+          </div>
+          
+          <div class="form-group">
+            <label for="year">Year:</label>
+            <input type="text" class="form-control" id="year" name="year" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="sem">Semester:</label>
+            <input type="text" class="form-control" id="sem" name="sem" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="credit">Credit:</label>
+            <input type="number" class="form-control" id="credit" name="credit">
+          </div>
+          
+          <div class="form-group">
+            <label for="finalGrade">Final Grade:</label>
+            <input type="text" class="form-control" id="finalGrade" name="finalGrade">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <script>
+        document.getElementById('addForm').addEventListener('submit', async function (event) {
+          event.preventDefault();
+  
+            let form = document.querySelector("#addForm");
+  
+            const url = "/api/courseStudent/add";
+  
+            const studentId = document.querySelector("#studentId").value;
+            const courseId = document.querySelector("#courseId").value;
+            const name = document.querySelector("#name").value;
+            const year = document.querySelector("#year").value;
+            const sem = document.querySelector("#sem").value;
+            const credit = document.querySelector("#credit").value;
+            const finalGrade = document.querySelector("#finalGrade").value;
+            const itemName = document.querySelector("#itemName[]").value;
+            const mark = document.querySelector("#mark[]").value;
+  
+            try {
+              const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ studentId,courseId, name, year, sem, credit, finalGrade, itemName, mark}),
+              });
+  
+              if (response.ok) {
+                // Sign up success
+                window.location.href = `/course`;
+              } else {
+                // Sign up failed
+                const errorData = await response.json();
+                const errorMessage = errorData.error || "Add failed. Please try again.";
+                displayError(errorMessage);
+              }
+            } catch (error) {
+              // Error occurred during user edit
+              console.error(error);
+              alert('An error occurred while editing the user');
+            }
+          });
+          function displayError(message) {
+            const errorContainer = document.querySelector(".alert") || document.createElement("div");
+            errorContainer.className = "alert alert-danger mt-3";
+            errorContainer.textContent = message;
+  
+            form.appendChild(errorContainer);
+          }
+      </script>
+    <%- include('../views/components/foot.ejs')  %>
+  </body>
+</html>

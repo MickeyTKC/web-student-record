@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+  </head>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs', {auth:auth}) %>
+    <br/><br/>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-8">
+              <h4 class="card-title text-primary">Add Program</h4>
+              <div class="d-flex">
+                <button id="submit" class="btn btn-primary">Submit</button>
+              </div>
+              <div id="message"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+            <form action="/update-data. method="POST">
+                <div class="form-group">
+                  <label for="id">ID:</label>
+                  <input type="text" class="form-control" id="id" name="id">
+                </div>
+          
+                <div class="form-group">
+                  <label for="name">Name:</label>
+                  <input type="text" class="form-control" id="name" name="name"  required>
+                </div>
+          
+                <div class="form-group">
+                  <label for="dept">Department:</label>
+                  <input type="text" class="form-control" id="dept" name="dept" >
+                </div>
+          
+                <div class="form-group">
+                  <label for="intro">Introduction:</label>
+                  <textarea class="form-control" id="intro" name="intro"></textarea>
+                </div>
+              </form>
+        </div>
+      </div>
+    </div>
+    <%- include('../views/components/foot.ejs')  %>
+    <script>
+      $(document).ready(function () {
+        $("#submit").click(async function () {
+          // The API Url
+          const url = "<%= url %>";
+          const id = $("#id").val();
+          const name = $("#name").val();
+          const dept = $("#dept").val();
+          const intro = $("#intro").val();
+          // Fetch Data
+          try {
+            const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id,name,dept,intro}),
+          });
+            // success case
+            if (response.ok) {
+              const data = await response.json();
+              const message = data.message;
+              displayMessage("Success.", true);
+              setTimeout(function () {
+                window.location.href = "/programs";
+              }, 1000);
+            // Reject Case
+            } else {
+              const errorData = await response.json();
+              console.log(errorData);
+              const errorMessage =
+                errorData.error || "Failed. Please try again.";
+              displayMessage(errorMessage);
+            }
+          } catch (error) {
+            // Error occurred during sign in
+            displayMessage("An error occurred. Please try again later.");
+          }
+        });
+        // maybe alert message
+        function displayMessage(message, ok) {
+          const errorContainer =
+            document.querySelector(".alert") || document.createElement("div");
+          errorContainer.className = `alert ${
+            ok ? "alert-success" : "alert-danger"
+          } mt-3`;
+          errorContainer.textContent = message;
+          document.querySelector("#message").appendChild(errorContainer);
+        }
+      });
+    </script>
+  </body>
+</html>

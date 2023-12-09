@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+    <style>
+      .modern-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.modern-table th,
+.modern-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.modern-table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.modern-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.modern-table tbody td {
+  font-weight: 400;
+}
+
+.modern-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+    </style>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs') %>
+    <div class="container">
+      <br/><br/>
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-8">
+              <h4 class="card-title text-primary">Personal Information</h4>
+                <a href="/profile/edit" class="btn btn-primary">Edit</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item"><strong>ID:</strong> <%= data.id %></li>
+            <li class="list-group-item"><strong>Name:</strong> <%= data.name %></li>
+            <li class="list-group-item"><strong>Department:</strong> <%= data.department %></li>
+            <li class="list-group-item"><strong>Major:</strong> <%= data.major %></li>
+            <li class="list-group-item"><strong>Program Year:</strong> <%= data.progYear %></li>
+            <li class="list-group-item"><strong>Date From:</strong> <%= data.dateFrom %></li>
+            <li class="list-group-item"><strong>Date To:</strong> <%= data.dateTo %></li>
+            <li class="list-group-item"><strong>Email:</strong> <%= data.email %></li>
+            <li class="list-group-item"><strong>Phone Number:</strong> <%= data.phoneNo %></li>
+            <li class="list-group-item"><strong>Emergency Phone Number:</strong> <%= data.emergencyPhoneNo %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+    <%- include('../views/components/foot.ejs')  %>
+  </body>
+</html>

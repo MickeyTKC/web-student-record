@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs',{auth:auth || {}}) %>
+    <div class="container">
+      <br><br>
+        <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-8">
+              <h4 class="card-title text-primary">HKMU Academic System</h4>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h4> Welcome to the HKMU Academic System! <%=auth.name%></h4>
+        </div>
+      </div>
+    </div>
+    <%- include('../views/components/foot.ejs') %>
+  </body>
+</html>

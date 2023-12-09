@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+    
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs', {auth:auth}) %>
+    <br/><br/>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-8">
+              <h4 class="card-title text-primary">Edit Program</h4>
+              <div class="d-flex">
+                <button id="submit" class="btn btn-primary">Submit</button>
+              </div>
+              <div id="message"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+            <form action="/update-data. method="PATCH">
+                <div class="form-group">
+                  <label for="id">ID:</label>
+                  <input type="text" class="form-control" id="id" name="id" value="<%= data.id %>" readonly>
+                </div>
+          
+                <div class="form-group">
+                  <label for="name">Name:</label>
+                  <input type="text" class="form-control" id="name" name="name" value="<%= data.name %>" required>
+                </div>
+          
+                <div class="form-group">
+                  <label for="dept">Department:</label>
+                  <input type="text" class="form-control" id="dept" name="dept" value="<%= data.dept %>">
+                </div>
+          
+                <div class="form-group">
+                  <label for="intro">Introduction:</label>
+                  <textarea class="form-control" id="intro" name="intro"><%= data.intro %></textarea>
+                </div>
+          
+                <div class="form-group">
+                  <label for="credit">Credit Requirements:</label>
+                  <% data.credit.forEach((credit,index) => { %>
+                    <div>
+                      <label for="yearType"><strong><%= credit.yearType %></strong>:</label>
+                      <input type="number" class="form-control" id="yearEntry<%=index%>" name="credit" value="<%= credit.credit %>">
+                    </div>
+                  <% }) %>
+                </div>
+          
+                <div class="form-group">
+                  <label for="leaders">Leaders:</label>
+                  <select id="leaders" placeholder="Select Course Leader" multiple>
+                    <% data.allTeachers.forEach(teacher => { %>
+                      <option 
+                        value="<%=teacher.id%>" 
+                        <%=data.leaders.filter((uid)=>{return uid == teacher.id}).length>0?"selected":"0"%>
+                        ><%=teacher.name%></option>
+                    <% }) %>
+                  </select>
+                </div>
+          
+                <div class="form-group">
+                  <label for="courses">Courses:</label>
+                  <select id="courses" placeholder="Select courses" multiple>
+                    <% data.allCourses.forEach(course => { %>
+                      <option 
+                        value="<%=course.id%>" 
+                        <%=data.course.filter((cid)=>{return cid == course.id}).length>0?"selected":"0"%>
+                        ><%=course.name%></option>
+                    <% }) %>
+                  </select>
+                </div>
+          
+                <div class="form-group">
+                  <label for="status">Status:</label>
+                  <select class="form-control" id="status" name="status" aria-label="Default select example">
+                    <option value="0" selected>Inactive</option>
+                    <option value="1">Active</option>
+                  </select>
+                </div>
+              </form>
+        </div>
+      </div>
+    </div>
+    <%- include('../views/components/foot.ejs')  %>
+    <script>
+      $(document).ready(function(){
+        const leaders = new Choices('#leaders', {
+          removeItemButton: true,
+          searchResultLimit:5,
+          renderChoiceLimit:5
+        }); 
+        const courses = new Choices('#courses', {
+          removeItemButton: true,
+          searchResultLimit:5,
+          renderChoiceLimit:5
+        }); 
+        $("#submit").click(async function(){
+          // The API Url
+          const url = "<%= url %>";
+          // The Input Data
+          const name = $("#name").val();
+          const dept = $("#dept").val();
+          const intro = $("#intro").val();
+          const credit = [
+              {yearType:"year1",credit:$("#yearEntry1").val()},
+              {yearType:"year2 entry",credit:$("#yearEntry2").val(),},
+              {yearType:"year3 entry",credit:$("#yearEntry3").val()}
+          ]
+          const leaders = $("#leaders").val();
+          const course = $("#courses").val();
+          const status = $("#status").val();
+          // Fetch Data
+          try {
+            const response = await fetch(url, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({name,dept,intro,credit,leaders,course,status}),
+            });
+            // success case
+            if (response.ok) {
+              const data = await response.json();
+              const message = data.message;
+              displayMessage("Success.", true);
+              setTimeout(function () {
+                window.location.href = "/program/<%=data.id%>";
+              }, 1000);
+            // Reject Case
+            } else {
+              const errorData = await response.json();
+              console.log(errorData);
+              const errorMessage =
+                errorData.error || "Failed. Please try again.";
+              displayMessage(errorMessage);
+            }
+          } catch (error) {
+            // Error occurred during sign in
+            displayMessage("An error occurred. Please try again later.");
+          }
+        });
+        // maybe alert message
+        function displayMessage(message, ok) {
+          const errorContainer =
+            document.querySelector(".alert") || document.createElement("div");
+          errorContainer.className = `alert ${
+            ok ? "alert-success" : "alert-danger"
+          } mt-3`;
+          errorContainer.textContent = message;
+          document.querySelector("#message").appendChild(errorContainer);
+        }
+      })
+    </script>
+  </body>
+</html>

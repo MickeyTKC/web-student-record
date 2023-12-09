@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %> 
+    <%- include('../views/components/head.ejs') %>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs',{auth:auth || {}}) %>
+
+    <div class="container">
+      <br /><br />
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-8">
+              <h4 class="card-title text-primary">Personal Information</h4>
+              <button id="submit" class="btn btn-primary">Submit</button>
+              <div id="message"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="form-group">
+              <label for="id">ID:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="id"
+                value="<%= data.id %>"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="password"
+                value="<%= data.password %>"
+              />
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                value="<%= data.name %>"
+                
+              />
+            </div>
+            <div class="form-group">
+              <label for="department">Department:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="department"
+                value="<%= data.department %>"
+                
+              />
+            </div>
+            <div class="form-group">
+              <label for="major">Major:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="major"
+                value="<%= data.major %>"
+                
+              />
+            </div>
+            <div class="form-group">
+              <label for="progYear">Program Year:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="progYear"
+                value="<%= data.progYear %>"
+                
+              />
+            </div>
+            <div class="form-group">
+              <label for="dateFrom">Date From:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="dateFrom"
+                value="<%= data.dateFrom %>"
+                
+              />
+            </div>
+            <div class="form-group">
+              <label for="dateTo">Date To:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="dateTo"
+                value="<%= data.dateTo %>"
+                
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                value="<%= data.email %>"
+              />
+            </div>
+            <div class="form-group">
+              <label for="phoneNo">Phone Number:</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phoneNo"
+                value="<%= data.phoneNo %>"
+              />
+            </div>
+            <div class="form-group">
+              <label for="emergencyPhoneNo">Emergency Phone Number:</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="emergencyPhoneNo"
+                value="<%= data.emergencyPhoneNo %>"
+              />
+            </div>
+            <!-- Multiselect Dropdown Code Goes Here -->
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <%- include('../views/components/foot.ejs') %>
+
+    <script>
+      $(document).ready(function () {
+        $("#submit").click(async function () {
+          // The API Url
+          const url = "<%= url %>";
+          // The Input Data
+          var id = "<%= data.id %>";
+          var role = "<%= data.role %>";
+          const password = $("#password").val();
+          const name = $("#name").val();
+          const department = $("#department").val();
+          const major = $("#major").val();
+          const progYear = $("#progYear").val();
+          const dateFrom = $("#dateFrom").val();
+          const dateTo = $("#dateTo").val();
+          const email = $("#email").val();
+          const phoneNo = $("#phoneNo").val();
+          const emergencyPhoneNo = $("#emergencyPhoneNo").val();
+          // Fetch Data
+          try {
+            const response = await fetch(url, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({id, password, role, name, department, major, progYear, dateFrom, dateTo, email,phoneNo,emergencyPhoneNo}),
+            });
+            // success case
+            if (response.ok) {
+              const data = await response.json();
+              const message = data.message;
+              displayMessage("Success.", true);
+              setTimeout(function () {
+                window.location.href = "/users";
+              }, 1000);
+            // Reject Case
+            } else {
+              const errorData = await response.json();
+              console.log(errorData);
+              const errorMessage =
+                errorData.error || "Failed. Please try again.";
+              displayMessage(errorMessage);
+            }
+          } catch (error) {
+            // Error occurred during sign in
+            displayMessage("An error occurred. Please try again later.");
+          }
+        });
+        // maybe alert message
+        function displayMessage(message, ok) {
+          const errorContainer =
+            document.querySelector(".alert") || document.createElement("div");
+          errorContainer.className = `alert ${
+            ok ? "alert-success" : "alert-danger"
+          } mt-3`;
+          errorContainer.textContent = message;
+          document.querySelector("#message").appendChild(errorContainer);
+        }
+      });
+    </script>
+
+  </body>
+</html>

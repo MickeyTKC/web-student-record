@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+    <style>
+      .modern-table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .modern-table th,
+      .modern-table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .modern-table th {
+        background-color: #f2f2f2;
+        color: #333;
+      }
+
+      .modern-table tbody tr:hover {
+        background-color: #f9f9f9;
+      }
+
+      .modern-table tbody td {
+        font-weight: 400;
+      }
+
+      .modern-table tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs',{auth:auth || {}}) %>
+    <div class="container">
+      <br/><br/>
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-8">
+              <h4 class="card-title text-primary">Academic Records</h4>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="modern-table">
+            <thead>
+              <tr>
+                <th>Course ID</th>
+                <th>Year</th>
+                <th>Semester</th>
+                <th>Credit</th>
+                <th>Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Replace the sampleData variable with your actual data -->
+              <!-- Loop through each record and create a table row -->
+              <!-- You can add more columns or customize the table structure as needed -->
+              <%if(data) {%>
+                <% data.forEach(record => { %>
+                <tr>
+                  <td><a href="/course/<%= record.courseId %>"><%= record.courseId %></a></td>
+                  <td><%= record.year %></td>
+                  <td><%= record.sem %></td>
+                  <td><%= record.credit %></td>
+                  <td><%= record.grade.final %></td>
+                </tr>
+                <% }) %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+    </div>
+    <%- include('../views/components/foot.ejs') %>
+  </body>
+</html>

@@ -1,0 +1,187 @@
+[
+  {
+    "id": "P001",
+    "name": "Bachelor of Science in Computer Science",
+    "dept": "ST",
+    "intro": "The Bachelor of Science in Computer Science program provides students with a comprehensive understanding of computer science principles and practical skills.",
+    "credit": [
+      {
+        "yearType": "year1",
+        "credit": 60
+      },
+      {
+        "yearType": "year2 entry",
+        "credit": 120
+      },
+      {
+        "yearType": "year3 entry",
+        "credit": 180
+      }
+    ],
+    "leaders": [
+      "teacher1"
+    ],
+    "course": [
+      "C001",
+      "C002",
+      "C003",
+      "C004",
+      "C005",
+      "C006",
+      "C007",
+      "C008",
+      "C009",
+      "C010"
+    ],
+    "yearFrom": "2005",
+    "status": "active"
+  },
+  {
+    "id": "P002",
+    "name": "Bachelor of Science in Information Technology",
+    "dept": "ST",
+    "intro": "The Bachelor of Science in Information Technology program equips students with the knowledge and skills to design, develop, and manage information technology systems.",
+    "credit": [
+      {
+        "yearType": "year1",
+        "credit": 60
+      },
+      {
+        "yearType": "year2 entry",
+        "credit": 120
+      },
+      {
+        "yearType": "year3 entry",
+        "credit": 180
+      }
+    ],
+    "leaders": [
+      "teacher2"
+    ],
+    "course": [
+      "C001",
+      "C002",
+      "C004",
+      "C006",
+      "C008",
+      "C009",
+      "C011",
+      "C012",
+      "C013",
+      "C015"
+    ],
+    "yearFrom": "2008",
+    "status": "active"
+  },
+  {
+    "id": "P003",
+    "name": "Bachelor of Science in Software Engineering",
+    "dept": "ST",
+    "intro": "The Bachelor of Science in Software Engineering program focuses on the principles and practices of software development and engineering.",
+    "credit": [
+      {
+        "yearType": "year1",
+        "credit": 60
+      },
+      {
+        "yearType": "year2 entry",
+        "credit": 120
+      },
+      {
+        "yearType": "year3 entry",
+        "credit": 180
+      }
+    ],
+    "leaders": [
+      "teacher3"
+    ],
+    "course": [
+      "C001",
+      "C002",
+      "C005",
+      "C006",
+      "C007",
+      "C008",
+      "C010",
+      "C012",
+      "C014",
+      "C016"
+    ],
+    "yearFrom": "2010",
+    "status": "active"
+  },
+  {
+    "id": "P006",
+    "name": "Bachelor of Science in Data Science",
+    "dept": "ST",
+    "intro": "The Bachelor of Science in Data Science program combines statistical analysis, machine learning, and computer science to extract insights from data.",
+    "credit": [
+      {
+        "yearType": "year1",
+        "credit": 60
+      },
+      {
+        "yearType": "year2 entry",
+        "credit": 120
+      },
+      {
+        "yearType": "year3 entry",
+        "credit": 180
+      }
+    ],
+    "leaders": [
+      "teacher4"
+    ],
+    "course": [
+      "C001",
+      "C002",
+      "C003",
+      "C006",
+      "C007",
+      "C008",
+      "C009",
+      "C011",
+      "C012",
+      "C014"
+    ],
+    "yearFrom": "2013",
+    "status": "active"
+  },
+  {
+    "id": "P007",
+    "name": "Bachelor of Science in Network Security",
+    "dept": "ST",
+    "intro": "The Bachelor of Science in Network Security program focuses on securing computer networks and protecting against cyber threats.",
+    "credit": [
+      {
+        "yearType": "year1",
+        "credit": 60
+      },
+      {
+        "yearType": "year2 entry",
+        "credit": 120
+      },
+      {
+        "yearType": "year3 entry",
+        "credit": 180
+      }
+    ],
+    "leaders": [
+      "teacher5"
+    ],
+    "course": [
+      "C001",
+      "C002",
+      "C004",
+      "C006",
+      "C008",
+      "C009",
+      "C010",
+      "C012",
+      "C013",
+      "C015"
+    ],
+    "yearFrom": "2016",
+    "status": "active"
+  }
+]

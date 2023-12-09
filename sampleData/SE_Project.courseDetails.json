@@ -1,0 +1,207 @@
+[
+    {
+        "id": "C001",
+        "name": "Introduction to Programming",
+        "year": "2023",
+        "sem": "A",
+        "teacher": "teacher1",
+        "tutors": [
+            "teacher2"
+        ]
+    },
+    {
+        "id": "C002",
+        "name": "Database Management Systems",
+        "year": "2023",
+        "sem": "A",
+        "teacher": "teacher2",
+        "tutors": [
+            "teacher3"
+        ]
+    },
+    {
+        "id": "C003",
+        "name": "Operating Systems",
+        "year": "2023",
+        "sem": "A",
+        "teacher": "teacher3",
+        "tutors": [
+            "teacher4"
+        ]
+    },
+    {
+        "id": "C004",
+        "name": "Web Development",
+        "year": "2023",
+        "sem": "B",
+        "teacher": "teacher4",
+        "tutors": [
+            "teacher5"
+        ]
+    },
+    {
+        "id": "C005",
+        "name": "Software Engineering",
+        "year": "2023",
+        "sem": "B",
+        "teacher": "teacher5",
+        "tutors": [
+            "teacher6"
+        ]
+    },
+    {
+        "id": "C006",
+        "name": "Data Structures and Algorithms",
+        "year": "2023",
+        "sem": "A",
+        "teacher": "teacher6",
+        "tutors": [
+            "teacher7"
+        ]
+    },
+    {
+        "id": "C007",
+        "name": "Computer Networks",
+        "year": "2023",
+        "sem": "B",
+        "teacher": "teacher7",
+        "tutors": [
+            "teacher8",
+            "teacher9"
+        ]
+    },
+    {
+        "id": "C008",
+        "name": "Artificial Intelligence",
+        "year": "2023",
+        "sem": "A",
+        "teacher": "teacher8",
+        "tutors": [
+            "teacher9"
+        ]
+    },
+    {
+        "id": "C009",
+        "name": "Mobile App Development",
+        "year": "2023",
+        "sem": "B",
+        "teacher": "teacher9",
+        "tutors": [
+            "teacher8",
+            "teacher10"
+        ]
+    },
+    {
+        "id": "C010",
+        "name": "Software Testing and Quality Assurance",
+        "year": "2023",
+        "sem": "A",
+        "teacher": "teacher10",
+        "tutors": [
+            "teacher11",
+            "teacher12"
+        ]
+    },
+    {
+        "id": "C011",
+        "name": "Computer Graphics",
+        "year": "2023",
+        "sem": "B",
+        "teacher": "teacher11",
+        "tutors": [
+            "teacher1",
+            "teacher2"
+        ]
+    },
+    {
+        "id": "C012",
+        "name": "Software Project Management",
+        "year": "2023",
+        "sem": "A",
+        "teacher": "teacher12",
+        "tutors": [
+            "teacher13"
+        ]
+    },
+    {
+        "id": "C013",
+        "name": "Machine Learning",
+        "year": "2023",
+        "sem": "B",
+        "teacher": "teacher13",
+        "tutors": [
+            "teacher10"
+        ]
+    },
+    {
+        "id": "C014",
+        "name": "Cybersecurity",
+        "year": "2023",
+        "sem": "A",
+        "teacher": "teacher14",
+        "tutors": [
+            "teacher13"
+        ]
+    },
+    {
+        "id": "C015",
+        "name": "Human-Computer Interaction",
+        "year": "2023",
+        "sem": "B",
+        "teacher": "teacher15",
+        "tutors": [
+            "teacher12"
+        ]
+    },
+    {
+        "id": "C016",
+        "name": "Cloud Computing",
+        "year": "2023",
+        "sem": "A",
+        "teacher": "teacher1",
+        "tutors": [
+            "teacher2"
+        ]
+    },
+    {
+        "id": "C017",
+        "name": "Data Science",
+        "year": "2023",
+        "sem": "B",
+        "teacher": "teacher2",
+        "tutors": [
+            "teacher12"
+        ]
+    },
+    {
+        "id": "C018",
+        "name": "Software Architecture",
+        "year": "2023",
+        "sem": "A",
+        "teacher": "teacher3",
+        "tutors": [
+            "teacher10"
+        ]
+    },
+    {
+        "id": "C019",
+        "name": "Natural Language Processing",
+        "year": "2023",
+        "sem": "B",
+        "teacher": "teacher4",
+        "tutors": [
+            "teacher12",
+            "teacher2"
+        ]
+    },
+    {
+        "id": "C020",
+        "name": "Big Data Analytics",
+        "year": "2023",
+        "sem": "A",
+        "teacher": "teacher5",
+        "tutors": [
+            "teacher4"
+        ]
+    }
+]

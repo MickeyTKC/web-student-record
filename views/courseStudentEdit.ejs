@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../views/components/head.ejs') %>
+  </head>
+  </head>
+  <body>
+    <%- include('../views/components/nav.ejs', {auth:auth}) %>
+    <br/><br/>
+    <div class="container">
+        <h2>Edit Course Student Details</h2>
+        <form id="editForm">
+          <div class="form-group">
+            <label for="studentId">Student ID:</label>
+            <input type="text" class="form-control" id="studentId" name="studentId" value="<%= data.studentId %>" readonly>
+          </div>
+          
+          <div class="form-group">
+            <label for="courseId">Course ID:</label>
+            <input type="text" class="form-control" id="courseId" name="courseId" value="<%= data.courseId %>" required readonly>
+          </div>
+          
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" value="<%= data.name %> " readonly>
+          </div>
+          
+          <div class="form-group">
+            <label for="year">Year:</label>
+            <input type="text" class="form-control" id="year" name="year" value="<%= data.year %>" required readonly>
+          </div>
+          
+          <div class="form-group">
+            <label for="sem">Semester:</label>
+            <input type="text" class="form-control" id="sem" name="sem" value="<%= data.sem %>" required readonly>
+          </div>
+          
+          <div class="form-group">
+            <label for="credit">Credit:</label>
+            <input type="number" class="form-control" id="credit" name="credit" value="<%= data.credit %>" readonly>
+          </div>
+          
+          <div class="form-group">
+            <label for="finalGrade">Final Grade:</label>
+            <% const grades =  ["A+","A","A-","B+","B","B-","C","D","F","In Progress"] %>
+            <select class="form-control" id="finalGrade" name="status" aria-label="Default select example">
+              <%grades.forEach(grade=>{%>
+                <option value="<%=grade%>" <%=data.grade.final==grade?"selected":""%>><%=grade%></option>
+              <%})%>
+            </select>
+          </div>
+        </form>
+        <div id="message"></div>
+        <button id="submit" class="btn btn-primary">Submit</button>
+      </div>
+      <script>
+        document.querySelector('#submit').addEventListener('click', async function (event) {
+  
+            const url = "<%= url %>";
+            const finalGrade = document.querySelector("#finalGrade").value;
+  
+            try {
+              const response = await fetch(url, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ finalGrade }),
+              });
+  
+              // success case
+            if (response.ok) {
+              const data = await response.json();
+              const message = data.message;
+              displayMessage("Success.", true);
+              setTimeout(function () {
+                window.location.href = "/course/<%=data.courseId%>/<%=data.year%>/<%=data.sem%>/students";
+              }, 1000);
+            // Reject Case
+            } else {
+              const errorData = await response.json();
+              console.log(errorData);
+              const errorMessage =
+                errorData.error || "Failed. Please try again.";
+              displayMessage(errorMessage);
+            }
+          } catch (error) {
+            // Error occurred during sign in
+            displayMessage("An error occurred. Please try again later.");
+          }
+        });
+        // maybe alert message
+        function displayMessage(message, ok) {
+          const errorContainer =
+            document.querySelector(".alert") || document.createElement("div");
+          errorContainer.className = `alert ${
+            ok ? "alert-success" : "alert-danger"
+          } mt-3`;
+          errorContainer.textContent = message;
+          document.querySelector("#message").appendChild(errorContainer);
+        }
+      </script>
+    <%- include('../views/components/foot.ejs')  %>
+  </body>
+</html>
