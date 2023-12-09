@@ -1,11 +1,11 @@
 # S350F-Project-Web-Student-Record
 ## Group Info
 ### Group 11
-Tse Kai Chun 12755669
-Mak Ho Ying 12755670
-Chow Hong Nin 13032510
-Lo Pak Sum 13091902
-Wong Ka Ho 13251975
+- Tse Kai Chun 12755669
+- Mak Ho Ying 12755670
+- Chow Hong Nin 13032510
+- Lo Pak Sum 13091902
+- Wong Ka Ho 13251975
 
 **Roles**
 - Student
@@ -59,26 +59,26 @@ Wong Ka Ho 13251975
 
 ## Navigation
 **Route of Views**
-    `/`
-    `/login`
-    `/profile`
-    `/profile/edit`
-    `/academic`
-    `/dashboard`
-    `/course/`
-    `/course/add`
-    `/course/:id/edit`
-    `/course/:id/add`
-    `/course/:id/:year/:sem`
-    `/course/:id/:year/:sem/edit`
-    `/course/:id/:year/:sem/students/add`
-    `/course/:id/:year/:sem/students`
-    `/course/:id/:year/:sem/:student`
-    `/programs`
-    `/program/add`
-    `/program/:id`
-    `/program/:id/edit`
+   - `/`
+   - `/login`
+   - `/profile`
+   - `/profile/edit`
+   - `/academic`
+   - `/dashboard`
+   - `/course/`
+   - `/course/add`
+   - `/course/:id/edit`
+   - `/course/:id/add`
+   - `/course/:id/:year/:sem`
+   - `/course/:id/:year/:sem/edit`
+   - `/course/:id/:year/:sem/students/add`
+   - `/course/:id/:year/:sem/students`
+   - `/course/:id/:year/:sem/:student`
+   - `/programs`
+   - `/program/add`
+   - `/program/:id`
+   - `/program/:id/edit`
 
 
 ## Details of Restful API
-[Details](/routes/README.md)
+[APis](/routes/README.md)
