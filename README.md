@@ -80,7 +80,48 @@
    - `/program/:id/edit`
 
 ## User Interface Guides
+- Login
+
+	- Home
+
+	- Profile <p> ↘ View Profile
+		- Edit Profile
+
+	- Course <p> ↘ View Course Information
+		- Add Course `Admin`
+		- Course Information _(hyper-link)_
+			- Edit Course Information `Teacher/Admin`
+			- Add Course Details `Admin`
+
+	- Academic Records `Student` <p> ↘ View Course Details and Grade
+		-  Course Information _(hyper-link)_
+
+	- Dashboard `Teacher/Admin` <p> ↘ View Course Details
+		- Program Management `Admin` <p> ↘ View Program Details
+			- Add Program 
+			- Program Details _(hyper-link)_
+				- Edit Program Details
+				- Teacher(Leaders) Information _(hyper-link)_
+					- Edit Teacher(Leaders) Information 
+				- Program Course Information _(hyper-link)_
+					- Edit Course Information 
+					- Add Course Details
+			
+		- User Management `Admin` <p> ↘ View User Information
+			- Add User
+			- User Details _(hyper-link)_
+				- Edit User Information 
+
+		- Course Management `Teacher/Admin` <p> ↘ View Course Details
+			- Course Information _(hyper-link)_
+				- Edit Course Information 
+			- Course Details & Add Students _(Pre-registration)_
+				- Student Records
+					- Student Information _(hyper-link)_
+						- Edit Student Information `Admin`
+					- Edit Course Student Records _(Final Grade)_
+				- Edit Course Details
 
 
 ## Restful APIs
-[APis](/routes/README.md)
+[APIs](/routes/README.md)
