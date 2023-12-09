@@ -71,6 +71,7 @@ router.put('/:id/:year/:sem', auth.isNotStudent, async (req, res) => {
 });
 
 // Delete a course detail by ID, semester, and year
+/*
 router.delete('/:id/:year/:sem', auth.isAdmin, async (req, res) => {
   try {
     const { id, sem, year } = req.params;
@@ -83,5 +84,6 @@ router.delete('/:id/:year/:sem', auth.isAdmin, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+*/
 
 module.exports = router;
