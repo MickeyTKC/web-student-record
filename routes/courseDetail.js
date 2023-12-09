@@ -54,7 +54,6 @@ router.put('/:id/:year/:sem', auth.isNotStudent, async (req, res) => {
     var { id, sem, year } = req.params;
     sem = sem.replace(":","");
     const courseDetail = await CourseDetail.findByCourseYearSem(id, year, sem);
-    console.log({ id, sem, year })
     if (!courseDetail) {
       return res.status(404).json({ error: 'Course detail not found' });
     }

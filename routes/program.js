@@ -73,7 +73,6 @@ router.patch("/:id", auth.isNotStudent, async (req, res) => {
     program.leaders = leaders ? leaders: program.leaders;
     program.course = course ? course: program.course;
     program.status = status ? status: program.status;
-    console.log(program)
     await program.save()
     res.json(program);
   } catch (error) {

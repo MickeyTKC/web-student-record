@@ -155,7 +155,6 @@ router.patch("/:id/password", auth.isLogin, async (req, res) => {
     const user = new User(await User.findByUserId(id));
     if (!user) return res.status(404).json({ message: "User not found" });
     user.password = password;
-    console.log(user);
     user.save();
     res.json(user);
   } catch (error) {
